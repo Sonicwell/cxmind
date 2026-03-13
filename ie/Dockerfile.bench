@@ -1,0 +1,12 @@
+FROM golang:1.24-bullseye
+
+RUN apt-get update && apt-get install -y libpcap-dev gcc procps net-tools
+
+WORKDIR /app
+COPY . .
+
+RUN go get github.com/google/gopacket@v1.1.19 && go mod tidy
+
+# 编译两个带了不同 engine 标签且基于独立测试程序的测试二进制文件
+RUN GOOS=linux go test -c -o bench-afpacket.test ./internal/sniffer
+RUN CGO_ENABLED=1 GOOS=linux go test -c -tags 'force_pcap' -o bench-pcap.test ./internal/sniffer
