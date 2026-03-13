@@ -1,0 +1,5 @@
+# 编译产物
+simulator_go
+
+# 测试生成的 PCAP 文件
+*.pcap

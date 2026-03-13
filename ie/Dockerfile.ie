@@ -1,0 +1,30 @@
+# Build stage
+FROM golang:1.24 AS builder
+
+WORKDIR /app
+
+# Install pcaps dev headers needed for CGO compilation
+RUN apt-get update && apt-get install -y libpcap-dev
+
+# Install garble
+RUN go install mvdan.cc/garble@latest
+
+COPY go.mod go.sum ./
+RUN go mod download
+
+COPY . .
+
+# Build with garble and pro tags as indicated in release specs
+RUN CGO_ENABLED=1 /go/bin/garble build -tags pro -ldflags="-s -w -X github.com/cxmind/ingestion-go/internal/config.BuildMode=production" -o cxmind-ie ./...
+
+# Production stage
+FROM debian:bookworm-slim
+
+# Install runtime networking library
+RUN apt-get update && apt-get install -y libpcap0.8 && rm -rf /var/lib/apt/lists/*
+
+WORKDIR /app
+COPY --from=builder /app/cxmind-ie .
+
+EXPOSE 8080
+CMD ["./cxmind-ie"]

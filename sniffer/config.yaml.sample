@@ -1,0 +1,11 @@
+# 抓包网卡：AsterCC 上实际跑 SIP 的网卡名（如 eth0、ens192 等）
+interface: "eth0"
+
+# CXMind IE 的 HEP 地址：同机部署填 127.0.0.1，异机填 IE 所在服务器 IP
+hep_target: "127.0.0.1:9060"
+hep_id: 2001
+
+# 仅抓 SIP 与 RTP（BPF 中端口范围用 portrange 一个词；可按实际端口改）
+filter: "udp port 5060 or udp portrange 10000-20000"
+# 日志级别：trace / debug / info / warn / error。设为 debug 可看到每 100 个包的转发统计
+log_level: "info"
