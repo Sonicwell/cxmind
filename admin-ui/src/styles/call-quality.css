@@ -1,0 +1,672 @@
+/* ============================================================
+   Call Quality Dashboard Styles
+   ============================================================ */
+
+.call-quality-page {
+    padding: 1.5rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+/* Page Header */
+.cq-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 1rem;
+}
+
+.cq-header h1 {
+    font-size: 1.5rem;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    color: var(--text-primary);
+}
+
+.cq-time-filter {
+    display: flex;
+    gap: 0.35rem;
+    background: var(--glass-bg);
+    border: 1px solid var(--glass-border);
+    border-radius: 8px;
+    padding: 3px;
+}
+
+.cq-time-filter button {
+    padding: 6px 14px;
+    border: none;
+    border-radius: 6px;
+    font-size: 0.82rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s;
+    color: var(--text-muted);
+    background: transparent;
+}
+
+.cq-time-filter button.active {
+    background: var(--primary);
+    color: #fff;
+    box-shadow: 0 2px 8px rgba(99, 102, 241, 0.3);
+}
+
+.cq-time-filter button:hover:not(.active) {
+    color: var(--text-primary);
+    background: rgba(255, 255, 255, 0.05);
+}
+
+/* KPI Cards Row */
+.cq-kpi-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1rem;
+}
+
+.cq-kpi-card {
+    padding: 1.25rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    position: relative;
+    overflow: hidden;
+}
+
+.cq-kpi-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 3px;
+    border-radius: 3px 3px 0 0;
+}
+
+.cq-kpi-card.excellent::before {
+    background: linear-gradient(90deg, #10b981, #34d399);
+}
+
+.cq-kpi-card.good::before {
+    background: linear-gradient(90deg, #3b82f6, #60a5fa);
+}
+
+.cq-kpi-card.fair::before {
+    background: linear-gradient(90deg, #f59e0b, #fbbf24);
+}
+
+.cq-kpi-card.poor::before {
+    background: linear-gradient(90deg, #ef4444, #f87171);
+}
+
+.cq-kpi-label {
+    font-size: 0.78rem;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--text-muted);
+    font-weight: 500;
+}
+
+.cq-kpi-value {
+    font-size: 2rem;
+    font-weight: 700;
+    line-height: 1;
+    color: var(--text-primary);
+}
+
+.cq-kpi-sub {
+    font-size: 0.8rem;
+    color: var(--text-muted);
+}
+
+/* Charts Layout */
+.cq-charts-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+}
+
+.cq-chart-panel {
+    padding: 1.25rem;
+}
+
+.cq-chart-panel h3 {
+    font-size: 0.95rem;
+    font-weight: 600;
+    margin-bottom: 1rem;
+    color: var(--text-primary);
+}
+
+.cq-chart-panel.full-width {
+    grid-column: 1 / -1;
+}
+
+/* MOS Distribution Donut */
+.cq-mos-dist {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.5rem;
+    align-items: center;
+}
+
+.cq-mos-legend {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+}
+
+.cq-mos-legend-item {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    font-size: 0.875rem;
+}
+
+.cq-mos-legend-dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    flex-shrink: 0;
+}
+
+.cq-mos-legend-value {
+    margin-inline-start: auto;
+    font-weight: 600;
+    color: var(--text-primary);
+}
+
+/* Codec Table */
+.cq-codec-table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    font-size: 0.85rem;
+}
+
+.cq-codec-table th {
+    text-align: left;
+    padding: 0.6rem 0.75rem;
+    color: var(--text-muted);
+    font-weight: 500;
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    border-bottom: 1px solid var(--glass-border);
+}
+
+.cq-codec-table td {
+    padding: 0.6rem 0.75rem;
+    color: var(--text-primary);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.03);
+}
+
+.cq-codec-table tr:last-child td {
+    border-bottom: none;
+}
+
+/* Worst Calls Table */
+.cq-worst-table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    font-size: 0.85rem;
+}
+
+.cq-worst-table th {
+    text-align: left;
+    padding: 0.6rem 0.75rem;
+    color: var(--text-muted);
+    font-weight: 500;
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    border-bottom: 1px solid var(--glass-border);
+    white-space: nowrap;
+}
+
+.cq-worst-table td {
+    padding: 0.6rem 0.75rem;
+    color: var(--text-primary);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.03);
+}
+
+.cq-worst-table tr:hover td {
+    background: rgba(255, 255, 255, 0.02);
+}
+
+.cq-worst-table .call-id-link {
+    color: var(--primary);
+    cursor: pointer;
+    text-decoration: none;
+    font-family: 'SF Mono', Consolas, monospace;
+    font-size: 0.8rem;
+}
+
+.cq-worst-table .call-id-link:hover {
+    text-decoration: underline;
+}
+
+/* MOS Badge */
+.mos-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.3rem;
+    padding: 0.15rem 0.55rem;
+    border-radius: 999px;
+    font-size: 0.78rem;
+    font-weight: 600;
+}
+
+.mos-badge.grade-A {
+    background: rgba(16, 185, 129, 0.15);
+    color: #34d399;
+}
+
+.mos-badge.grade-B {
+    background: rgba(59, 130, 246, 0.15);
+    color: #60a5fa;
+}
+
+.mos-badge.grade-C {
+    background: rgba(245, 158, 11, 0.15);
+    color: #fbbf24;
+}
+
+.mos-badge.grade-D {
+    background: rgba(239, 68, 68, 0.15);
+    color: #f87171;
+}
+
+.mos-badge.grade-E {
+    background: rgba(239, 68, 68, 0.25);
+    color: #ef4444;
+}
+
+.mos-badge.grade-F {
+    background: rgba(185, 28, 28, 0.3);
+    color: #fca5a5;
+}
+
+/* Geo Quality Cards */
+.cq-geo-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 0.75rem;
+}
+
+.cq-geo-card {
+    padding: 0.75rem;
+    border: 1px solid var(--glass-border);
+    border-radius: 8px;
+    background: rgba(255, 255, 255, 0.02);
+}
+
+.cq-geo-card .country-name {
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: var(--text-primary);
+    margin-bottom: 0.5rem;
+}
+
+.cq-geo-card .geo-metric {
+    font-size: 0.78rem;
+    color: var(--text-muted);
+    display: flex;
+    justify-content: space-between;
+    padding: 0.15rem 0;
+}
+
+.cq-geo-card .geo-metric span:last-child {
+    font-weight: 500;
+    color: var(--text-primary);
+}
+
+/* Empty state */
+.cq-empty {
+    text-align: center;
+    padding: 3rem 1rem;
+    color: var(--text-muted);
+    font-size: 0.9rem;
+}
+
+/* Loading */
+.cq-loading {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 4rem;
+    color: var(--text-muted);
+    font-size: 0.9rem;
+}
+
+/* Responsive */
+@media (max-width: 1200px) {
+    .cq-kpi-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .cq-charts-row {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (max-width: 640px) {
+    .cq-kpi-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* ============================================================
+   Dashboard Tab Bar
+   ============================================================ */
+
+.dash-tab-bar {
+    display: flex;
+    gap: 4px;
+    background: var(--glass-bg);
+    border: 1px solid var(--glass-border);
+    border-radius: 10px;
+    padding: 4px;
+    margin-bottom: 1.25rem;
+    width: fit-content;
+}
+
+.dash-tab {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    padding: 8px 18px;
+    border: none;
+    border-radius: 8px;
+    font-size: 0.85rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s;
+    color: var(--text-muted);
+    background: transparent;
+}
+
+.dash-tab:hover:not(.active) {
+    color: var(--text-primary);
+    background: rgba(255, 255, 255, 0.04);
+}
+
+.dash-tab.active {
+    background: var(--primary);
+    color: #fff;
+    box-shadow: 0 2px 8px rgba(99, 102, 241, 0.3);
+}
+
+.dash-tab-badge {
+    background: #ef4444;
+    color: #fff;
+    font-size: 0.7rem;
+    font-weight: 700;
+    padding: 1px 6px;
+    border-radius: 99px;
+    min-width: 18px;
+    text-align: center;
+    line-height: 1.4;
+}
+
+.dash-tab.active .dash-tab-badge {
+    background: rgba(255, 255, 255, 0.3);
+}
+
+.dash-tab-content {
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+}
+
+/* ============================================================
+   Compact 2×2 Chart Grid (Overview Tab)
+   ============================================================ */
+
+.dash-chart-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+    margin-top: 0.5rem;
+}
+
+.dash-chart-cell {
+    padding: 16px;
+}
+
+.dash-chart-cell h3 {
+    font-size: 0.88rem;
+    font-weight: 600;
+    margin-bottom: 8px;
+    color: var(--text-primary);
+}
+
+@media (max-width: 1100px) {
+    .dash-chart-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* Geo Map */
+.geo-map-container {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.geo-legend {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px 16px;
+    font-size: 0.78rem;
+    color: var(--text-muted);
+    padding: 0 4px;
+}
+
+.geo-legend-item b {
+    color: var(--text-primary);
+    margin-inline-start: 2px;
+}
+
+/* Empty message in chart cells */
+.dash-empty-msg {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    min-height: 120px;
+    font-size: 0.9rem;
+    color: var(--text-muted);
+    gap: 8px;
+}
+
+/* ============================================================
+   Live Calls Tab
+   ============================================================ */
+
+.live-header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.live-header h2 {
+    font-size: 1.15rem;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    color: var(--text-primary);
+    margin: 0;
+}
+
+.live-count {
+    font-size: 0.85rem;
+    color: var(--text-muted);
+    background: var(--glass-bg);
+    border: 1px solid var(--glass-border);
+    padding: 3px 10px;
+    border-radius: 99px;
+}
+
+.live-pulse {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: #10b981;
+    animation: pulse-live 2s infinite;
+}
+
+@keyframes pulse-live {
+
+    0%,
+    100% {
+        box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.5);
+    }
+
+    50% {
+        box-shadow: 0 0 0 6px rgba(16, 185, 129, 0);
+    }
+}
+
+.live-calls-table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    font-size: 0.85rem;
+}
+
+.live-calls-table th {
+    text-align: left;
+    padding: 10px 12px;
+    color: var(--text-muted);
+    font-weight: 500;
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    border-bottom: 1px solid var(--glass-border);
+    background: rgba(255, 255, 255, 0.02);
+    white-space: nowrap;
+}
+
+.live-calls-table td {
+    padding: 10px 12px;
+    color: var(--text-primary);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.03);
+}
+
+.live-calls-table tr:hover td {
+    background: rgba(255, 255, 255, 0.02);
+}
+
+.live-calls-table tr.no-data td {
+    color: var(--text-muted);
+    font-style: italic;
+}
+
+.live-calls-table .call-id-link {
+    color: var(--primary);
+    font-family: 'SF Mono', Consolas, monospace;
+    font-size: 0.8rem;
+}
+
+/* Status Dots */
+.status-dot {
+    display: inline-block;
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+}
+
+.status-dot.ok {
+    background: #10b981;
+    box-shadow: 0 0 6px rgba(16, 185, 129, 0.4);
+}
+
+.status-dot.warn {
+    background: #f59e0b;
+    box-shadow: 0 0 6px rgba(245, 158, 11, 0.4);
+}
+
+.status-dot.bad {
+    background: #ef4444;
+    box-shadow: 0 0 6px rgba(239, 68, 68, 0.4);
+    animation: pulse-bad 1.5s infinite;
+}
+
+.status-dot.pending {
+    background: var(--text-muted);
+    opacity: 0.5;
+}
+
+@keyframes pulse-bad {
+
+    0%,
+    100% {
+        box-shadow: 0 0 4px rgba(239, 68, 68, 0.4);
+    }
+
+    50% {
+        box-shadow: 0 0 10px rgba(239, 68, 68, 0.7);
+    }
+}
+
+/* Call Status Badge */
+.call-status-badge {
+    display: inline-flex;
+    align-items: center;
+    padding: 0.15rem 0.6rem;
+    border-radius: 999px;
+    font-size: 0.75rem;
+    font-weight: 600;
+    letter-spacing: 0.02em;
+    background: rgba(255, 255, 255, 0.06);
+    color: var(--text-muted);
+}
+
+.call-status-badge.answered {
+    background: rgba(16, 185, 129, 0.15);
+    color: #34d399;
+}
+
+.call-status-badge.ringing {
+    background: rgba(245, 158, 11, 0.15);
+    color: #fbbf24;
+    animation: pulse-ringing 1.5s ease-in-out infinite;
+}
+
+@keyframes pulse-ringing {
+
+    0%,
+    100% {
+        opacity: 1;
+    }
+
+    50% {
+        opacity: 0.6;
+    }
+}
+
+/* Live Empty State */
+.live-empty {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 4rem 2rem;
+    text-align: center;
+    gap: 0.75rem;
+    color: var(--text-muted);
+}
+
+.live-empty p {
+    font-size: 1.1rem;
+    font-weight: 500;
+    margin: 0;
+}
+
+.live-empty span {
+    font-size: 0.85rem;
+}

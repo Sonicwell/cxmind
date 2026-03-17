@@ -1,0 +1,42 @@
+name: Deploy Demo Admin UI
+
+on:
+  push:
+    branches: [ "main", "dev" ] # 请根据您的分支策略调整
+    paths:
+      - 'services/admin-ui/**'
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - uses: actions/checkout@v3
+
+    - name: Setup Node.js
+      uses: actions/setup-node@v3
+      with:
+        node-version: '18'
+
+    - name: Install Dependencies
+      working-directory: ./services/admin-ui
+      run: npm ci
+
+    - name: Build Demo Mode
+      working-directory: ./services/admin-ui
+      # 注入 VITE_MOCK_MODE 触发 Mock 拦截器
+      env:
+        VITE_MOCK_MODE: 'true'
+      run: npm run build
+
+    - name: Deploy to demo.cxmi.ai via SSH (Rsync)
+      uses: easingthemes/ssh-deploy@main
+      env:
+        SSH_PRIVATE_KEY: \${{ secrets.DEMO_SERVER_SSH_KEY }}
+        ARGS: "-rlgoDzvc -i --delete"
+        SOURCE: "services/admin-ui/dist/"
+        REMOTE_HOST: "demo.cxmi.ai"
+        REMOTE_USER: "root"
+        REMOTE_PORT: "22"
+        # 假设您的 Nginx 配置将 demo.cxmi.ai 的 root 指向此目录
+        TARGET: "/var/www/demo.cxmi.ai/html" 

@@ -1,0 +1,107 @@
+# ============================================================
+# Ingestion Engine — Full Configuration Reference
+# Copy this file to config.yaml and adjust values for your env.
+# ============================================================
+
+# --- HTTP API Server (monitoring, health, config reload) ---
+http:
+  port: "8081"
+  trusted_sources: []          # IP allowlist for admin APIs, e.g. ["10.0.0.0/8"]
+  cors_allowed_origins: []     # CORS origins for browser access
+
+# --- HEP Receiver ---
+hep:
+  port: "9060"
+  auth_token: "my-secret-token"
+
+# --- Redis ---
+redis:
+  addr: "localhost:6379"
+  password: "password123"
+  db: 0
+
+# --- ClickHouse ---
+clickhouse:
+  host: "localhost:9000"
+  database: "cxmind"
+  username: "default"
+  password: "password123"
+  max_open_conns: 10           # Max open connections
+  max_idle_conns: 5            # Max idle connections
+  batch_size: 1000             # Rows per batch insert
+  flush_interval_ms: 2000      # Flush interval for batch writers (ms)
+
+# --- SIP ---
+sip:
+  ip: "0.0.0.0"               # Bind address (unused in sniffer mode)
+  server_ip: "127.0.0.1"      # Default server IP
+  public_ip: "sip-ai.wcc.io"  # Public IP/hostname for SDP matching & direction detection
+
+# --- Sniffer ---
+sniffer:
+  hep_enabled: true              # 启动 HEP Server 接收外部 SIP/RTP
+  sip_pcap_enabled: false        # 用 gopacket 在本机网卡抓 SIP
+  rtp_pcap_enabled: true         # 用 gopacket 在本机网卡抓 RTP（false 时仅靠 InjectRTP）
+  interface: "eth0"              # 网卡（pcap 模式生效）
+  sip_ports: [5060]              # SIP 端口 (BPF filter, sip_pcap_enabled 时生效)
+  ignore_ports: [8060]
+  server_ips: ["192.168.1.70:5060"]                 # 本机 IP 列表（方向判定 + 流向识别）
+  auto_discover: true            # 自动枚举本机网卡 IP
+  rtp_timeout_seconds: 30        # RTP 静默超时 (秒)
+  jitter_buffer_ms: 60           # Jitter buffer 深度 (ms)
+  session_expires_margin: 1.5    # Session 过期安全系数
+  redis_batch_interval_seconds: 5
+
+# --- ASR (Automatic Speech Recognition) ---
+asr:
+  provider: "dashscope"        # "funasr" | "dashscope" | "openai" | "mock"
+
+  funasr:
+    url: "http://localhost:8000"
+    key: ""
+
+  dashscope:
+    url: "wss://dashscope.aliyuncs.com/api-ws/v1/inference"
+    key: "YOUR_DASHSCOPE_API_KEY_HERE"
+    model: "paraformer-realtime-v2"
+
+
+  openai:
+    key: ""
+
+  pool:
+    max_size: 100              # Global ASR pool max size
+
+  mock:
+    enabled: false
+
+# --- VAD (Voice Activity Detection) ---
+vad:
+  enabled: true
+  threshold: 200               # Energy threshold for speech detection
+  hangover_ms: 300             # Hold speech state for N ms after energy drops
+
+# --- SER (Speech Emotion Recognition) ---
+ser:
+  enabled: true                  # Global toggle
+  mode: "embedded"               # "embedded" | "remote"
+  embedded:
+    model_path: "./models/wav2vec2-ser.onnx"
+    num_threads: 2
+    window_seconds: 5.0
+  remote:
+    addr: "ser-service:50051"    # gRPC address
+    timeout_ms: 3000
+
+# --- Call Processing ---
+processing:
+  default_level: 1               # 0=Record Only, 1=+SER, 2=+ASR+SER
+
+# --- Monitoring ---
+monitoring:
+  fallback_to_redis: true      # Fallback to Redis if cache miss
+  default_ttl: 300             # Default TTL for monitoring flags (seconds)
+
+# --- Storage ---
+storage:
+  pcap_path: "./recordings"    # Path to store generated PCAP files

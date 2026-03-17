@@ -1,0 +1,173 @@
+/* ── Widget Info Tooltip ── */
+
+/* Inline Mode: Flow with text */
+.widget-info-container.inline-mode {
+    display: inline-flex;
+    align-items: center;
+    position: relative;
+    margin-left: 6px;
+    z-index: 10;
+    vertical-align: middle;
+}
+
+.widget-info-container.inline-mode .widget-info-trigger {
+    position: static;
+    top: auto;
+    right: auto;
+    width: 18px;
+    height: 18px;
+    margin-bottom: 2px;
+    /* slight visual adjustment */
+}
+
+.widget-info-trigger {
+    position: absolute;
+    top: 6px;
+    right: 6px;
+    z-index: 5;
+    width: 22px;
+    height: 22px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    border: none;
+    background: transparent;
+    color: var(--text-muted);
+    cursor: pointer;
+    opacity: 0;
+    transition: opacity 0.2s, background 0.2s, color 0.2s;
+    pointer-events: auto;
+}
+
+/* Hover triggers for inline tooltips (fade in on text hover) */
+h1:hover .widget-info-trigger,
+h2:hover .widget-info-trigger,
+h3:hover .widget-info-trigger,
+h4:hover .widget-info-trigger,
+.widget-title:hover .widget-info-trigger,
+.stat-card-title:hover .widget-info-trigger,
+.analytics-kpi-label:hover .widget-info-trigger,
+.roi-metric-label:hover .widget-info-trigger,
+.widget-info-container:hover .widget-info-trigger,
+.widget-info-trigger:hover,
+.widget-info-trigger:focus,
+.widget-info-trigger[aria-expanded="true"] {
+    opacity: 1;
+}
+
+/* Show at full opacity on parent hover for absolutely positioned tooltips */
+.widget-wrapper:hover>.widget-info-container .widget-info-trigger,
+.widget-wrapper:hover>.widget-info-trigger,
+.glass-panel:hover>.widget-info-container:not(.inline-mode) .widget-info-trigger,
+.audit-stat-card:hover .widget-info-trigger,
+.stat-card:hover>.widget-info-container:not(.inline-mode) .widget-info-trigger,
+.bento-cell:hover>.widget-info-container:not(.inline-mode) .widget-info-trigger {
+    opacity: 1;
+}
+
+.widget-info-trigger:hover {
+    background: rgba(99, 102, 241, 0.12);
+    color: var(--primary);
+}
+
+/* Popover container */
+.widget-info-popover {
+    position: absolute;
+    top: 30px;
+    right: 0;
+    z-index: 100;
+    min-width: 260px;
+    max-width: 340px;
+    padding: 14px 16px;
+    border-radius: var(--radius-md, 10px);
+    background: rgba(15, 23, 42, 0.94);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3), 0 0 0 1px rgba(255, 255, 255, 0.04);
+    color: #e2e8f0;
+    font-size: 0.78rem;
+    line-height: 1.5;
+    animation: widgetInfoFadeIn 0.15s ease-out;
+    pointer-events: auto;
+}
+
+@keyframes widgetInfoFadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(-4px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.widget-info-row {
+    display: flex;
+    gap: 8px;
+    align-items: flex-start;
+    padding: 5px 0;
+}
+
+.widget-info-row:not(:last-child) {
+    border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.widget-info-row .info-icon {
+    flex-shrink: 0;
+    width: 18px;
+    text-align: center;
+    font-size: 0.82rem;
+    margin-top: 1px;
+}
+
+.widget-info-row .info-label {
+    font-weight: 600;
+    color: #94a3b8;
+    font-size: 0.68rem;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    min-width: 42px;
+}
+
+.widget-info-row .info-text {
+    color: #e2e8f0;
+    flex: 1;
+}
+
+/* Light theme overrides */
+[data-theme="light"] .widget-info-popover,
+.light .widget-info-popover {
+    background: rgba(255, 255, 255, 0.96);
+    border: 1px solid rgba(0, 0, 0, 0.08);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.12);
+    color: #1e293b;
+}
+
+[data-theme="light"] .widget-info-row .info-text,
+.light .widget-info-row .info-text {
+    color: #334155;
+}
+
+[data-theme="light"] .widget-info-row .info-label,
+.light .widget-info-row .info-label {
+    color: #64748b;
+}
+
+[data-theme="light"] .widget-info-row:not(:last-child),
+.light .widget-info-row:not(:last-child) {
+    border-bottom-color: rgba(0, 0, 0, 0.06);
+}
+
+/* Ensure relative positioning on parent containers */
+.widget-wrapper,
+.stat-card,
+.audit-stat-card,
+.analytics-kpi-card,
+.glass-panel,
+.bento-cell {
+    position: relative;
+}

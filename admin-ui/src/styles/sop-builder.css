@@ -1,0 +1,483 @@
+/* ═══════════════════════════════════════════════════
+   SOP Builder — Styles
+   ═══════════════════════════════════════════════════ */
+
+/* ── Layout ── */
+.sop-builder {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    background: var(--bg-canvas);
+}
+
+.sop-header {
+    height: 60px;
+    border-bottom: 1px solid var(--border-light);
+    background: var(--bg-card);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 1.5rem;
+    z-index: 10;
+}
+
+.sop-header-left {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.sop-header-back {
+    background: transparent;
+    border: none;
+    color: var(--text-muted);
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    padding: 0.25rem;
+    border-radius: 4px;
+    transition: background 0.2s;
+}
+
+.sop-header-back:hover {
+    background: var(--bg-subtle);
+}
+
+.sop-header-title {
+    margin: 0;
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: var(--text-primary);
+}
+
+.sop-header-sub {
+    font-size: 0.75rem;
+    color: var(--text-muted);
+}
+
+.sop-header-actions {
+    display: flex;
+    gap: 0.75rem;
+}
+
+.sop-body {
+    flex: 1;
+    display: flex;
+    overflow: hidden;
+}
+
+/* ── Node Palette (Left Sidebar) ── */
+.sop-palette {
+    width: 280px;
+    min-width: 280px;
+    background: var(--bg-card);
+    border-right: 1px solid var(--border-light);
+    display: flex;
+    flex-direction: column;
+    z-index: 5;
+    overflow-y: auto;
+    padding: 0.5rem 0.75rem;
+}
+
+.sop-palette-title {
+    padding: 1rem 1rem 0.5rem;
+    font-size: 0.7rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--text-muted);
+}
+
+.sop-palette-item {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 0.65rem 1rem;
+    cursor: grab;
+    border: 1px solid transparent;
+    border-radius: 8px;
+    margin: 0.15rem 0.5rem;
+    transition: all 0.2s;
+    user-select: none;
+}
+
+.sop-palette-item:hover {
+    background: var(--bg-subtle);
+    border-color: var(--border-light);
+}
+
+.sop-palette-item:active {
+    cursor: grabbing;
+    opacity: 0.7;
+}
+
+.sop-palette-icon {
+    width: 32px;
+    height: 32px;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+}
+
+.sop-palette-icon.voice {
+    background: rgba(16, 185, 129, 0.12);
+    color: #10b981;
+}
+
+.sop-palette-icon.template {
+    background: rgba(59, 130, 246, 0.12);
+    color: #3b82f6;
+}
+
+.sop-palette-icon.llm {
+    background: rgba(168, 85, 247, 0.12);
+    color: #a855f7;
+}
+
+.sop-palette-icon.condition {
+    background: rgba(245, 158, 11, 0.12);
+    color: #f59e0b;
+}
+
+.sop-palette-icon.handoff {
+    background: rgba(239, 68, 68, 0.12);
+    color: #ef4444;
+}
+
+.sop-palette-icon.api {
+    background: rgba(14, 165, 233, 0.12);
+    color: #0ea5e9;
+}
+
+.sop-palette-text {
+    display: flex;
+    flex-direction: column;
+}
+
+.sop-palette-name {
+    font-size: 0.8rem;
+    font-weight: 600;
+    color: var(--text-primary);
+}
+
+.sop-palette-desc {
+    font-size: 0.65rem;
+    color: var(--text-muted);
+    line-height: 1.3;
+}
+
+/* ── Canvas ── */
+.sop-canvas {
+    flex: 1;
+    position: relative;
+}
+
+.sop-canvas-loading {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    color: var(--text-muted);
+}
+
+/* ── Custom Node ── */
+.sop-node {
+    background: var(--bg-card);
+    border: 2px solid var(--border-light);
+    border-radius: 12px;
+    padding: 0;
+    min-width: 200px;
+    max-width: 260px;
+    overflow: hidden;
+    transition: box-shadow 0.2s, border-color 0.2s;
+    font-family: inherit;
+}
+
+.sop-node:hover {
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+}
+
+.sop-node.selected {
+    border-color: var(--primary);
+    box-shadow: 0 0 0 3px hsla(var(--primary-hue, 220), 80%, 60%, 0.2);
+}
+
+.sop-node-header {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.6rem 0.75rem;
+    font-size: 0.7rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+
+.sop-node-header.voice {
+    background: rgba(16, 185, 129, 0.08);
+    color: #10b981;
+}
+
+.sop-node-header.template {
+    background: rgba(59, 130, 246, 0.08);
+    color: #3b82f6;
+}
+
+.sop-node-header.llm {
+    background: rgba(168, 85, 247, 0.08);
+    color: #a855f7;
+}
+
+.sop-node-header.condition {
+    background: rgba(245, 158, 11, 0.08);
+    color: #f59e0b;
+}
+
+.sop-node-header.handoff {
+    background: rgba(239, 68, 68, 0.08);
+    color: #ef4444;
+}
+
+.sop-node-header.api {
+    background: rgba(14, 165, 233, 0.08);
+    color: #0ea5e9;
+}
+
+.sop-node-body {
+    padding: 0.6rem 0.75rem 0.75rem;
+}
+
+.sop-node-label {
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: var(--text-primary);
+    margin: 0 0 0.35rem;
+}
+
+.sop-node-preview {
+    font-size: 0.72rem;
+    color: var(--text-muted);
+    line-height: 1.4;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+
+/* ── Properties Panel (Right Sidebar) ── */
+.sop-props {
+    width: 340px;
+    background: var(--bg-card);
+    border-left: 1px solid var(--border-light);
+    display: flex;
+    flex-direction: column;
+    z-index: 5;
+    animation: sop-slide-in 0.2s ease;
+}
+
+@keyframes sop-slide-in {
+    from {
+        transform: translateX(20px);
+        opacity: 0;
+    }
+
+    to {
+        transform: translateX(0);
+        opacity: 1;
+    }
+}
+
+.sop-props-header {
+    padding: 1rem 1.5rem;
+    border-bottom: 1px solid var(--border-light);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.sop-props-title {
+    margin: 0;
+    font-size: 1rem;
+    font-weight: 600;
+    color: var(--text-primary);
+}
+
+.sop-props-body {
+    padding: 1.25rem 1.5rem;
+    flex: 1;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 1.1rem;
+}
+
+.sop-field label {
+    display: block;
+    font-size: 0.78rem;
+    font-weight: 600;
+    color: var(--text-secondary);
+    margin-bottom: 0.4rem;
+}
+
+.sop-field input,
+.sop-field select,
+.sop-field textarea {
+    width: 100%;
+    padding: 0.65rem 0.75rem;
+    background: var(--bg-subtle);
+    border: 1px solid var(--border-light);
+    border-radius: 6px;
+    color: var(--text-primary);
+    outline: none;
+    font-size: 0.85rem;
+    font-family: inherit;
+    transition: border-color 0.2s;
+    box-sizing: border-box;
+}
+
+.sop-field input:focus,
+.sop-field select:focus,
+.sop-field textarea:focus {
+    border-color: var(--primary);
+}
+
+.sop-field textarea {
+    resize: vertical;
+    min-height: 80px;
+}
+
+.sop-props-footer {
+    margin-top: auto;
+    padding-top: 1rem;
+    border-top: 1px solid var(--border-light);
+}
+
+.sop-btn-delete {
+    width: 100%;
+    padding: 0.7rem;
+    background: rgba(239, 68, 68, 0.08);
+    color: #ef4444;
+    border: 1px solid rgba(239, 68, 68, 0.15);
+    border-radius: 6px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.2s;
+    font-size: 0.85rem;
+}
+
+.sop-btn-delete:hover {
+    background: rgba(239, 68, 68, 0.15);
+}
+
+/* ── Create New SOP Modal ── */
+.sop-create-form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    gap: 1.5rem;
+    padding: 2rem;
+}
+
+.sop-create-card {
+    width: 100%;
+    max-width: 480px;
+    background: var(--bg-card);
+    border: 1px solid var(--border-light);
+    border-radius: 16px;
+    padding: 2rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+}
+
+.sop-create-title {
+    font-size: 1.3rem;
+    font-weight: 700;
+    color: var(--text-primary);
+    margin: 0;
+    text-align: center;
+}
+
+.sop-create-desc {
+    font-size: 0.85rem;
+    color: var(--text-muted);
+    text-align: center;
+    margin: -0.5rem 0 0.5rem;
+}
+
+/* ── Edge Badge ── */
+.sop-edge-badge {
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-size: 0.7rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.03em;
+}
+
+.sop-edge-badge.intent {
+    background: rgba(236, 72, 153, 0.12);
+    color: #ec4899;
+}
+
+.sop-edge-badge.entity {
+    background: rgba(245, 158, 11, 0.12);
+    color: #f59e0b;
+}
+
+.sop-edge-badge.default {
+    background: rgba(100, 116, 139, 0.12);
+    color: #64748b;
+}
+
+.sop-edge-badge.api-success {
+    background: rgba(16, 185, 129, 0.12);
+    color: #10b981;
+}
+
+.sop-edge-badge.api-failure {
+    background: rgba(239, 68, 68, 0.12);
+    color: #ef4444;
+}
+
+/* ── Toast Notification ── */
+.sop-toast {
+    position: fixed;
+    bottom: 2rem;
+    left: 50%;
+    transform: translateX(-50%);
+    background: var(--bg-card);
+    border: 1px solid var(--border-light);
+    border-radius: 10px;
+    padding: 0.75rem 1.5rem;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.15);
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    z-index: 1000;
+    animation: sop-toast-in 0.3s ease;
+}
+
+.sop-toast.success {
+    border-left: 3px solid #10b981;
+}
+
+.sop-toast.error {
+    border-left: 3px solid #ef4444;
+}
+
+@keyframes sop-toast-in {
+    from {
+        transform: translateX(-50%) translateY(20px);
+        opacity: 0;
+    }
+
+    to {
+        transform: translateX(-50%) translateY(0);
+        opacity: 1;
+    }
+}

@@ -1,0 +1,427 @@
+/* ═══════════════════════════════════════════════════════
+   Agents & Groups — Page-specific Styles
+   ═══════════════════════════════════════════════════════ */
+
+/* ── Summary Bar ── */
+.agents-summary {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+    padding: 0.75rem 1.25rem;
+    border-radius: var(--radius-sm);
+    background: var(--glass-bg);
+    border: 1px solid var(--glass-border);
+    font-size: 0.82rem;
+    color: var(--text-secondary);
+    backdrop-filter: blur(8px);
+    margin-bottom: var(--spacing-md);
+}
+
+.agents-summary-item {
+    display: flex;
+    align-items: center;
+    gap: 0.3rem;
+}
+
+.agents-summary-item strong {
+    color: var(--text-primary);
+    font-weight: 600;
+}
+
+.agents-summary-divider {
+    width: 1px;
+    height: 16px;
+    background: var(--glass-border);
+}
+
+/* ── Filter Chips ── */
+.filter-chips {
+    display: flex;
+    align-items: center;
+    gap: 0.35rem;
+}
+
+.filter-chip {
+    padding: 5px 14px;
+    border-radius: var(--radius-full);
+    border: 1px solid var(--glass-border);
+    background: transparent;
+    color: var(--text-muted);
+    font-size: 0.8rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.15s ease;
+    white-space: nowrap;
+}
+
+.filter-chip:hover {
+    border-color: var(--text-secondary);
+    color: var(--text-secondary);
+}
+
+.filter-chip.active {
+    background: rgba(108, 75, 245, 0.08);
+    border-color: var(--primary);
+    color: var(--primary);
+    font-weight: 600;
+}
+
+/* ── Agents Table ── */
+.agents-table-wrap {
+    overflow: visible;
+    border-radius: var(--radius-md);
+}
+
+.agents-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.agents-table thead {
+    position: sticky;
+    top: 0;
+    z-index: 2;
+}
+
+.agents-table th {
+    padding: 0.75rem 1rem;
+    text-align: left;
+    font-size: 0.72rem;
+    font-weight: 600;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    background: var(--bg-card);
+    backdrop-filter: blur(8px);
+    border-bottom: 1px solid var(--glass-border);
+    white-space: nowrap;
+}
+
+.agents-table td {
+    padding: 0.7rem 1rem;
+    font-size: 0.875rem;
+    color: var(--text-secondary);
+    border-bottom: 1px solid var(--glass-border);
+    vertical-align: middle;
+}
+
+.agents-table tbody tr {
+    transition: background 0.15s ease, opacity 0.15s ease;
+}
+
+.agents-table tbody tr:hover {
+    background: var(--bg-overlay);
+    position: relative;
+    z-index: 3;
+}
+
+/* Unbound row dimming */
+.agents-table tbody tr.agent-row-unbound {
+    opacity: 0.55;
+}
+
+.agents-table tbody tr.agent-row-unbound:hover {
+    opacity: 1;
+}
+
+/* Selected row */
+.agents-table tbody tr.agent-row-selected {
+    background: rgba(108, 75, 245, 0.04);
+}
+
+/* ── Checkbox (minimal) ── */
+.agents-checkbox {
+    width: 16px;
+    height: 16px;
+    border-radius: 4px;
+    border: 1.5px solid var(--glass-border);
+    background: transparent;
+    cursor: pointer;
+    appearance: none;
+    -webkit-appearance: none;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.15s ease;
+    position: relative;
+    flex-shrink: 0;
+}
+
+.agents-checkbox:checked {
+    background: var(--primary);
+    border-color: var(--primary);
+}
+
+.agents-checkbox:checked::after {
+    content: '';
+    display: block;
+    width: 4px;
+    height: 8px;
+    border: solid white;
+    border-width: 0 2px 2px 0;
+    transform: rotate(45deg);
+    margin-top: -2px;
+}
+
+.agents-checkbox:hover {
+    border-color: var(--primary);
+}
+
+/* ── Three-state Policy Toggle ── */
+.policy-toggle {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 32px;
+    height: 32px;
+    border-radius: var(--radius-sm);
+    border: 1px solid var(--glass-border);
+    background: transparent;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    position: relative;
+}
+
+.policy-toggle:hover {
+    border-color: var(--brand-cyan);
+    transform: scale(1.1);
+}
+
+/* Disabled state — muted */
+.policy-toggle[data-state="disabled"] {
+    color: var(--text-muted);
+    opacity: 0.5;
+}
+
+/* Optional state — light cyan */
+.policy-toggle[data-state="optional"] {
+    color: var(--brand-cyan);
+    border-color: rgba(6, 182, 212, 0.3);
+    background: rgba(6, 182, 212, 0.06);
+}
+
+/* Enforced state — full cyan glow */
+.policy-toggle[data-state="enforced"] {
+    color: var(--brand-cyan);
+    border-color: var(--brand-cyan);
+    background: rgba(6, 182, 212, 0.1);
+    box-shadow: 0 0 8px rgba(6, 182, 212, 0.25), 0 0 2px rgba(6, 182, 212, 0.15);
+}
+
+/* Toggle tooltip */
+.policy-toggle-tooltip {
+    position: absolute;
+    bottom: calc(100% + 6px);
+    left: 50%;
+    transform: translateX(-50%);
+    padding: 3px 8px;
+    border-radius: 4px;
+    background: var(--text-primary);
+    color: white;
+    font-size: 0.7rem;
+    white-space: nowrap;
+    pointer-events: none;
+    opacity: 0;
+    transition: opacity 0.15s ease;
+    z-index: 10;
+}
+
+.policy-toggle:hover .policy-toggle-tooltip {
+    opacity: 1;
+}
+
+/* ── Batch Action Bar ── */
+.agents-batch-bar {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 0.6rem 1rem;
+    border-radius: var(--radius-sm);
+    background: rgba(108, 75, 245, 0.06);
+    border: 1px solid rgba(108, 75, 245, 0.15);
+    font-size: 0.85rem;
+    color: var(--primary);
+    animation: fadeIn 0.2s ease;
+}
+
+.agents-batch-bar strong {
+    font-weight: 600;
+}
+
+/* ── Pagination ── */
+.agents-pagination {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0.75rem 1rem;
+    font-size: 0.82rem;
+    color: var(--text-muted);
+}
+
+.agents-pagination-info {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.agents-pagination-controls {
+    display: flex;
+    align-items: center;
+    gap: 0.25rem;
+}
+
+.agents-page-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 32px;
+    height: 32px;
+    border-radius: var(--radius-sm);
+    border: 1px solid var(--glass-border);
+    background: transparent;
+    color: var(--text-secondary);
+    cursor: pointer;
+    transition: all 0.15s ease;
+    font-size: 0.82rem;
+}
+
+.agents-page-btn:hover:not(:disabled) {
+    border-color: var(--primary);
+    color: var(--primary);
+}
+
+.agents-page-btn:disabled {
+    opacity: 0.3;
+    cursor: not-allowed;
+}
+
+.agents-page-btn.active {
+    background: var(--primary);
+    border-color: var(--primary);
+    color: white;
+    font-weight: 600;
+}
+
+.agents-page-size {
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+}
+
+.agents-page-size button {
+    padding: 3px 10px;
+    border-radius: var(--radius-sm);
+    border: 1px solid var(--glass-border);
+    background: transparent;
+    color: var(--text-muted);
+    font-size: 0.78rem;
+    cursor: pointer;
+    transition: all 0.15s ease;
+}
+
+.agents-page-size button:hover {
+    border-color: var(--text-secondary);
+}
+
+.agents-page-size button.active {
+    background: rgba(108, 75, 245, 0.08);
+    border-color: var(--primary);
+    color: var(--primary);
+    font-weight: 600;
+}
+
+/* ── Loading Skeleton ── */
+.agents-skeleton-row {
+    display: flex;
+    gap: 1rem;
+    padding: 0.9rem 1rem;
+    border-bottom: 1px solid var(--glass-border);
+}
+
+.agents-skeleton-cell {
+    height: 16px;
+    border-radius: 4px;
+    background: linear-gradient(90deg,
+            var(--bg-card) 25%,
+            var(--glass-border) 50%,
+            var(--bg-card) 75%);
+    background-size: 200% 100%;
+    animation: skeleton-shimmer 1.5s infinite;
+}
+
+@keyframes skeleton-shimmer {
+    0% {
+        background-position: 200% 0;
+    }
+
+    100% {
+        background-position: -200% 0;
+    }
+}
+
+/* ── Group Badge ── */
+.agent-group-badge {
+    font-size: 0.72rem;
+    padding: 2px 10px;
+    border-radius: 12px;
+    background: rgba(108, 75, 245, 0.06);
+    border: 1px solid rgba(108, 75, 245, 0.18);
+    color: var(--primary);
+    font-weight: 500;
+    white-space: nowrap;
+}
+
+/* ── Global Policy Banner ── */
+.agents-global-policy-banner {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    padding: 0.5rem 1.25rem;
+    border-radius: var(--radius-sm);
+    background: var(--glass-bg);
+    border: 1px solid var(--glass-border);
+    font-size: 0.78rem;
+    color: var(--text-secondary);
+    backdrop-filter: blur(8px);
+    margin-bottom: var(--spacing-md);
+    flex-wrap: wrap;
+}
+
+.agents-global-policy-chip {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    padding: 2px 10px;
+    border-radius: 12px;
+    border: 1px solid var(--glass-border);
+    font-size: 0.72rem;
+    font-weight: 500;
+    transition: all 0.15s ease;
+}
+
+.agents-global-policy-chip[data-state="disabled"] {
+    color: var(--text-muted);
+    opacity: 0.6;
+}
+
+.agents-global-policy-chip[data-state="optional"] {
+    color: var(--brand-cyan);
+    border-color: rgba(6, 182, 212, 0.3);
+    background: rgba(6, 182, 212, 0.06);
+}
+
+.agents-global-policy-chip[data-state="enforced"] {
+    color: var(--success);
+    border-color: rgba(34, 197, 94, 0.3);
+    background: rgba(34, 197, 94, 0.06);
+}
+
+.agents-global-policy-val {
+    text-transform: capitalize;
+}
+
+/* ── Policy Toggle Lock (global enforced/disabled) ── */
+.policy-toggle.policy-toggle-locked {
+    outline: 1px dashed var(--text-muted);
+    outline-offset: 2px;
+}

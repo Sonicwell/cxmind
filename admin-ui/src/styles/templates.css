@@ -1,0 +1,1073 @@
+/* Template Builder Specific Styles */
+.tb-container {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    width: 100%;
+}
+
+.tb-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 1rem 1.5rem;
+    background-color: var(--bg-card);
+    border-bottom: 1px solid var(--glass-border);
+}
+
+.tb-header-title {
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: var(--text-primary);
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.tb-header-subtitle {
+    font-size: 0.75rem;
+    color: var(--text-muted);
+    margin-top: 0.25rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.tb-badge {
+    background-color: hsla(150, 70%, 40%, 0.15);
+    color: var(--success);
+    padding: 0.125rem 0.5rem;
+    border-radius: var(--radius-sm);
+    font-size: 0.625rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+
+.tb-main {
+    display: flex;
+    flex: 1;
+    overflow: hidden;
+    position: relative;
+    background-color: var(--bg-light);
+}
+
+.tb-sidebar {
+    width: 260px;
+    background-color: var(--bg-card);
+    border-right: 1px solid var(--glass-border);
+    display: flex;
+    flex-direction: column;
+    padding: 1rem;
+    overflow-y: auto;
+    flex-shrink: 0;
+}
+
+.tb-sidebar-title {
+    font-size: 0.75rem;
+    font-weight: 700;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    margin-bottom: 1rem;
+}
+
+.tb-component-item {
+    background-color: var(--bg-card);
+    border: 1px solid var(--glass-border);
+    border-radius: var(--radius-sm);
+    padding: 0.75rem;
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    cursor: grab;
+    color: var(--text-primary);
+    transition: all var(--transition-fast);
+}
+
+.tb-component-item:hover {
+    border-color: var(--primary);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+}
+
+.tb-component-icon {
+    color: var(--primary);
+}
+
+.tb-canvas {
+    flex: 1;
+    padding: 2rem;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.tb-canvas-inner {
+    width: 100%;
+    max-width: 600px;
+}
+
+.tb-tabs {
+    display: flex;
+    gap: 0.5rem;
+    margin-bottom: 1rem;
+}
+
+.tb-tab {
+    padding: 0.25rem 0.75rem;
+    border-radius: var(--radius-sm);
+    font-size: 0.875rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all var(--transition-fast);
+}
+
+.tb-tab.active {
+    background-color: var(--bg-card);
+    border: 1px solid var(--glass-border);
+    color: var(--primary);
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+}
+
+.tb-tab.inactive {
+    background-color: transparent;
+    border: 1px dashed var(--glass-border);
+    color: var(--text-muted);
+}
+
+.tb-tab.inactive:hover {
+    background-color: var(--bg-card);
+    color: var(--text-primary);
+}
+
+.tb-editor-surface {
+    background-color: var(--bg-card);
+    border-radius: var(--radius-md);
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+    border: 1px solid var(--glass-border);
+    padding: 1.5rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+.tb-block {
+    border: 1px solid var(--glass-border);
+    border-radius: var(--radius-sm);
+    position: relative;
+    background-color: var(--bg-card);
+}
+
+.tb-block-header {
+    background-color: var(--bg-light);
+    padding: 0.5rem 1rem;
+    border-bottom: 1px solid var(--glass-border);
+    border-top-left-radius: var(--radius-sm);
+    border-top-right-radius: var(--radius-sm);
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.75rem;
+    font-weight: 700;
+    color: var(--text-secondary);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+
+.tb-block-content {
+    padding: 1rem;
+}
+
+.tb-block-delete {
+    position: absolute;
+    top: -12px;
+    right: -12px;
+    background-color: var(--bg-card);
+    border: 1px solid var(--glass-border);
+    border-radius: 50%;
+    padding: 6px;
+    cursor: pointer;
+    color: var(--text-muted);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    opacity: 0;
+    transition: opacity var(--transition-fast), color var(--transition-fast);
+}
+
+.tb-block:hover .tb-block-delete {
+    opacity: 1;
+}
+
+.tb-block-delete:hover {
+    color: var(--danger);
+}
+
+.tb-textarea {
+    width: 100%;
+    background: transparent;
+    border: none;
+    outline: none;
+    resize: none;
+    color: var(--text-primary);
+    font-family: inherit;
+    font-size: 0.9rem;
+}
+
+.tb-button-row {
+    display: flex;
+    gap: 0.5rem;
+    align-items: center;
+    margin-bottom: 0.75rem;
+}
+
+.tb-input {
+    background-color: var(--bg-light);
+    border: 1px solid var(--glass-border);
+    border-radius: var(--radius-sm);
+    padding: 0.4rem 0.75rem;
+    font-size: 0.875rem;
+    color: var(--text-primary);
+    outline: none;
+    flex: 1;
+}
+
+.tb-input:focus {
+    border-color: var(--primary);
+}
+
+.tb-btn-add {
+    width: 100%;
+    padding: 0.5rem;
+    border: 1px dashed var(--glass-border);
+    border-radius: var(--radius-sm);
+    font-size: 0.875rem;
+    font-weight: 500;
+    color: var(--primary);
+    background-color: transparent;
+    cursor: pointer;
+    transition: background-color var(--transition-fast);
+}
+
+.tb-btn-add:hover {
+    background-color: hsla(var(--primary-hue), var(--primary-sat), 50%, 0.1);
+}
+
+.tb-dropzone {
+    border: 2px dashed var(--glass-border);
+    border-radius: var(--radius-md);
+    padding: 2rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    color: var(--text-muted);
+    cursor: pointer;
+    transition: all var(--transition-fast);
+    margin-top: 1rem;
+}
+
+.tb-dropzone:hover {
+    background-color: hsla(var(--primary-hue), var(--primary-sat), 50%, 0.1);
+    border-color: var(--primary);
+    color: var(--primary);
+}
+
+/* PREVIEW PANE AREA */
+.tb-sandbox {
+    width: 450px;
+    background-color: var(--bg-card);
+    border-left: 1px solid var(--glass-border);
+    display: flex;
+    flex-direction: column;
+    flex-shrink: 0;
+}
+
+.tb-sandbox.full-width {
+    width: 100%;
+}
+
+.tb-sandbox-header {
+    padding: 1rem;
+    border-bottom: 1px solid var(--glass-border);
+    background-color: var(--bg-card);
+    display: flex;
+    justify-content: center;
+    gap: 0.5rem;
+    position: sticky;
+    top: 0;
+    z-index: 10;
+}
+
+.tb-sandbox-btn {
+    padding: 0.4rem 0.75rem;
+    border-radius: var(--radius-sm);
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.875rem;
+    font-weight: 500;
+    cursor: pointer;
+    background: transparent;
+    color: var(--text-muted);
+    border: none;
+    transition: all var(--transition-fast);
+}
+
+.tb-sandbox-btn:hover {
+    background-color: var(--bg-light);
+    color: var(--text-primary);
+}
+
+.tb-sandbox-btn.active-webchat {
+    background-color: hsla(250, 80%, 50%, 0.15);
+    color: var(--primary);
+}
+
+.tb-sandbox-btn.active-email {
+    background-color: hsla(10, 80%, 50%, 0.15);
+    color: #ef4444;
+}
+
+.tb-sandbox-btn.active-whatsapp {
+    background-color: hsla(140, 70%, 50%, 0.15);
+    color: #10b981;
+}
+
+.tb-sandbox-content {
+    flex: 1;
+    overflow-y: auto;
+    padding: 1rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: var(--bg-light);
+}
+
+/* WebChat Mockup */
+.mock-webchat {
+    width: 100%;
+    max-width: 340px;
+    background-color: var(--bg-card);
+    border-radius: 2rem;
+    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+    border: 4px solid #1f2937;
+    overflow: hidden;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    height: 650px;
+    max-height: 100%;
+    margin: 1rem auto;
+}
+
+.mock-webchat-header {
+    background-color: var(--primary);
+    color: #ffffff;
+    padding: 1rem;
+    padding-top: 2rem;
+    text-align: center;
+    font-weight: 700;
+    position: relative;
+    flex-shrink: 0;
+}
+
+.mock-webchat-status {
+    position: absolute;
+    top: 2.5rem;
+    right: 1rem;
+    width: 8px;
+    height: 8px;
+    background-color: #4ade80;
+    border-radius: 50%;
+    box-shadow: 0 0 8px rgba(74, 222, 128, 0.8);
+    animation: mock-pulse 2s infinite;
+}
+
+@keyframes mock-pulse {
+    0% {
+        opacity: 1;
+    }
+
+    50% {
+        opacity: 0.5;
+    }
+
+    100% {
+        opacity: 1;
+    }
+}
+
+.mock-webchat-body {
+    padding: 1rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    background-color: var(--bg-light);
+    flex: 1;
+    overflow-y: auto;
+}
+
+.mock-webchat-time {
+    font-size: 11px;
+    font-weight: 500;
+    text-align: center;
+    color: var(--text-muted);
+}
+
+.mock-webchat-bubble {
+    align-self: flex-start;
+    width: 90%;
+    background-color: var(--bg-card);
+    border-radius: 1rem;
+    border-top-left-radius: 0.25rem;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+    border: 1px solid var(--glass-border);
+    overflow: hidden;
+}
+
+.mock-webchat-text {
+    padding: 0.875rem;
+    font-size: 14px;
+    color: var(--text-primary);
+    white-space: pre-wrap;
+    line-height: 1.6;
+}
+
+.mock-webchat-buttons {
+    background-color: var(--bg-light);
+    border-top: 1px solid var(--glass-border);
+    padding: 0.625rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.mock-webchat-btn {
+    width: 100%;
+    padding: 0.625rem;
+    background-color: var(--bg-card);
+    border: 1px solid var(--glass-border);
+    color: var(--primary);
+    font-size: 13.5px;
+    font-weight: 600;
+    border-radius: var(--radius-sm);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+}
+
+.mock-webchat-footer {
+    background-color: var(--bg-card);
+    border-top: 1px solid var(--glass-border);
+    padding: 0.75rem;
+    flex-shrink: 0;
+}
+
+.mock-webchat-input {
+    background-color: var(--bg-light);
+    border-radius: 9999px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    padding: 0 1rem;
+    font-size: 0.875rem;
+    color: var(--text-muted);
+}
+
+/* Email Mockup */
+.mock-email {
+    width: 100%;
+    max-width: 500px;
+    background-color: var(--bg-card);
+    border-radius: 0.75rem;
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.12);
+    border: 1px solid var(--glass-border);
+    display: flex;
+    flex-direction: column;
+    height: 650px;
+    max-height: 100%;
+    margin: 1rem auto;
+    overflow: hidden;
+}
+
+.mock-email-header {
+    background-color: var(--bg-light);
+    border-bottom: 1px solid var(--glass-border);
+    padding: 0.75rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+    flex-shrink: 0;
+}
+
+.mock-email-dots {
+    display: flex;
+    gap: 0.5rem;
+    align-items: center;
+    padding: 0 0.25rem;
+}
+
+.mock-email-dot {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+}
+
+.mock-email-dot.red {
+    background-color: #f87171;
+    border: 1px solid #ef4444;
+}
+
+.mock-email-dot.yellow {
+    background-color: #facc15;
+    border: 1px solid #eab308;
+}
+
+.mock-email-dot.green {
+    background-color: #4ade80;
+    border: 1px solid #22c55e;
+}
+
+.mock-email-bar {
+    background-color: var(--bg-card);
+    border-radius: var(--radius-sm);
+    border: 1px solid var(--glass-border);
+    padding: 0.375rem 0.75rem;
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--text-secondary);
+    display: flex;
+    justify-content: space-between;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+}
+
+.mock-email-body {
+    flex: 1;
+    overflow-y: auto;
+    background-color: var(--bg-light);
+    padding: 2rem;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+}
+
+.mock-email-canvas {
+    background-color: #ffffff;
+    border: 1px solid var(--glass-border);
+    border-radius: var(--radius-md);
+    padding: 2rem;
+    width: 100%;
+    max-width: 540px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+    color: #1f2937;
+    font-family: sans-serif;
+    font-size: 15px;
+    line-height: 1.6;
+}
+
+.mock-email-btn {
+    display: inline-block;
+    padding: 12px 28px;
+    background-color: #4f46e5;
+    color: #ffffff;
+    text-decoration: none;
+    border-radius: 6px;
+    font-weight: bold;
+    font-size: 14px;
+    box-shadow: 0 4px 6px -1px rgba(79, 70, 229, 0.2);
+    margin-top: 1.5rem;
+}
+
+/* WhatsApp Mockup */
+.mock-wa {
+    width: 100%;
+    max-width: 340px;
+    background-color: #efeae2;
+    border-radius: 2rem;
+    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.3);
+    border: 4px solid #1f2937;
+    overflow: hidden;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    height: 650px;
+    max-height: 100%;
+    margin: 1rem auto;
+    background-image: url("https://user-images.githubusercontent.com/15075759/28719144-86dc0f70-73b1-11e7-911d-60d70fcded21.png");
+    background-size: cover;
+}
+
+.dark .mock-wa {
+    background-color: #0b141a;
+}
+
+.mock-wa-header {
+    background-color: #008069;
+    color: #ffffff;
+    padding: 1rem;
+    padding-top: 2rem;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    flex-shrink: 0;
+}
+
+.mock-wa-avatar {
+    width: 32px;
+    height: 32px;
+    background-color: #25d366;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.mock-wa-body {
+    padding: 1rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    flex: 1;
+    overflow-y: auto;
+}
+
+.mock-wa-time {
+    align-self: center;
+    background-color: #ffffff;
+    color: #54656f;
+    font-size: 11px;
+    padding: 4px 12px;
+    border-radius: 12px;
+    box-shadow: 0 1px 1px rgba(0, 0, 0, 0.05);
+    margin-bottom: 0.5rem;
+}
+
+.dark .mock-wa-time {
+    background-color: #182229;
+    color: #8696a0;
+}
+
+.mock-wa-e2e {
+    align-self: center;
+    background-color: #ffeecd;
+    color: #54656f;
+    font-size: 11px;
+    padding: 6px 12px;
+    border-radius: 8px;
+    text-align: center;
+    max-width: 90%;
+    box-shadow: 0 1px 1px rgba(0, 0, 0, 0.05);
+    margin-bottom: 0.5rem;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+}
+
+.dark .mock-wa-e2e {
+    background-color: #182229;
+    color: #ffd279;
+}
+
+.mock-wa-bubble {
+    align-self: flex-start;
+    width: 90%;
+    background-color: #ffffff;
+    border-radius: 0.5rem;
+    border-top-left-radius: 0;
+    box-shadow: 0 1px 1px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+}
+
+.dark .mock-wa-bubble {
+    background-color: #202c33;
+}
+
+.mock-wa-text {
+    padding: 6px 8px 8px 8px;
+    font-size: 14.2px;
+    color: #111b21;
+    white-space: pre-wrap;
+    line-height: 19px;
+}
+
+.dark .mock-wa-text {
+    color: #e9edef;
+}
+
+.mock-wa-msg-meta {
+    font-size: 11px;
+    color: #667781;
+    text-align: right;
+    margin-top: 4px;
+    margin-right: 2px;
+}
+
+.dark .mock-wa-msg-meta {
+    color: #8696a0;
+}
+
+.mock-wa-buttons {
+    display: flex;
+    flex-direction: column;
+    border-top: 1px solid #e9edef;
+}
+
+.dark .mock-wa-buttons {
+    border-color: #111b21;
+}
+
+.mock-wa-btn {
+    padding: 10px;
+    color: #00a884;
+    font-size: 14.2px;
+    text-align: center;
+    background: transparent;
+    border: none;
+    border-bottom: 1px solid #e9edef;
+    cursor: pointer;
+}
+
+.mock-wa-btn:last-child {
+    border-bottom: none;
+}
+
+.dark .mock-wa-btn {
+    color: #00a884;
+    border-color: #111b21;
+}
+
+.mock-wa-footer {
+    background-color: #f0f2f5;
+    padding: 0.5rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    flex-shrink: 0;
+}
+
+.dark .mock-wa-footer {
+    background-color: #202c33;
+}
+
+.mock-wa-input {
+    background-color: #ffffff;
+    border-radius: 1.5rem;
+    height: 40px;
+    flex: 1;
+    padding: 0 1rem;
+    display: flex;
+    align-items: center;
+    font-size: 15px;
+    color: #8696a0;
+}
+
+.dark .mock-wa-input {
+    background-color: #2a3942;
+}
+
+.mock-wa-fab {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background-color: #00a884;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+}
+/* Templates List Page Styles */
+.tpl-page {
+    flex: 1;
+    padding: 2rem;
+    overflow-y: auto;
+    background-color: var(--bg-light);
+}
+
+.tpl-header-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 2rem;
+}
+
+.tpl-page-title {
+    font-size: 1.875rem;
+    font-weight: 700;
+    color: var(--text-primary);
+    margin-bottom: 0.5rem;
+}
+
+.tpl-page-desc {
+    color: var(--text-muted);
+    font-size: 0.95rem;
+}
+
+.tpl-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+    gap: 1.5rem;
+}
+
+.tpl-empty-state {
+    grid-column: 1 / -1;
+    height: 400px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 2px dashed var(--glass-border);
+    border-radius: var(--radius-lg);
+    background-color: hsla(var(--surface-hue), var(--surface-sat), 90%, 0.1);
+}
+
+.tpl-empty-icon-wrap {
+    width: 4rem;
+    height: 4rem;
+    background-color: hsla(var(--primary-hue), var(--primary-sat), 50%, 0.1);
+    color: var(--primary);
+    border-radius: var(--radius-md);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 1rem auto;
+}
+
+.tpl-empty-title {
+    font-size: 1.125rem;
+    font-weight: 600;
+    color: var(--text-primary);
+    margin-bottom: 0.5rem;
+}
+
+.tpl-empty-desc {
+    color: var(--text-muted);
+    margin-bottom: 1.5rem;
+    max-width: 24rem;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.tpl-card {
+    background-color: var(--bg-card);
+    border-radius: var(--radius-sm);
+    box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05);
+    border: 1px solid var(--glass-border);
+    padding: 1.5rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    transition: box-shadow var(--transition-fast), transform var(--transition-fast);
+}
+
+.tpl-card:hover {
+    box-shadow: 0 10px 15px -3px rgba(0,0,0,0.1);
+    transform: translateY(-2px);
+}
+
+.tpl-card-top {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 0.75rem;
+}
+
+.tpl-card-date {
+    font-size: 0.75rem;
+    color: var(--text-muted);
+}
+
+.tpl-card-name {
+    font-size: 1.125rem;
+    font-weight: 700;
+    color: var(--text-primary);
+    margin-bottom: 0.5rem;
+    font-family: monospace;
+}
+
+.tpl-card-meta {
+    color: var(--text-muted);
+    font-size: 0.875rem;
+    margin-bottom: 1rem;
+}
+
+.tpl-card-actions {
+    display: flex;
+    gap: 0.5rem;
+    border-top: 1px solid var(--glass-border);
+    padding-top: 1rem;
+    margin-top: 0.5rem;
+}
+
+.tpl-action-btn {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    padding: 0.5rem;
+    border-radius: var(--radius-sm);
+    transition: background-color var(--transition-fast), color var(--transition-fast);
+    cursor: pointer;
+    background: transparent;
+    border: none;
+    color: var(--text-muted);
+}
+
+.tpl-action-btn:hover {
+    background-color: var(--bg-light);
+    color: var(--text-primary);
+}
+
+.tpl-action-btn.edit:hover {
+    color: var(--primary);
+    background-color: hsla(var(--primary-hue), var(--primary-sat), 50%, 0.1);
+}
+
+.tpl-action-btn.send:hover {
+    color: var(--success);
+    background-color: hsla(150, 70%, 40%, 0.1);
+}
+
+.tpl-action-btn.delete:hover {
+    color: var(--danger);
+    background-color: hsla(0, 75%, 50%, 0.1);
+}
+
+
+/* LINE Mockup CSS */
+.mock-line {
+    background-color: #8FBDEB;
+    border-radius: var(--radius-md);
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+    position: relative;
+    height: 100%;
+    color: #111;
+}
+.mock-line-header {
+    background-color: #353846; /* iOS line dark header */
+    color: white;
+    padding: 0.75rem 1rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-weight: 600;
+    font-size: 0.9rem;
+}
+.mock-line-body {
+    flex: 1;
+    padding: 1rem;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+}
+.mock-line-bubble {
+    background-color: #ffffff;
+    border-radius: 14px;
+    padding: 0.8rem;
+    max-width: 85%;
+    font-size: 0.875rem;
+    line-height: 1.5;
+    position: relative;
+    box-shadow: 0 1px 2px rgba(0,0,0,0.1);
+    white-space: pre-wrap;
+    margin-bottom: 0.5rem;
+}
+.mock-line-bubble::after { /* Tail */
+    content: '';
+    position: absolute;
+    left: -6px;
+    top: 10px;
+    width: 0;
+    height: 0;
+    border: 6px solid transparent;
+    border-right-color: #ffffff;
+    border-left: 0;
+    border-top: 0;
+}
+.mock-line-btn {
+    display: block;
+    width: 100%;
+    text-align: center;
+    padding: 0.6rem 0;
+    margin-top: 0.5rem;
+    border-top: 1px solid #eee;
+    color: #4A8CFF;
+    font-weight: 600;
+    background: transparent;
+    border-left: none;
+    border-right: none;
+    border-bottom: none;
+    cursor: pointer;
+}
+
+/* Kakao Mockup CSS */
+.mock-kakao {
+    background-color: #B2C7D9;
+    border-radius: var(--radius-md);
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+    position: relative;
+    height: 100%;
+    color: #191919;
+}
+.mock-kakao-header {
+    background-color: #A3B9CC;
+    padding: 0.75rem 1rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-weight: 600;
+    font-size: 0.9rem;
+}
+.mock-kakao-body {
+    flex: 1;
+    padding: 1rem;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+}
+.mock-kakao-bubble {
+    background-color: #FFFFFF;
+    border-radius: 4px;
+    padding: 0.8rem;
+    max-width: 85%;
+    font-size: 0.875rem;
+    line-height: 1.5;
+    position: relative;
+    box-shadow: 0 1px 2px rgba(0,0,0,0.1);
+    white-space: pre-wrap;
+    margin-bottom: 0.5rem;
+}
+.mock-kakao-bubble::after { /* Tail */
+    content: '';
+    position: absolute;
+    left: -6px;
+    top: 10px;
+    width: 0;
+    height: 0;
+    border: 6px solid transparent;
+    border-right-color: #ffffff;
+    border-left: 0;
+    border-top: 0;
+}
+.mock-kakao-btn {
+    display: block;
+    width: 100%;
+    text-align: center;
+    padding: 0.6rem 0;
+    margin-top: 0.2rem;
+    background-color: #FEE500;
+    color: #191919;
+    font-weight: 600;
+    border-radius: 4px;
+    border: none;
+    cursor: pointer;
+    font-size: 0.8rem;
+}

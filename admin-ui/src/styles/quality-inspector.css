@@ -1,0 +1,816 @@
+/* ── Quality Inspector Styles ── */
+
+.qi-page {
+    padding: 0;
+    min-height: 100%;
+    color: var(--text-primary);
+}
+
+/* Header */
+.qi-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 1.5rem;
+}
+
+.qi-header h1 {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 1.5rem;
+    font-weight: 700;
+    margin: 0;
+    color: var(--text-primary);
+}
+
+/* Tabs */
+.qi-tabs {
+    display: flex;
+    gap: 0.25rem;
+    background: var(--glass-bg);
+    border: 1px solid var(--glass-border);
+    border-radius: 10px;
+    padding: 4px;
+    margin-bottom: 1.5rem;
+}
+
+.qi-tab {
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+    padding: 0.5rem 1.25rem;
+    border: none;
+    border-radius: 8px;
+    background: transparent;
+    color: var(--text-muted);
+    font-size: 0.875rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.qi-tab:hover {
+    color: var(--text-primary);
+    background: rgba(255, 255, 255, 0.05);
+}
+
+.qi-tab.active {
+    color: var(--primary);
+    background: rgba(0, 245, 212, 0.1);
+    box-shadow: 0 0 0 1px rgba(0, 245, 212, 0.2);
+}
+
+/* KPI Grid */
+.qi-kpi-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+}
+
+.qi-kpi-card {
+    padding: 1.25rem;
+    border-radius: 12px;
+    display: flex;
+    flex-direction: column;
+    gap: 0.3rem;
+}
+
+.qi-kpi-label {
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: var(--text-muted);
+}
+
+.qi-kpi-value {
+    font-size: 2rem;
+    font-weight: 700;
+    color: var(--text-primary);
+    line-height: 1.1;
+}
+
+.qi-kpi-sub {
+    font-size: 0.75rem;
+    color: var(--text-muted);
+}
+
+/* Score badge */
+.qi-score-badge {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 3rem;
+    padding: 0.2rem 0.6rem;
+    border-radius: 999px;
+    font-weight: 700;
+    font-size: 0.875rem;
+}
+
+.qi-score-excellent {
+    background: rgba(16, 185, 129, 0.15);
+    color: #10b981;
+}
+
+.qi-score-good {
+    background: rgba(59, 130, 246, 0.15);
+    color: #3b82f6;
+}
+
+.qi-score-poor {
+    background: rgba(239, 68, 68, 0.15);
+    color: #ef4444;
+}
+
+/* Table */
+.qi-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.875rem;
+}
+
+.qi-table thead th {
+    text-align: left;
+    padding: 0.75rem 1rem;
+    font-weight: 600;
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: var(--text-muted);
+    border-bottom: 1px solid var(--glass-border);
+    white-space: nowrap;
+}
+
+.qi-table tbody td {
+    padding: 0.75rem 1rem;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.03);
+    color: var(--text-secondary);
+}
+
+.qi-table tbody tr:hover {
+    background: rgba(255, 255, 255, 0.02);
+}
+
+/* Panel */
+.qi-panel {
+    padding: 1.5rem;
+    border-radius: 12px;
+    margin-bottom: 1.5rem;
+}
+
+.qi-panel h3 {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 1rem;
+    font-weight: 600;
+    margin: 0 0 1rem 0;
+    color: var(--text-primary);
+}
+
+/* Rules */
+.qi-rule-card {
+    padding: 1rem 1.25rem;
+    border-radius: 10px;
+    border: 1px solid var(--glass-border);
+    background: rgba(255, 255, 255, 0.02);
+    margin-bottom: 0.75rem;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    transition: border-color 0.2s;
+}
+
+.qi-rule-card:hover {
+    border-color: rgba(0, 245, 212, 0.3);
+}
+
+.qi-rule-icon {
+    width: 36px;
+    height: 36px;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.1rem;
+    flex-shrink: 0;
+}
+
+.qi-rule-icon.regex {
+    background: rgba(139, 92, 246, 0.15);
+    color: #8b5cf6;
+}
+
+.qi-rule-icon.keyword {
+    background: rgba(59, 130, 246, 0.15);
+    color: #3b82f6;
+}
+
+.qi-rule-icon.llm {
+    background: rgba(0, 245, 212, 0.15);
+    color: var(--primary);
+}
+
+.qi-rule-body {
+    flex: 1;
+    min-width: 0;
+}
+
+.qi-rule-name {
+    font-weight: 600;
+    font-size: 0.9rem;
+    color: var(--text-primary);
+}
+
+.qi-rule-meta {
+    display: flex;
+    gap: 0.75rem;
+    font-size: 0.75rem;
+    color: var(--text-muted);
+    margin-top: 0.25rem;
+}
+
+.qi-rule-weight {
+    font-weight: 600;
+    color: var(--primary);
+}
+
+/* Templates Grid */
+.qi-templates-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+}
+
+.qi-template-card {
+    padding: 1.5rem;
+    border-radius: 12px;
+    border: 1px solid var(--glass-border);
+    background: rgba(255, 255, 255, 0.02);
+    cursor: pointer;
+    transition: all 0.2s;
+    text-align: center;
+}
+
+.qi-template-card:hover {
+    border-color: rgba(0, 245, 212, 0.4);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.3);
+}
+
+.qi-template-card.selected {
+    border-color: var(--primary);
+    box-shadow: 0 0 0 1px var(--primary), 0 4px 16px rgba(0, 245, 212, 0.15);
+}
+
+.qi-template-icon {
+    font-size: 2.5rem;
+    margin-bottom: 0.75rem;
+}
+
+.qi-template-name {
+    font-weight: 600;
+    font-size: 1rem;
+    color: var(--text-primary);
+    margin-bottom: 0.25rem;
+}
+
+.qi-template-sub {
+    font-size: 0.8rem;
+    color: var(--text-muted);
+}
+
+/* Generate input */
+.qi-generate-area {
+    margin-bottom: 1.5rem;
+}
+
+.qi-generate-area textarea {
+    width: 100%;
+    min-height: 100px;
+    padding: 1rem;
+    border-radius: 10px;
+    border: 1px solid var(--glass-border);
+    background: rgba(255, 255, 255, 0.03);
+    color: var(--text-primary);
+    font-size: 0.9rem;
+    font-family: inherit;
+    resize: vertical;
+    transition: border-color 0.2s;
+}
+
+.qi-generate-area textarea:focus {
+    outline: none;
+    border-color: var(--primary);
+}
+
+.qi-generate-area textarea::placeholder {
+    color: var(--text-muted);
+}
+
+/* Buttons */
+.qi-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    padding: 0.5rem 1rem;
+    border-radius: 8px;
+    border: 1px solid var(--glass-border);
+    background: rgba(255, 255, 255, 0.05);
+    color: var(--text-primary);
+    font-size: 0.875rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.qi-btn:hover {
+    background: rgba(255, 255, 255, 0.1);
+}
+
+.qi-btn-primary {
+    background: var(--primary);
+    color: var(--bg-primary);
+    border-color: var(--primary);
+    font-weight: 600;
+}
+
+.qi-btn-primary:hover {
+    background: #00dbc0;
+}
+
+.qi-btn-primary:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+/* Config panel */
+.qi-config-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.5rem;
+}
+
+.qi-config-item {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.qi-config-item label {
+    font-size: 0.8rem;
+    font-weight: 600;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.03em;
+}
+
+.qi-config-item input,
+.qi-config-item select {
+    padding: 0.6rem 0.85rem;
+    border-radius: 8px;
+    border: 1px solid var(--glass-border);
+    background: rgba(255, 255, 255, 0.03);
+    color: var(--text-primary);
+    font-size: 0.9rem;
+}
+
+.qi-config-item input:focus,
+.qi-config-item select:focus {
+    outline: none;
+    border-color: var(--primary);
+}
+
+/* Schedule Section */
+.qi-schedule-section {
+    padding: 1.25rem;
+    border-radius: 10px;
+    border: 1px solid var(--glass-border);
+    background: rgba(255, 255, 255, 0.02);
+}
+
+/* Generic switcher (used by all config toggles) */
+.qi-switcher {
+    display: inline-flex;
+    border-radius: 8px;
+    border: 1px solid var(--glass-border);
+    overflow: hidden;
+    background: rgba(0, 0, 0, 0.03);
+}
+
+.qi-switcher-opt {
+    padding: 0.55rem 1.25rem;
+    border: none;
+    background: rgba(0, 0, 0, 0.04);
+    color: var(--text-muted);
+    font-size: 0.875rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.25s ease;
+    white-space: nowrap;
+}
+
+.qi-switcher-opt:first-child {
+    border-right: 1px solid var(--glass-border);
+}
+
+.qi-switcher-opt:hover:not(.active) {
+    background: rgba(0, 0, 0, 0.08);
+    color: var(--text-primary);
+}
+
+.qi-switcher-opt.active {
+    background: var(--primary);
+    color: var(--bg-primary, #fff);
+    font-weight: 600;
+    box-shadow: 0 3px 10px rgba(0, 245, 212, 0.3), inset 0 1px 0 rgba(255, 255, 255, 0.15);
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.15);
+}
+
+.qi-switcher-opt:active {
+    transform: scale(0.97);
+}
+
+/* Radar pulse for inspector enabled state */
+.qi-radar {
+    display: inline-block;
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: #10b981;
+    margin-inline-start: 6px;
+    position: relative;
+    vertical-align: middle;
+}
+
+.qi-radar::after {
+    content: '';
+    position: absolute;
+    inset: -4px;
+    border-radius: 50%;
+    border: 2px solid #10b981;
+    animation: qi-radar-ping 1.5s ease-out infinite;
+}
+
+@keyframes qi-radar-ping {
+    0% {
+        transform: scale(0.8);
+        opacity: 0.8;
+    }
+
+    70% {
+        transform: scale(2);
+        opacity: 0;
+    }
+
+    100% {
+        transform: scale(2);
+        opacity: 0;
+    }
+}
+
+.qi-schedule-times {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-top: 0.75rem;
+    padding: 0.75rem 1rem;
+    border-radius: 8px;
+    background: rgba(0, 245, 212, 0.04);
+    border: 1px solid rgba(0, 245, 212, 0.15);
+    animation: qi-slide-down 0.2s ease-out;
+}
+
+@keyframes qi-slide-down {
+    from {
+        opacity: 0;
+        transform: translateY(-8px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.qi-schedule-time-field {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.qi-schedule-time-label {
+    font-size: 0.8rem;
+    font-weight: 600;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.03em;
+    white-space: nowrap;
+}
+
+.qi-schedule-time-field input[type="time"] {
+    padding: 0.5rem 0.75rem;
+    border-radius: 6px;
+    border: 1px solid var(--glass-border);
+    background: rgba(255, 255, 255, 0.05);
+    color: var(--text-primary);
+    font-size: 0.9rem;
+    font-family: 'JetBrains Mono', 'SF Mono', monospace;
+}
+
+.qi-schedule-time-field input[type="time"]:focus {
+    outline: none;
+    border-color: var(--primary);
+    box-shadow: 0 0 0 2px rgba(0, 245, 212, 0.15);
+}
+
+.qi-schedule-separator {
+    font-size: 1.1rem;
+    color: var(--primary);
+    font-weight: 600;
+}
+
+/* Status panel */
+.qi-status-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+}
+
+.qi-status-item {
+    text-align: center;
+    padding: 1rem;
+    border-radius: 10px;
+    background: rgba(255, 255, 255, 0.02);
+    border: 1px solid var(--glass-border);
+}
+
+.qi-status-label {
+    font-size: 0.7rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: var(--text-muted);
+}
+
+.qi-status-value {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--text-primary);
+    margin-top: 0.25rem;
+}
+
+/* Toggle */
+.qi-toggle {
+    position: relative;
+    width: 44px;
+    height: 24px;
+    cursor: pointer;
+}
+
+.qi-toggle input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+
+.qi-toggle-track {
+    position: absolute;
+    inset: 0;
+    border-radius: 999px;
+    background: rgba(255, 255, 255, 0.1);
+    transition: background 0.2s;
+}
+
+.qi-toggle input:checked+.qi-toggle-track {
+    background: var(--primary);
+}
+
+.qi-toggle-thumb {
+    position: absolute;
+    top: 2px;
+    left: 2px;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    background: white;
+    transition: transform 0.2s;
+}
+
+.qi-toggle input:checked~.qi-toggle-thumb {
+    transform: translateX(20px);
+}
+
+/* Empty state */
+.qi-empty {
+    text-align: center;
+    padding: 3rem 1rem;
+    color: var(--text-muted);
+}
+
+.qi-empty-icon {
+    font-size: 3rem;
+    margin-bottom: 1rem;
+    opacity: 0.5;
+}
+
+/* Pagination */
+.qi-pagination {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    margin-top: 1rem;
+}
+
+.qi-pagination button {
+    padding: 0.4rem 0.8rem;
+    border-radius: 6px;
+    border: 1px solid var(--glass-border);
+    background: transparent;
+    color: var(--text-secondary);
+    cursor: pointer;
+    transition: all 0.15s;
+    font-size: 0.8rem;
+}
+
+.qi-pagination button:hover:not(:disabled) {
+    background: rgba(255, 255, 255, 0.05);
+}
+
+.qi-pagination button:disabled {
+    opacity: 0.3;
+    cursor: not-allowed;
+}
+
+.qi-pagination span {
+    font-size: 0.8rem;
+    color: var(--text-muted);
+}
+
+/* Loading */
+.qi-loading {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 3rem;
+    color: var(--text-muted);
+    font-size: 0.9rem;
+}
+
+/* Row layout */
+.qi-row {
+    display: flex;
+    gap: 1rem;
+    align-items: center;
+    margin-bottom: 1rem;
+}
+
+.qi-row-stretch {
+    display: flex;
+    gap: 1.5rem;
+    margin-bottom: 1.5rem;
+}
+
+.qi-row-stretch>* {
+    flex: 1;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .qi-kpi-grid {
+        grid-template-columns: 1fr 1fr;
+    }
+
+    .qi-templates-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .qi-config-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .qi-status-grid {
+        grid-template-columns: 1fr 1fr;
+    }
+}
+
+/* Clickable table rows */
+.qi-row-clickable {
+    cursor: pointer;
+    transition: background 0.15s ease;
+}
+
+.qi-row-clickable:hover {
+    background: rgba(99, 102, 241, 0.08) !important;
+}
+
+/* Phase 3: Filter Bar */
+.qi-filter-bar {
+    display: flex;
+    gap: 0.5rem;
+    margin-bottom: 0.75rem;
+    flex-wrap: wrap;
+}
+
+.qi-filter-input {
+    background: rgba(255, 255, 255, 0.04);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 6px;
+    padding: 0.35rem 0.6rem;
+    font-size: 0.8rem;
+    color: var(--text-primary, #e2e8f0);
+    min-width: 100px;
+    transition: border-color 0.15s;
+}
+
+.qi-filter-input:focus {
+    outline: none;
+    border-color: var(--primary, #6366f1);
+}
+
+.qi-filter-input-sm {
+    min-width: 60px;
+    max-width: 80px;
+}
+
+.qi-filter-input option {
+    background: var(--card-bg, #1e293b);
+    color: var(--text-primary, #e2e8f0);
+}
+
+/* Phase 6: Sortable table headers */
+.qi-th-sort {
+    cursor: pointer;
+    user-select: none;
+    transition: color 0.15s;
+}
+
+.qi-th-sort:hover {
+    color: var(--primary, #6366f1);
+}
+
+/* Phase 4A: Inline Edit */
+.qi-edit-input {
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    border-radius: 5px;
+    padding: 0.3rem 0.5rem;
+    font-size: 0.82rem;
+    color: var(--text-primary, #e2e8f0);
+    width: 100%;
+    transition: border-color 0.15s;
+}
+
+.qi-edit-input:focus {
+    outline: none;
+    border-color: var(--primary, #6366f1);
+}
+
+.qi-edit-input-sm {
+    width: 55px;
+    text-align: center;
+    margin: 0 0.25rem;
+}
+
+.qi-edit-weight {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.15rem;
+    font-size: 0.78rem;
+    color: var(--text-muted, #94a3b8);
+}
+
+.qi-btn-sm {
+    font-size: 0.75rem !important;
+    padding: 0.2rem 0.5rem !important;
+}
+
+.qi-btn-xs {
+    font-size: 0.7rem !important;
+    padding: 0.15rem 0.4rem !important;
+    border-radius: 4px;
+}
+
+.qi-btn-enabled {
+    background: rgba(16, 185, 129, 0.12) !important;
+    color: #10b981 !important;
+    border-color: rgba(16, 185, 129, 0.3) !important;
+}
+
+.qi-btn-disabled-toggle {
+    background: rgba(239, 68, 68, 0.12) !important;
+    color: #ef4444 !important;
+    border-color: rgba(239, 68, 68, 0.3) !important;
+}
+
+.qi-btn-danger-outline {
+    color: #ef4444 !important;
+    border-color: rgba(239, 68, 68, 0.3) !important;
+}
+
+.qi-btn-danger-outline:hover {
+    background: rgba(239, 68, 68, 0.1) !important;
+}

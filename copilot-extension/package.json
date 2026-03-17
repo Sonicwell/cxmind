@@ -1,0 +1,63 @@
+{
+    "name": "copilot-extension",
+    "displayName": "CXMind Copilot",
+    "version": "1.0.0",
+    "description": "Real-time AI assistant for SIP calls with transcription and intelligent suggestions",
+    "scripts": {
+        "dev": "PLASMO_PUBLIC_ENABLE_DEMO=true plasmo dev",
+        "build": "plasmo build",
+        "build:prod": "PLASMO_PUBLIC_ENABLE_DEMO=false plasmo build",
+        "test": "vitest run",
+        "test:watch": "vitest"
+    },
+    "dependencies": {
+        "@mlc-ai/web-llm": "^0.2.81",
+        "@plasmohq/storage": "^1.15.0",
+        "date-fns": "^4.1.0",
+        "framer-motion": "^12.34.1",
+        "i18next": "^25.8.14",
+        "lucide-react": "^0.563.0",
+        "plasmo": "^0.90.5",
+        "react": "^19.2.0",
+        "react-dom": "^19.2.0",
+        "react-i18next": "^16.5.6"
+    },
+    "devDependencies": {
+        "@plasmohq/prettier-plugin-sort-imports": "^4.0.0",
+        "@playwright/test": "^1.58.2",
+        "@testing-library/jest-dom": "^6.9.1",
+        "@testing-library/react": "^16.3.2",
+        "@types/chrome": "^0.0.287",
+        "@types/react": "^19.2.7",
+        "@types/react-dom": "^19.2.3",
+        "@vitest/coverage-v8": "^3.2.4",
+        "jsdom": "^28.1.0",
+        "typescript": "^5.8.0",
+        "vitest": "^3.0.0"
+    },
+    "manifest": {
+        "permissions": [
+            "storage",
+            "notifications",
+            "sidePanel",
+            "alarms",
+            "identity",
+            "offscreen"
+        ],
+        "host_permissions": [
+            "http://localhost:3000/*",
+            "<all_urls>"
+        ],
+        "oauth2": {
+            "client_id": "397483396707-b59klhmktao03n6ptqpc82d52djian3v.apps.googleusercontent.com",
+            "scopes": [
+                "profile",
+                "email",
+                "openid"
+            ]
+        },
+        "content_security_policy": {
+            "extension_pages": "script-src 'self' 'wasm-unsafe-eval'; object-src 'self';"
+        }
+    }
+}

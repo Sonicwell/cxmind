@@ -1,0 +1,15 @@
+<svg width="160" height="40" viewBox="0 0 160 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="cxmi_gradient" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#4F46E5" /> <stop offset="100%" stop-color="#9333EA" /> </linearGradient>
+  </defs>
+
+  <text x="0" y="30" font-family="Inter, system-ui, -apple-system, sans-serif" font-weight="700" font-size="28" letter-spacing="-0.05em">
+    <tspan fill="#111827">C</tspan>
+    <tspan fill="url(#cxmi_gradient)">X</tspan>
+    <tspan fill="#111827">MI</tspan>
+    <tspan font-size="24" font-weight="700" fill="url(#cxmi_gradient)">.ai</tspan>
+  </text>
+
+  <circle cx="112" cy="8" r="3.5" fill="url(#cxmi_gradient)" />
+</svg>

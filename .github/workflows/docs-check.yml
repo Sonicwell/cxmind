@@ -1,0 +1,30 @@
+name: Documentation Governance Check
+
+on:
+  pull_request:
+    paths:
+      - 'docs/**'
+      - 'scripts/check-*.js'
+
+jobs:
+  check-docs:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '18'
+
+      - name: Check manifest registration
+        run: |
+          node scripts/check-manifest.js
+
+      - name: Check ephemeral documents
+        run: |
+          node scripts/check-ephemeral.js
+
+      - name: Check SSOT (Single Source of Truth)
+        run: |
+          node scripts/check-duplicate-status.js

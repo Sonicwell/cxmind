@@ -1,0 +1,371 @@
+/* ═══════════════════════════════════════
+   Analytics SLA / KPI Dashboard
+   ═══════════════════════════════════════ */
+
+.analytics-page {
+    padding: 1.5rem 2rem;
+    min-height: 100vh;
+    color: var(--text-primary);
+}
+
+.analytics-page h1 {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 1.5rem;
+    font-weight: 700;
+    margin-bottom: 1rem;
+    background: linear-gradient(135deg, #60a5fa, #c084fc);
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+/* Period selector */
+.analytics-period {
+    display: flex;
+    gap: 0.4rem;
+    margin-bottom: 1.25rem;
+}
+
+.analytics-period button {
+    padding: 0.35rem 0.85rem;
+    border-radius: 8px;
+    border: 1px solid var(--glass-border);
+    background: transparent;
+    color: var(--text-secondary);
+    font-size: 0.8rem;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.analytics-period button.active {
+    background: rgba(99, 102, 241, 0.15);
+    border-color: rgba(99, 102, 241, 0.5);
+    color: var(--primary);
+    font-weight: 600;
+}
+
+.analytics-period button:hover:not(.active) {
+    background: var(--bg-card);
+    color: var(--text-primary);
+}
+
+/* KPI Strip */
+.analytics-kpi-strip {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+}
+
+.analytics-kpi-card {
+    padding: 1rem 1.25rem;
+    border-radius: 14px;
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+    position: relative;
+    overflow: visible;
+    /* Changed to visible so tooltips do not get clipped */
+}
+
+.analytics-kpi-card:hover {
+    z-index: 10;
+}
+
+.analytics-kpi-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 4px;
+    height: 100%;
+    border-radius: 14px 0 0 14px;
+}
+
+.analytics-kpi-card.kpi-green::before {
+    background: #10b981;
+}
+
+.analytics-kpi-card.kpi-red::before {
+    background: #ef4444;
+}
+
+.analytics-kpi-card.kpi-blue::before {
+    background: #6366f1;
+}
+
+.analytics-kpi-card.kpi-amber::before {
+    background: #f59e0b;
+}
+
+.analytics-kpi-card.kpi-cyan::before {
+    background: #06b6d4;
+}
+
+.analytics-kpi-card.kpi-purple::before {
+    background: #a855f7;
+}
+
+.analytics-kpi-label {
+    font-size: 0.72rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: var(--text-primary);
+    font-weight: 600;
+}
+
+.analytics-kpi-value {
+    font-size: 1.75rem;
+    font-weight: 800;
+    font-variant-numeric: tabular-nums;
+    line-height: 1;
+    color: var(--text-primary);
+}
+
+.analytics-kpi-sub {
+    font-size: 0.72rem;
+    color: var(--text-secondary);
+}
+
+/* Chart panels */
+.analytics-panel {
+    padding: 1.25rem;
+    border-radius: 14px;
+    margin-bottom: 1.25rem;
+}
+
+.analytics-panel h3 {
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+    font-size: 0.95rem;
+    font-weight: 600;
+    margin-bottom: 1rem;
+    color: var(--text-primary);
+}
+
+/* Gauge row */
+.analytics-gauge-row {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.25rem;
+    margin-bottom: 1.25rem;
+}
+
+/* Charts grid */
+.analytics-charts-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.25rem;
+    margin-bottom: 1.25rem;
+}
+
+/* Heatmap */
+.analytics-heatmap-grid {
+    display: grid;
+    gap: 3px;
+}
+
+.analytics-heatmap-cell {
+    border-radius: 4px;
+    min-height: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.7rem;
+    font-weight: 600;
+    color: rgba(255, 255, 255, 0.9);
+    transition: transform 0.15s;
+    cursor: default;
+}
+
+.analytics-heatmap-cell:hover {
+    transform: scale(1.1);
+    z-index: 2;
+}
+
+/* Leaderboard table */
+.analytics-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.82rem;
+}
+
+.analytics-table th {
+    text-align: left;
+    padding: 0.6rem 0.75rem;
+    color: var(--text-secondary);
+    font-weight: 600;
+    text-transform: uppercase;
+    font-size: 0.7rem;
+    letter-spacing: 0.04em;
+    border-bottom: 1px solid var(--glass-border);
+}
+
+.analytics-table td {
+    padding: 0.6rem 0.75rem;
+    border-bottom: 1px solid var(--glass-border);
+    color: var(--text-primary);
+}
+
+.analytics-table tbody tr:hover {
+    background: rgba(99, 102, 241, 0.04);
+}
+
+/* Sparkline */
+.analytics-sparkline {
+    display: flex;
+    align-items: end;
+    gap: 2px;
+    height: 24px;
+}
+
+.analytics-sparkline-bar {
+    width: 4px;
+    border-radius: 2px;
+    transition: height 0.3s;
+}
+
+/* Score badge */
+.analytics-score-badge {
+    display: inline-block;
+    padding: 0.15rem 0.45rem;
+    border-radius: 6px;
+    font-weight: 700;
+    font-size: 0.78rem;
+    font-variant-numeric: tabular-nums;
+}
+
+.analytics-score-excellent {
+    background: rgba(16, 185, 129, 0.2);
+    color: #10b981;
+}
+
+.analytics-score-good {
+    background: rgba(234, 179, 8, 0.2);
+    color: #eab308;
+}
+
+.analytics-score-poor {
+    background: rgba(239, 68, 68, 0.2);
+    color: #ef4444;
+}
+
+/* Loading */
+.analytics-loading {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 300px;
+    color: var(--text-muted);
+    font-size: 0.9rem;
+}
+
+/* Export button */
+.analytics-export-btn {
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+    padding: 0.5rem 1rem;
+    border-radius: 10px;
+    border: 1px solid rgba(99, 102, 241, 0.35);
+    background: rgba(99, 102, 241, 0.08);
+    color: #4f46e5;
+    font-size: 0.8rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.analytics-export-btn:hover {
+    background: rgba(99, 102, 241, 0.2);
+    border-color: rgba(99, 102, 241, 0.5);
+}
+
+/* Custom date popover */
+.analytics-custom-popover {
+    position: absolute;
+    top: calc(100% + 8px);
+    right: 0;
+    z-index: 50;
+    padding: 1rem;
+    border-radius: 12px;
+    background: var(--bg-card);
+    border: 1px solid var(--glass-border);
+    backdrop-filter: blur(16px);
+    box-shadow: 0 12px 32px rgba(0, 0, 0, 0.15);
+    min-width: 220px;
+    animation: popoverIn 0.15s ease-out;
+}
+
+@keyframes popoverIn {
+    from {
+        opacity: 0;
+        transform: translateY(-6px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.analytics-date-input {
+    padding: 0.45rem 0.65rem;
+    border-radius: 8px;
+    border: 1px solid var(--glass-border);
+    background: var(--bg-card);
+    color: var(--text-primary);
+    font-size: 0.82rem;
+    font-family: inherit;
+    outline: none;
+    width: 100%;
+    box-sizing: border-box;
+    transition: border-color 0.2s;
+}
+
+.analytics-date-input:focus {
+    border-color: rgba(99, 102, 241, 0.6);
+}
+
+/* Override native date picker icon color for dark theme */
+[data-theme='dark'] .analytics-date-input::-webkit-calendar-picker-indicator,
+[data-theme='midnight'] .analytics-date-input::-webkit-calendar-picker-indicator,
+[data-theme='cyberpunk'] .analytics-date-input::-webkit-calendar-picker-indicator,
+[data-theme='forest'] .analytics-date-input::-webkit-calendar-picker-indicator {
+    filter: invert(0.7);
+    cursor: pointer;
+}
+
+.analytics-date-input::-webkit-calendar-picker-indicator {
+    cursor: pointer;
+}
+
+.analytics-custom-apply {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.35rem;
+    padding: 0.5rem;
+    border-radius: 8px;
+    border: 1px solid rgba(99, 102, 241, 0.4);
+    background: rgba(99, 102, 241, 0.2);
+    color: var(--primary);
+    font-size: 0.82rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s;
+    margin-top: 0.25rem;
+}
+
+.analytics-custom-apply:hover:not(:disabled) {
+    background: rgba(99, 102, 241, 0.35);
+    border-color: rgba(99, 102, 241, 0.6);
+}
+
+.analytics-custom-apply:disabled {
+    opacity: 0.4;
+    cursor: not-allowed;
+}

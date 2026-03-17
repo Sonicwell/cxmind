@@ -1,0 +1,128 @@
+/* ═══════════════════════════════════════
+   QI Confirm Dialog
+   ═══════════════════════════════════════ */
+
+.qi-confirm-backdrop {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.55);
+    backdrop-filter: blur(4px);
+    z-index: 1100;
+    animation: qi-confirm-fade 0.15s ease;
+}
+
+.qi-confirm-dialog {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 400px;
+    max-width: 90vw;
+    background: var(--card-bg, rgba(15, 23, 42, 0.97));
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 12px;
+    padding: 1.5rem;
+    z-index: 1101;
+    box-shadow: 0 16px 48px rgba(0, 0, 0, 0.5);
+    animation: qi-confirm-scale 0.2s cubic-bezier(0.32, 0.72, 0, 1);
+}
+
+.qi-confirm-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 0.75rem;
+}
+
+.qi-confirm-icon-wrap {
+    width: 36px;
+    height: 36px;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.qi-confirm-icon-danger {
+    color: #ef4444;
+}
+
+.qi-confirm-icon-warning {
+    color: #f59e0b;
+}
+
+.qi-confirm-close {
+    background: none;
+    border: none;
+    color: var(--text-muted, #94a3b8);
+    cursor: pointer;
+    padding: 0.25rem;
+    border-radius: 4px;
+}
+
+.qi-confirm-close:hover {
+    color: var(--text-primary, #e2e8f0);
+    background: rgba(255, 255, 255, 0.06);
+}
+
+.qi-confirm-title {
+    margin: 0 0 0.5rem;
+    font-size: 1rem;
+    font-weight: 600;
+    color: var(--text-primary, #e2e8f0);
+}
+
+.qi-confirm-message {
+    margin: 0 0 1.25rem;
+    font-size: 0.85rem;
+    color: var(--text-muted, #94a3b8);
+    line-height: 1.5;
+}
+
+.qi-confirm-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 0.5rem;
+}
+
+.qi-btn-danger {
+    background: #ef4444 !important;
+    color: #fff !important;
+    border-color: #ef4444 !important;
+}
+
+.qi-btn-danger:hover {
+    background: #dc2626 !important;
+}
+
+.qi-btn-warning {
+    background: #f59e0b !important;
+    color: #fff !important;
+    border-color: #f59e0b !important;
+}
+
+.qi-btn-warning:hover {
+    background: #d97706 !important;
+}
+
+@keyframes qi-confirm-fade {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+}
+
+@keyframes qi-confirm-scale {
+    from {
+        opacity: 0;
+        transform: translate(-50%, -50%) scale(0.95);
+    }
+
+    to {
+        opacity: 1;
+        transform: translate(-50%, -50%) scale(1);
+    }
+}

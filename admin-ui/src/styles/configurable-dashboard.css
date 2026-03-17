@@ -1,0 +1,670 @@
+/* ============================================================
+   Configurable Dashboard Styles
+   ============================================================ */
+
+.configurable-dashboard {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+    height: 100%;
+}
+
+/* ──── Toolbar ──── */
+
+.dashboard-toolbar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 0 1rem 0;
+    flex-shrink: 0;
+}
+
+.toolbar-title {
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: var(--text-primary);
+    margin: 0;
+}
+
+.toolbar-right {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.toolbar-left {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+}
+
+.toolbar-btn-demo {
+    font-size: 0.75rem;
+    padding: 5px 12px;
+    border-color: rgba(255, 255, 255, 0.12);
+    color: var(--text-muted);
+}
+
+.toolbar-btn-demo.active {
+    background: rgba(0, 255, 150, 0.12);
+    border-color: rgba(0, 255, 150, 0.35);
+    color: #00ff96;
+    box-shadow: 0 0 8px rgba(0, 255, 150, 0.15);
+}
+
+.toolbar-btn-demo.active:hover {
+    background: rgba(0, 255, 150, 0.18);
+}
+
+.toolbar-demo-status {
+    font-size: 0.7rem;
+    color: rgba(0, 255, 150, 0.8);
+    margin-left: 4px;
+    animation: demo-status-fade 0.3s ease-in;
+}
+
+@keyframes demo-status-fade {
+    from {
+        opacity: 0;
+        transform: translateY(-2px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.animate-spin {
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    from {
+        transform: rotate(0deg);
+    }
+
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+.toolbar-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 7px 14px;
+    border: 1px solid var(--glass-border);
+    border-radius: 8px;
+    font-size: 0.82rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s;
+    background: var(--glass-bg);
+    color: var(--text-primary);
+}
+
+.toolbar-btn:hover {
+    border-color: var(--primary);
+    background: hsla(var(--primary-hue), var(--primary-sat), 60%, 0.08);
+}
+
+.toolbar-btn-primary {
+    background: var(--primary);
+    color: #fff;
+    border-color: var(--primary);
+}
+
+.toolbar-btn-primary:hover {
+    background: var(--primary-hover);
+}
+
+.toolbar-btn-ghost {
+    background: transparent;
+    border-color: transparent;
+    color: var(--text-muted);
+}
+
+.toolbar-btn-ghost:hover {
+    color: var(--text-primary);
+    background: rgba(255, 255, 255, 0.06);
+}
+
+/* ──── Widget Picker ──── */
+
+.toolbar-picker-wrap {
+    position: relative;
+}
+
+.widget-picker-panel {
+    position: absolute;
+    top: calc(100% + 8px);
+    right: 0;
+    width: 280px;
+    max-height: 400px;
+    overflow-y: auto;
+    border-radius: 12px;
+    padding: 12px;
+    z-index: 100;
+    animation: fadeInDown 0.15s ease-out;
+}
+
+@keyframes fadeInDown {
+    from {
+        opacity: 0;
+        transform: translateY(-6px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.picker-header {
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: var(--text-primary);
+    margin-bottom: 8px;
+    padding-bottom: 6px;
+    border-bottom: 1px solid var(--glass-border);
+}
+
+.picker-group {
+    margin-bottom: 8px;
+}
+
+.picker-group-label {
+    font-size: 0.7rem;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--text-muted);
+    font-weight: 600;
+    margin-bottom: 4px;
+    padding: 4px 0;
+}
+
+.picker-item {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 8px;
+    width: 100%;
+    padding: 8px 10px;
+    border: none;
+    border-radius: 6px;
+    font-size: 0.82rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.15s;
+    background: transparent;
+    color: var(--text-primary);
+    text-align: left;
+}
+
+.picker-item svg {
+    flex-shrink: 0;
+    width: 16px;
+    min-width: 16px;
+}
+
+.picker-item:hover {
+    background: hsla(var(--primary-hue), var(--primary-sat), 60%, 0.1);
+    color: var(--primary);
+}
+
+.picker-empty {
+    padding: 1rem;
+    text-align: center;
+    color: var(--text-muted);
+    font-size: 0.82rem;
+}
+
+/* ──── Grid ──── */
+
+.dashboard-grid {
+    flex: 1;
+}
+
+.dashboard-grid.editing .react-grid-item {
+    transition: none !important;
+}
+
+/* ──── Grid Item Inner Container ──── */
+
+.react-grid-item>div {
+    height: 100%;
+}
+
+/* ──── Widget Wrapper ──── */
+
+.widget-wrapper {
+    height: 100%;
+    border-radius: 12px;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    transition: box-shadow 0.2s, border-color 0.2s, transform 0.2s ease;
+}
+
+
+
+.widget-wrapper:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px -2px rgba(0, 0, 0, 0.06);
+}
+
+.widget-wrapper.edit-mode {
+    border: 1px dashed hsla(var(--primary-hue), var(--primary-sat), 60%, 0.4);
+    cursor: default;
+}
+
+.widget-wrapper.edit-mode:hover {
+    border-color: var(--primary);
+    box-shadow: 0 0 0 2px hsla(var(--primary-hue), var(--primary-sat), 60%, 0.15);
+}
+
+.widget-header {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    padding: 6px 10px;
+    background: rgba(0, 0, 0, 0.03);
+    border-bottom: 1px solid var(--glass-border);
+    flex-shrink: 0;
+}
+
+.widget-drag-handle {
+    cursor: grab;
+    color: var(--text-muted);
+    display: flex;
+    align-items: center;
+    padding: 2px;
+    border-radius: 4px;
+    transition: color 0.15s, background 0.15s;
+}
+
+.widget-drag-handle:hover {
+    color: var(--primary);
+    background: hsla(var(--primary-hue), var(--primary-sat), 60%, 0.1);
+}
+
+.widget-drag-handle:active {
+    cursor: grabbing;
+}
+
+.widget-header-title {
+    flex: 1;
+    font-size: 0.75rem;
+    font-weight: 600;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.widget-remove-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 22px;
+    height: 22px;
+    border: none;
+    border-radius: 4px;
+    background: transparent;
+    color: var(--text-muted);
+    cursor: pointer;
+    transition: all 0.15s;
+}
+
+.widget-remove-btn:hover {
+    background: rgba(239, 68, 68, 0.15);
+    color: #ef4444;
+}
+
+.widget-body {
+    flex: 1;
+    padding: 12px;
+    min-height: 0;
+    overflow: auto;
+}
+
+.widget-body.has-header {
+    padding-top: 8px;
+}
+
+/* ──── Widget Title (in normal mode) ──── */
+
+.widget-title {
+    font-size: 0.88rem;
+    font-weight: 600;
+    margin-bottom: 8px;
+    color: var(--text-primary);
+    display: flex;
+    align-items: center;
+    flex-shrink: 0;
+}
+
+/* ──── react-grid-layout overrides ──── */
+
+.react-grid-item.react-grid-placeholder {
+    background: hsla(var(--primary-hue), var(--primary-sat), 60%, 0.15) !important;
+    border: 2px dashed var(--primary) !important;
+    border-radius: 12px !important;
+    opacity: 1 !important;
+}
+
+.react-grid-item>.react-resizable-handle {
+    width: 16px;
+    height: 16px;
+}
+
+.react-grid-item>.react-resizable-handle::after {
+    border-right: 2px solid var(--text-muted) !important;
+    border-bottom: 2px solid var(--text-muted) !important;
+    width: 8px !important;
+    height: 8px !important;
+    right: 5px !important;
+    bottom: 5px !important;
+}
+
+/* ──── Responsive ──── */
+
+@media (max-width: 768px) {
+    .dashboard-toolbar {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 0.75rem;
+    }
+
+    .toolbar-right {
+        width: 100%;
+        justify-content: flex-end;
+    }
+
+    .widget-picker-panel {
+        right: auto;
+        left: 0;
+        width: 260px;
+    }
+}
+
+/* ──── View Selector ──── */
+
+.view-selector {
+    position: relative;
+}
+
+.view-selector-trigger {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 7px 14px;
+    border: 1px solid var(--glass-border);
+    border-radius: 8px;
+    font-size: 1rem;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.2s;
+    background: transparent;
+    color: var(--text-primary);
+}
+
+.view-selector-trigger:hover {
+    border-color: var(--primary);
+    background: hsla(var(--primary-hue), var(--primary-sat), 60%, 0.06);
+}
+
+.view-selector-name {
+    max-width: 180px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.view-chevron {
+    color: var(--text-muted);
+    transition: transform 0.2s;
+    flex-shrink: 0;
+}
+
+.view-chevron.open {
+    transform: rotate(180deg);
+}
+
+.view-selector-dropdown {
+    position: absolute;
+    top: calc(100% + 6px);
+    left: 0;
+    min-width: 240px;
+    border-radius: 12px;
+    padding: 6px;
+    z-index: 200;
+    animation: fadeInDown 0.15s ease-out;
+}
+
+/* 下拉菜单不需要 glass-panel 的 hover 位移效果 */
+.view-selector-dropdown.glass-panel:hover {
+    transform: none;
+}
+
+.view-selector-item {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    border-radius: 8px;
+    transition: background 0.15s;
+}
+
+.view-selector-item.active {
+    background: hsla(var(--primary-hue), var(--primary-sat), 60%, 0.12);
+}
+
+.view-selector-item-btn {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 8px 10px;
+    border: none;
+    background: transparent;
+    color: var(--text-primary);
+    font-size: 0.85rem;
+    font-weight: 500;
+    cursor: pointer;
+    text-align: left;
+    border-radius: 8px;
+    transition: color 0.15s;
+}
+
+.view-selector-item:hover {
+    background: rgba(255, 255, 255, 0.06);
+}
+
+.view-selector-item.active .view-selector-item-btn {
+    color: var(--primary);
+    font-weight: 600;
+}
+
+.view-badge {
+    font-size: 0.65rem;
+    padding: 1px 6px;
+    border-radius: 4px;
+    background: rgba(255, 255, 255, 0.08);
+    color: var(--text-muted);
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+
+.view-item-actions {
+    display: flex;
+    gap: 2px;
+    opacity: 0;
+    transition: opacity 0.15s;
+    padding-right: 4px;
+}
+
+.view-selector-item:hover .view-item-actions {
+    opacity: 1;
+}
+
+.view-action-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 24px;
+    height: 24px;
+    border: none;
+    border-radius: 4px;
+    background: transparent;
+    color: var(--text-muted);
+    cursor: pointer;
+    transition: all 0.15s;
+}
+
+.view-action-btn:hover {
+    background: rgba(255, 255, 255, 0.1);
+    color: var(--text-primary);
+}
+
+.view-action-delete:hover {
+    background: rgba(239, 68, 68, 0.15);
+    color: #ef4444;
+}
+
+.view-selector-divider {
+    height: 1px;
+    background: var(--glass-border);
+    margin: 4px 0;
+}
+
+.view-create-btn {
+    color: var(--primary) !important;
+    font-size: 0.85rem;
+    font-weight: 500;
+    cursor: pointer;
+    padding: 8px 10px;
+    gap: 6px;
+    border: none;
+    background: transparent;
+}
+
+.view-create-btn:hover {
+    background: hsla(var(--primary-hue), var(--primary-sat), 60%, 0.1) !important;
+}
+
+.view-create-row {
+    display: flex;
+    gap: 4px;
+    padding: 4px;
+}
+
+.view-create-input,
+.view-rename-input {
+    flex: 1;
+    padding: 6px 10px;
+    border: 1px solid var(--glass-border);
+    border-radius: 6px;
+    background: rgba(255, 255, 255, 0.04);
+    color: var(--text-primary);
+    font-size: 0.82rem;
+    outline: none;
+    transition: border-color 0.15s;
+}
+
+.view-create-input:focus,
+.view-rename-input:focus {
+    border-color: var(--primary);
+}
+
+.view-create-confirm {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 30px;
+    height: 30px;
+    border: 1px solid var(--primary);
+    border-radius: 6px;
+    background: var(--primary);
+    color: #fff;
+    cursor: pointer;
+    transition: all 0.15s;
+}
+
+.view-create-confirm:hover {
+    background: var(--primary-hover);
+}
+
+/* ──── Widget Header Actions ──── */
+
+.widget-header-actions {
+    display: flex;
+    align-items: center;
+    gap: 2px;
+}
+
+.widget-action-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 22px;
+    height: 22px;
+    border: none;
+    border-radius: 4px;
+    background: transparent;
+    color: var(--text-muted);
+    cursor: pointer;
+    transition: all 0.15s;
+}
+
+.widget-action-btn:hover {
+    background: hsla(var(--primary-hue), var(--primary-sat), 60%, 0.15);
+    color: var(--primary);
+}
+
+/* ──── Send to View Popover ──── */
+
+.send-to-view-wrap {
+    position: relative;
+}
+
+.send-to-view-popover {
+    min-width: 160px;
+    border-radius: 10px;
+    padding: 6px;
+    z-index: 9999;
+    animation: fadeInDown 0.12s ease-out;
+}
+
+.send-popover-title {
+    font-size: 0.7rem;
+    font-weight: 600;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    padding: 4px 8px 6px;
+    border-bottom: 1px solid var(--glass-border);
+    margin-bottom: 4px;
+}
+
+.send-popover-item {
+    display: block;
+    width: 100%;
+    padding: 6px 10px;
+    border: none;
+    border-radius: 6px;
+    background: transparent;
+    color: var(--text-primary);
+    font-size: 0.82rem;
+    text-align: left;
+    cursor: pointer;
+    transition: all 0.15s;
+}
+
+.send-popover-item:hover {
+    background: hsla(var(--primary-hue), var(--primary-sat), 60%, 0.1);
+    color: var(--primary);
+}

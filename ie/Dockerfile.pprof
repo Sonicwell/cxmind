@@ -1,0 +1,67 @@
+# Dockerfile.pprof — IE Performance Profiling Image
+#
+# Goals:
+#   - Enable pprof HTTP endpoint (/debug/pprof/)
+#   - Disable SER / ONNX / ASR to isolate ClickHouse + Redis write path
+#   - Keep full CGO (libpcap, bcg729) so the binary is production-representative
+#
+# Build:
+#   docker build -f Dockerfile.pprof -t ie-pprof .
+#
+# Run:
+#   docker run --rm -e PPROF_ENABLED=true -e SER_ENABLED=false \
+#              -p 8081:8081 ie-pprof
+
+FROM golang:1.24-bookworm AS builder
+
+WORKDIR /app
+
+COPY go.mod ./
+RUN go mod tidy && go mod download
+
+RUN apt-get update && apt-get install -y --no-install-recommends \
+    build-essential libpcap-dev libopus-dev libopusfile-dev pkg-config cmake git && \
+    rm -rf /var/lib/apt/lists/*
+
+# Build bcg729
+RUN git clone --depth 1 https://github.com/BelledonneCommunications/bcg729.git /tmp/bcg729 && \
+    cd /tmp/bcg729 && \
+    cmake -B build -DCMAKE_INSTALL_PREFIX=/usr -DENABLE_TESTS=OFF && \
+    cmake --build build -j$(nproc) && \
+    cmake --install build && \
+    rm -rf /tmp/bcg729
+
+COPY . .
+RUN go mod tidy
+
+# Build with race detector for extra safety; omit ONNX linkage flags
+# (ONNX Runtime is not needed because SER will be disabled at runtime via env)
+RUN CGO_ENABLED=1 CGO_LDFLAGS="-lbcg729" go build -o ie-pprof .
+
+# ── Runtime ───────────────────────────────────────────────────────────────────
+FROM debian:bookworm-slim
+
+RUN apt-get update && apt-get install -y --no-install-recommends \
+    ca-certificates libpcap0.8 libopus0 libopusfile0 curl && \
+    rm -rf /var/lib/apt/lists/*
+
+WORKDIR /root/
+
+COPY --from=builder /app/ie-pprof .
+COPY --from=builder /usr/lib/libbcg729.so* /usr/lib/
+COPY config.yaml.example config.yaml
+
+# Create empty models dir (SER disabled — no ONNX files needed)
+RUN mkdir -p /root/models
+
+# Profiling defaults
+ENV PPROF_ENABLED=true
+# Disable SER so ONNX isn't loaded (isolates ClickHouse/Redis path)
+ENV SER_ENABLED=false
+ENV SER_MODE=disabled
+# Use mock ASR so no external WebSocket connections are made
+ENV ASR_PROVIDER=mock
+
+EXPOSE 8081
+
+CMD ["./ie-pprof"]

@@ -1,0 +1,146 @@
+/* ═══════════════════════════════════════
+   Shared Dashboard Styles
+   Unified design tokens for Dashboard,
+   Analytics, and ROI pages.
+   ROI visual style is the baseline.
+   ═══════════════════════════════════════ */
+
+/* ── Chart Panel ── */
+.chart-panel {
+    padding: 20px;
+    border-radius: var(--radius-md);
+    background: hsla(var(--primary-hue), 30%, 96%, 0.85);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border: 1px solid hsla(var(--primary-hue), 30%, 70%, 0.15);
+    position: relative;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+/* Dark themes: use a subtler tint */
+[data-theme='dark'] .chart-panel,
+[data-theme='midnight'] .chart-panel,
+[data-theme='cyberpunk'] .chart-panel,
+[data-theme='forest'] .chart-panel {
+    background: hsla(var(--primary-hue), 20%, 15%, 0.5);
+    border: 1px solid hsla(var(--primary-hue), 20%, 40%, 0.15);
+}
+
+.chart-panel:hover {
+    transform: translateY(-2px);
+    box-shadow:
+        0 8px 16px -4px rgba(0, 0, 0, 0.08),
+        0 0 0 1px hsla(var(--primary-hue), 30%, 70%, 0.1) inset;
+}
+
+.chart-panel-title {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    margin: 0 0 16px;
+    color: var(--text-primary);
+}
+
+/* ── Metric Card Grid ── */
+.metric-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+    gap: 16px;
+    margin-bottom: 24px;
+}
+
+/* ── Metric Card ── */
+.metric-card {
+    padding: 16px;
+    border-radius: var(--radius-md);
+    position: relative;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.metric-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 12px -3px rgba(0, 0, 0, 0.08);
+}
+
+.metric-card--placeholder {
+    opacity: 0.5;
+    background: rgba(255, 255, 255, 0.02);
+    border: 1px solid var(--glass-border);
+}
+
+.metric-card-header {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 10px;
+}
+
+.metric-card-label {
+    font-size: 0.72rem;
+    color: var(--text-muted);
+}
+
+.metric-card-value {
+    font-size: 1.4rem;
+    font-weight: 700;
+    font-variant-numeric: tabular-nums;
+    line-height: 1.1;
+}
+
+.metric-card-sub {
+    font-size: 0.65rem;
+    color: var(--text-muted);
+    margin-top: 4px;
+}
+
+.metric-card-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 3px;
+    font-size: 0.65rem;
+    font-weight: 600;
+    padding: 2px 6px;
+    border-radius: 4px;
+    margin-top: 6px;
+}
+
+.metric-card-badge--up {
+    color: #10b981;
+    background: rgba(16, 185, 129, 0.1);
+}
+
+.metric-card-badge--down {
+    color: #ef4444;
+    background: rgba(239, 68, 68, 0.1);
+}
+
+/* ── Section Header ── */
+.section-header {
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: var(--text-primary);
+    margin-bottom: 1rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+/* ── Charts Grid ── */
+.charts-grid-2col {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 24px;
+    margin-bottom: 32px;
+}
+
+@media (max-width: 768px) {
+    .charts-grid-2col {
+        grid-template-columns: 1fr;
+    }
+
+    .metric-grid {
+        grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+    }
+}

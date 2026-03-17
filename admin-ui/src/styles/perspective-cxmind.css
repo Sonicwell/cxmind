@@ -1,0 +1,116 @@
+/**
+ * CXMind Dark Theme for Perspective Viewer
+ *
+ * Adapts Perspective's visual style to match the CXMind cyberpunk/neon dark theme.
+ * Based on Perspective's "Pro Dark" base theme with CXMind-specific overrides.
+ */
+
+/* ── Container ── */
+.perspective-grid-container {
+    width: 100%;
+    overflow: hidden;
+    border-radius: var(--radius-md, 8px);
+}
+
+/* ── Viewer core ── */
+perspective-viewer.perspective-viewer-cxmind {
+    --plugin--font-family: var(--font-body, 'Inter', 'Segoe UI', sans-serif);
+    --plugin--font-size: 12px;
+
+    /* Backgrounds */
+    --plugin--background: var(--bg-card, rgba(10, 10, 35, 0.85));
+    --plugin--overflow-hint-icon--color: var(--text-muted, #8892b0);
+
+    /* Borders */
+    --plugin--border-color: var(--glass-border, rgba(255, 255, 255, 0.08));
+
+    /* Colors */
+    --inactive--color: var(--text-muted, #8892b0);
+    --active--color: var(--primary, #00f5ff);
+
+    /* Selection */
+    --select--background-color: rgba(0, 245, 255, 0.12);
+
+    /* Datagrid specifics */
+    --d3fc-positive--gradient: var(--success, #10b981);
+    --d3fc-negative--gradient: var(--danger, #ef4444);
+
+    width: 100%;
+    height: 100%;
+}
+
+/* ── Header row ── */
+perspective-viewer.perspective-viewer-cxmind regular-table thead th {
+    background: rgba(10, 10, 35, 0.95) !important;
+    color: var(--text-secondary, #ccd6f6) !important;
+    font-weight: 600;
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    border-bottom: 1px solid var(--glass-border, rgba(255, 255, 255, 0.08)) !important;
+    padding: 8px 12px;
+}
+
+/* ── Body cells ── */
+perspective-viewer.perspective-viewer-cxmind regular-table tbody td {
+    color: var(--text-primary, #e6f1ff) !important;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.04) !important;
+    padding: 6px 12px;
+    font-size: 12px;
+}
+
+/* ── Row hover ── */
+perspective-viewer.perspective-viewer-cxmind regular-table tbody tr:hover td {
+    background: rgba(0, 245, 255, 0.06) !important;
+    cursor: pointer;
+}
+
+/* ── Scrollbar ── */
+perspective-viewer.perspective-viewer-cxmind ::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+}
+
+perspective-viewer.perspective-viewer-cxmind ::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+perspective-viewer.perspective-viewer-cxmind ::-webkit-scrollbar-thumb {
+    background: rgba(255, 255, 255, 0.15);
+    border-radius: 3px;
+}
+
+perspective-viewer.perspective-viewer-cxmind ::-webkit-scrollbar-thumb:hover {
+    background: rgba(255, 255, 255, 0.25);
+}
+
+/* ── Status bar / toolbar ── */
+perspective-viewer.perspective-viewer-cxmind #status_bar {
+    background: rgba(10, 10, 35, 0.9);
+    border-top: 1px solid var(--glass-border, rgba(255, 255, 255, 0.08));
+    color: var(--text-muted, #8892b0);
+    font-size: 11px;
+}
+
+/* ── Settings panel (when toggled) ── */
+perspective-viewer.perspective-viewer-cxmind #settings_panel {
+    background: var(--bg-card, rgba(10, 10, 35, 0.95));
+    border-left: 1px solid var(--glass-border, rgba(255, 255, 255, 0.08));
+}
+
+/* ── Loading animation ── */
+@keyframes perspective-pulse {
+
+    0%,
+    100% {
+        opacity: 0.4;
+    }
+
+    50% {
+        opacity: 1;
+    }
+}
+
+.perspective-grid-container [style*="Loading data engine"] {
+    animation: perspective-pulse 1.5s ease-in-out infinite;
+}

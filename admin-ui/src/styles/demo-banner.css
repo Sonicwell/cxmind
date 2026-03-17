@@ -1,0 +1,163 @@
+/* ════════════════════════════════════════
+   Demo Banner — Premium Brand Strip
+   ════════════════════════════════════════ */
+
+.demo-banner {
+    position: relative;
+    background: linear-gradient(135deg, var(--bg-card) 0%, var(--bg-light) 50%, var(--bg-card) 100%);
+    border-bottom: 1px solid var(--glass-border);
+    overflow: hidden;
+    z-index: 9999;
+}
+
+/* Sweeping scan-line animation */
+.demo-banner-scanline {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(90deg,
+            transparent 0%,
+            transparent 30%,
+            rgba(0, 245, 212, 0.07) 45%,
+            rgba(0, 245, 212, 0.15) 50%,
+            rgba(0, 245, 212, 0.07) 55%,
+            transparent 70%,
+            transparent 100%);
+    animation: demo-scanline 3s ease-in-out infinite;
+    pointer-events: none;
+}
+
+@keyframes demo-scanline {
+    0% {
+        transform: translateX(-100%);
+    }
+
+    100% {
+        transform: translateX(100%);
+    }
+}
+
+/* Inner layout */
+.demo-banner-inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0.45rem 1.25rem;
+    gap: 1rem;
+    position: relative;
+    z-index: 1;
+}
+
+/* Brand section */
+.demo-banner-brand {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    flex-shrink: 0;
+}
+
+.demo-banner-icon {
+    color: var(--primary);
+    filter: drop-shadow(0 0 6px rgba(0, 245, 212, 0.5));
+    animation: demo-icon-pulse 2s ease-in-out infinite;
+}
+
+@keyframes demo-icon-pulse {
+
+    0%,
+    100% {
+        opacity: 0.8;
+        filter: drop-shadow(0 0 4px rgba(0, 245, 212, 0.3));
+    }
+
+    50% {
+        opacity: 1;
+        filter: drop-shadow(0 0 8px rgba(0, 245, 212, 0.7));
+    }
+}
+
+.demo-banner-title {
+    font-size: 0.7rem;
+    font-weight: 700;
+    letter-spacing: 0.15em;
+    color: var(--primary);
+    text-transform: uppercase;
+    text-shadow: 0 0 12px rgba(0, 245, 212, 0.3);
+}
+
+/* KPI strip */
+.demo-banner-kpis {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    flex: 1;
+    justify-content: center;
+}
+
+.demo-banner-kpi {
+    display: flex;
+    align-items: baseline;
+    gap: 0.35rem;
+}
+
+.demo-banner-kpi-value {
+    font-size: 0.8rem;
+    font-weight: 700;
+    color: var(--text-primary);
+    font-variant-numeric: tabular-nums;
+    font-family: 'Inter', 'SF Mono', monospace;
+}
+
+.demo-banner-kpi-label {
+    font-size: 0.65rem;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    white-space: nowrap;
+}
+
+.demo-banner-kpi-divider {
+    width: 1px;
+    height: 14px;
+    background: var(--glass-border);
+    flex-shrink: 0;
+}
+
+/* Exit button */
+.demo-banner-exit {
+    display: flex;
+    align-items: center;
+    gap: 0.3rem;
+    background: transparent;
+    border: 1px solid var(--glass-border);
+    border-radius: 4px;
+    padding: 0.2rem 0.6rem;
+    color: var(--text-secondary);
+    font-size: 0.7rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    flex-shrink: 0;
+}
+
+.demo-banner-exit:hover {
+    background: hsla(var(--surface-hue), 10%, 50%, 0.1);
+    border-color: var(--danger);
+    color: var(--danger);
+}
+
+/* Responsive: hide KPI labels on small screens */
+@media (max-width: 900px) {
+    .demo-banner-kpi-label {
+        display: none;
+    }
+
+    .demo-banner-kpis {
+        gap: 0.5rem;
+    }
+}
+
+@media (max-width: 640px) {
+    .demo-banner-kpis {
+        display: none;
+    }
+}

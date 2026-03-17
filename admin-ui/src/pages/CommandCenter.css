@@ -1,0 +1,167 @@
+/* /services/admin-ui/src/pages/CommandCenter.css */
+
+.nexus-container {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: radial-gradient(circle at 50% 50%, #030c17 0%, #010408 100%);
+    overflow: hidden;
+    color: #fff;
+    font-family: 'Inter', sans-serif;
+    z-index: 9999;
+    /* Ensure it covers everything else if not unmounted properly */
+}
+
+/* Background 3D Canvas Layer */
+.nexus-bg-layer {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+}
+
+/* Overlay UI Layer */
+.nexus-ui-layer {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    z-index: 10;
+    pointer-events: none;
+    /* Let clicks pass through to 3D if needed, re-enable on specific panels */
+}
+
+.nexus-panel {
+    pointer-events: auto;
+    position: absolute;
+    background: rgba(4, 13, 23, 0.4);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border: 1px solid rgba(0, 255, 234, 0.1);
+    box-shadow: 0 0 30px rgba(0, 0, 0, 0.5), inset 0 0 20px rgba(0, 255, 234, 0.05);
+    border-radius: 16px;
+    overflow: hidden;
+}
+
+.nexus-header {
+    position: absolute;
+    top: 32px;
+    left: 48px;
+    pointer-events: auto;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+}
+
+.nexus-logo {
+    font-size: 24px;
+    font-weight: 800;
+    letter-spacing: 2px;
+    background: linear-gradient(90deg, #fff, #00ffea);
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.nexus-logo svg {
+    color: #00ffea;
+    -webkit-text-fill-color: initial;
+}
+
+/* Panel Placements */
+
+/* AI Brain Sandbox (Left) */
+.panel-brain {
+    top: 100px;
+    left: 48px;
+    width: 360px;
+    height: calc(100vh - 200px);
+}
+
+/* System Stats (Top Right) */
+.panel-stats {
+    top: 48px;
+    right: 48px;
+    width: 300px;
+    padding: 24px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    align-items: flex-end;
+}
+
+.stat-item {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+}
+
+.stat-label {
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    color: rgba(255, 255, 255, 0.5);
+    margin-bottom: 4px;
+}
+
+.stat-value {
+    font-size: 28px;
+    font-weight: 600;
+    color: #00ffea;
+    font-variant-numeric: tabular-nums;
+    text-shadow: 0 0 10px rgba(0, 255, 234, 0.3);
+}
+
+.stat-value.alert {
+    color: #ff3366;
+    text-shadow: 0 0 10px rgba(255, 51, 102, 0.3);
+}
+
+/* Spec Waterfall (Bottom) */
+.panel-spectrogram {
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 60vw;
+    height: 180px;
+    background: linear-gradient(to top, rgba(0, 255, 234, 0.1), transparent);
+    border: none;
+    border-top: 1px solid rgba(0, 255, 234, 0.2);
+    border-radius: 50% 50% 0 0 / 20px 20px 0 0;
+    box-shadow: 0 -10px 40px rgba(0, 255, 234, 0.05);
+}
+
+/* Utilities */
+.nexus-title {
+    padding: 16px 20px;
+    font-size: 12px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+    color: rgba(255, 255, 255, 0.7);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.nexus-content {
+    padding: 20px;
+    height: calc(100% - 49px);
+    overflow-y: auto;
+}
+
+.nexus-content::-webkit-scrollbar {
+    width: 4px;
+}
+
+.nexus-content::-webkit-scrollbar-thumb {
+    background: rgba(0, 255, 234, 0.2);
+    border-radius: 4px;
+}

@@ -1,0 +1,143 @@
+# ============================================================
+# Ingestion Engine — Full Configuration Reference
+# Copy this file to config/config.yaml and adjust values.
+# ============================================================
+
+# --- HTTP API Server (monitoring, health, config reload) ---
+http:
+  port: "8081"
+  trusted_sources: []          # IP allowlist for admin APIs, supports CIDR e.g. ["10.0.0.0/8", "172.16.0.5"]
+  cors_allowed_origins: []     # CORS origins for browser access
+
+# --- HEP Receiver ---
+hep:
+  port: "9060"
+  auth_token: "my-secret-token"
+
+# --- Redis ---
+redis:
+  addr: "127.0.0.1:6379"
+  password: ""
+  db: 0
+
+# --- ClickHouse ---
+clickhouse:
+  host: "127.0.0.1:9000"
+  database: "cxmi"
+  username: "default"
+  password: ""
+  max_open_conns: 10           # Max open connections
+  max_idle_conns: 5            # Max idle connections
+  batch_size: 1000             # Rows per batch insert
+  flush_interval_ms: 2000      # Flush interval for batch writers (ms)
+
+# --- SIP ---
+sip:
+  ip: "0.0.0.0"               # Bind address (unused in sniffer mode)
+  server_ip: "127.0.0.1"      # Default server IP
+  public_ip: "sip-ai.wcc.io"  # Public IP/hostname for SDP matching & direction detection
+
+
+# --- Sniffer ---
+sniffer:
+  hep_enabled: true              # 启动 HEP Server 接收外部 SIP/RTP
+  sip_pcap_enabled: false        # 用 gopacket 在本机网卡抓 SIP
+  rtp_pcap_enabled: true         # 用 gopacket 在本机网卡抓 RTP（false 时仅靠 InjectRTP）
+  interface: "eth0"              # 网卡（pcap 模式生效）
+  sip_ports: [5060]              # SIP 端口 (BPF filter, sip_pcap_enabled 时生效)
+  server_ips:                    # 本机 IP 列表（方向判定 + 流向识别）
+    - "192.168.1.100"            # 纯 IP — 通配所有端口
+    - "192.168.1.200:5060"       # IP:Port — 精确匹配 SIP proxy A
+    - "192.168.1.200:5080"       # IP:Port — 精确匹配 SIP proxy B（同 IP 不同服务）
+  auto_discover: true            # 自动枚举本机网卡 IP
+  rtp_timeout_seconds: 30        # RTP 静默超时 (秒)
+  jitter_buffer_ms: 60           # Jitter buffer 深度 (ms)
+  session_expires_margin: 1.5    # Session 过期安全系数
+  redis_batch_interval_seconds: 5
+
+# --- ASR (Automatic Speech Recognition) ---
+asr:
+  provider: "dashscope"        # "funasr" | "dashscope" | "openai" | "mock"
+
+  funasr:
+    url: "http://127.0.0.1:8000"
+    key: ""
+
+  dashscope:
+    url: "wss://dashscope.aliyuncs.com/api-ws/v1/inference"
+    key: "YOUR_DASHSCOPE_API_KEY_HERE"
+    model: "paraformer-realtime-v2"
+
+
+  openai:
+    key: ""
+
+  pool:
+    max_size: 100              # Global ASR pool max size
+
+  mock:
+    enabled: false
+
+# --- VAD (Voice Activity Detection) ---
+vad:
+  enabled: true
+  mode: "rms"                  # "rms" (default) | "silero" (ONNX deep VAD)
+  threshold: 200               # RMS energy threshold for speech detection
+  hangover_ms: 300             # Hold speech state for N ms after energy drops
+  silero_model: "models/silero_vad.onnx"  # Path to Silero VAD ONNX model
+  silero_threshold: 0.5        # Silero speech probability threshold
+
+# --- TextFilter (ASR Text Quality + Intent + Toxic) ---
+textfilter:
+  enabled: true
+  workers: 4                   # Worker goroutines for async analysis
+  channel_size: 256            # Buffered channel capacity (fail-open on full)
+  quality_threshold: 0.82      # Cosine sim above this → "low" quality
+  toxic_threshold: 0.7         # Toxic confidence above this → toxic=true
+  intent_threshold: 0.75       # Cosine sim above this → intent match
+  timeout_ms: 50               # Per-segment inference timeout (fail-open)
+  models_dir: "models/textfilter/"       # Directory containing ONNX models
+  filler_centroids: "models/textfilter/filler_centroids.json"
+  intent_centroids: "models/textfilter/intent_centroids.json"
+
+# --- SER (Speech Emotion Recognition) ---
+ser:
+  enabled: true                  # Global toggle
+  mode: "embedded"               # "embedded" | "remote"
+  embedded:
+    model_path: "./models/wav2vec2-ser.onnx"
+    num_threads: 2
+    window_seconds: 5.0
+  remote:
+    addr: "ser-service:50051"    # gRPC address
+    timeout_ms: 3000
+
+# --- Call Processing ---
+processing:
+  default_level: 1               # 0=Record Only, 1=+SER, 2=+ASR+SER
+
+# --- Monitoring ---
+monitoring:
+  fallback_to_redis: true      # Fallback to Redis if cache miss
+  default_ttl: 300             # Default TTL for monitoring flags (seconds)
+
+# --- SIPREC (Recording Session — RFC 7866) ---
+siprec:
+  enabled: false                 # 是否启用 SIPREC 原生 SIP TCP 接入
+  port: 5080                     # SIP TCP 监听端口
+  rtp_port_min: 30000            # RTP 端口池下限 (偶数)
+  rtp_port_max: 40000            # RTP 端口池上限
+  local_ip: ""                   # SDP Answer 中的本地 IP (空则自动检测)
+
+# --- Recording (PCI-DSS + Retention Policy) ---
+recording:
+  dtmf_suppression: true           # 自动擦除 PCAP 中的 DTMF 按键 (PCI-DSS)
+  retention:
+    enabled: true                  # 是否启用自动清理
+    max_age_days: 90               # 删除超过 N 天的 PCAP 录音
+    max_size_gb: 100               # 总大小超过 N GB 时按时间顺序清理
+    scan_interval_hours: 6         # 扫描间隔 (小时)
+
+# --- Storage ---
+storage:
+  pcap_path: "./recordings"    # Path to store generated PCAP files

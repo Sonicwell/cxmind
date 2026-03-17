@@ -1,0 +1,162 @@
+/* ============================================================
+   Dashboard – Operations Overview Widget
+   Prefix: .dw-ops-*  (dashboard-widget-operations)
+   ============================================================ */
+
+.dw-ops .widget-title {
+    display: flex;
+    align-items: center;
+}
+
+.dw-ops-live {
+    margin-left: auto;
+    font-size: 0.6rem;
+    color: var(--text-muted);
+    transition: color 0.3s;
+}
+
+.dw-ops-live.active {
+    color: var(--success);
+    animation: dw-ops-pulse 2s ease-in-out infinite;
+}
+
+@keyframes dw-ops-pulse {
+
+    0%,
+    100% {
+        opacity: 1;
+    }
+
+    50% {
+        opacity: 0.4;
+    }
+}
+
+/* ── KPI Row ── */
+
+.dw-ops-kpi-row {
+    display: flex;
+    gap: 8px;
+    margin-bottom: 12px;
+}
+
+.dw-ops-kpi {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 8px 10px;
+    background: rgba(0, 0, 0, 0.02);
+    border: 1px solid var(--glass-border);
+    border-radius: 8px;
+}
+
+.dw-ops-kpi-icon {
+    width: 32px;
+    height: 32px;
+    border-radius: 6px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+}
+
+.dw-ops-kpi-value {
+    font-size: 1.2rem;
+    font-weight: 700;
+    line-height: 1.2;
+    color: var(--text-primary);
+}
+
+.dw-ops-kpi-total {
+    font-size: 0.75rem;
+    font-weight: 500;
+    color: var(--text-muted);
+}
+
+.dw-ops-kpi-label {
+    font-size: 0.7rem;
+    color: var(--text-muted);
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+}
+
+/* ── Occupancy Bar ── */
+
+.dw-ops-occupancy {
+    margin-bottom: 12px;
+}
+
+.dw-ops-occupancy-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 4px;
+    font-size: 0.75rem;
+    color: var(--text-muted);
+    font-weight: 500;
+}
+
+.dw-ops-occupancy-pct {
+    font-weight: 700;
+    font-size: 0.85rem;
+}
+
+.dw-ops-bar-track {
+    height: 6px;
+    border-radius: 3px;
+    background: var(--glass-border);
+    overflow: hidden;
+}
+
+.dw-ops-bar-fill {
+    height: 100%;
+    border-radius: 3px;
+    transition: width 0.5s ease, background 0.3s;
+}
+
+/* ── Status Breakdown ── */
+
+.dw-ops-breakdown {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    flex: 1;
+    min-height: 0;
+}
+
+.dw-ops-status-row {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 4px 6px;
+    border-radius: 4px;
+    transition: background 0.15s;
+}
+
+.dw-ops-status-row:hover {
+    background: rgba(0, 0, 0, 0.02);
+}
+
+.dw-ops-dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    flex-shrink: 0;
+}
+
+.dw-ops-status-label {
+    flex: 1;
+    font-size: 0.78rem;
+    color: var(--text-secondary);
+    font-weight: 500;
+}
+
+.dw-ops-status-count {
+    font-size: 0.82rem;
+    font-weight: 600;
+    color: var(--text-primary);
+    min-width: 1.5rem;
+    text-align: right;
+}

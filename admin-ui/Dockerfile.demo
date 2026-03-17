@@ -1,0 +1,31 @@
+# Stage 1: Build the React Application
+FROM node:18-alpine AS builder
+
+WORKDIR /app
+
+# Install dependencies based on package-lock.json or package.json
+COPY package*.json ./
+RUN npm install --legacy-peer-deps
+
+# Copy all source files
+COPY . .
+
+# Build the project with the specific Demo environment flag
+ENV VITE_MOCK_MODE=true
+RUN echo "VITE_MOCK_MODE=true" > .env.local
+RUN echo "VITE_TURNSTILE_SITE_KEY=0x4AAAAAACj2e_1OC3fh1nny" >> .env.local
+RUN npm run build
+
+# Stage 2: Serve the application with Nginx
+FROM nginx:alpine
+
+# Copy the build output to replace the default nginx contents
+COPY --from=builder /app/dist /usr/share/nginx/html
+
+# Copy your custom nginx config if you have React Router (SPA routing)
+RUN rm /etc/nginx/conf.d/default.conf
+COPY nginx.demo.conf /etc/nginx/conf.d/default.conf
+
+EXPOSE 80
+
+CMD ["nginx", "-g", "daemon off;"]

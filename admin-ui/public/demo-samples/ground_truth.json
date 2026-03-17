@@ -1,0 +1,231 @@
+{
+  "standard_service": {
+    "title": "Standard Customer Service",
+    "description": "A routine order status inquiry with positive resolution",
+    "total_duration_ms": 26500,
+    "segments": [
+      {
+        "speaker": "agent",
+        "text": "Hello, thank you for calling CXMind support. How can I help you today?",
+        "emotion": "neutral",
+        "start_ms": 0,
+        "end_ms": 4000
+      },
+      {
+        "speaker": "customer",
+        "text": "Hi, I'd like to check the status of my order number 38572.",
+        "emotion": "neutral",
+        "start_ms": 4000,
+        "end_ms": 7500
+      },
+      {
+        "speaker": "agent",
+        "text": "Sure, let me look that up for you. One moment please.",
+        "emotion": "neutral",
+        "start_ms": 7500,
+        "end_ms": 10500
+      },
+      {
+        "speaker": "agent",
+        "text": "Great news! Your order has been shipped and should arrive by Friday.",
+        "emotion": "happy",
+        "start_ms": 12500,
+        "end_ms": 16500
+      },
+      {
+        "speaker": "customer",
+        "text": "That's wonderful, thank you so much!",
+        "emotion": "happy",
+        "start_ms": 16500,
+        "end_ms": 19000
+      },
+      {
+        "speaker": "agent",
+        "text": "You're welcome. Is there anything else I can help with?",
+        "emotion": "neutral",
+        "start_ms": 19000,
+        "end_ms": 22000
+      },
+      {
+        "speaker": "customer",
+        "text": "No, that's all. Goodbye.",
+        "emotion": "neutral",
+        "start_ms": 22000,
+        "end_ms": 24000
+      },
+      {
+        "speaker": "agent",
+        "text": "Thank you for calling, have a great day!",
+        "emotion": "neutral",
+        "start_ms": 24000,
+        "end_ms": 26500
+      }
+    ],
+    "expected_emotions": [
+      "neutral",
+      "neutral",
+      "neutral",
+      "happy",
+      "happy",
+      "neutral",
+      "neutral",
+      "neutral"
+    ],
+    "network": {
+      "jitter_ms": 5,
+      "loss_pct": 0.1,
+      "rtt_ms": 30
+    },
+    "full_transcript": "Hello, thank you for calling CXMind support. How can I help you today? Hi, I'd like to check the status of my order number 38572. Sure, let me look that up for you. One moment please. Great news! Your order has been shipped and should arrive by Friday. That's wonderful, thank you so much! You're welcome. Is there anything else I can help with? No, that's all. Goodbye. Thank you for calling, have a great day!"
+  },
+  "angry_complaint": {
+    "title": "Angry Customer Complaint",
+    "description": "A frustrated customer demanding a refund with escalation",
+    "total_duration_ms": 28000,
+    "segments": [
+      {
+        "speaker": "agent",
+        "text": "Thank you for calling, how may I assist you?",
+        "emotion": "neutral",
+        "start_ms": 0,
+        "end_ms": 3000
+      },
+      {
+        "speaker": "customer",
+        "text": "I've been waiting for my refund for THREE WEEKS! This is unacceptable!",
+        "emotion": "angry",
+        "start_ms": 3000,
+        "end_ms": 7000
+      },
+      {
+        "speaker": "agent",
+        "text": "I'm sorry to hear that. Let me check your account right away.",
+        "emotion": "neutral",
+        "start_ms": 7000,
+        "end_ms": 10000
+      },
+      {
+        "speaker": "customer",
+        "text": "Every time I call I get the same excuse. I want to speak to a manager NOW!",
+        "emotion": "angry",
+        "start_ms": 10000,
+        "end_ms": 14500
+      },
+      {
+        "speaker": "agent",
+        "text": "I understand your frustration. Let me escalate this immediately.",
+        "emotion": "fearful",
+        "start_ms": 14500,
+        "end_ms": 18000
+      },
+      {
+        "speaker": "customer",
+        "text": "You better fix this or I'm switching providers!",
+        "emotion": "angry",
+        "start_ms": 18000,
+        "end_ms": 21000
+      },
+      {
+        "speaker": "agent",
+        "text": "I've processed an expedited refund. You should see it within 24 hours.",
+        "emotion": "neutral",
+        "start_ms": 21000,
+        "end_ms": 25000
+      },
+      {
+        "speaker": "customer",
+        "text": "Oh, okay. That's actually great, thank you.",
+        "emotion": "surprised",
+        "start_ms": 25000,
+        "end_ms": 28000
+      }
+    ],
+    "expected_emotions": [
+      "neutral",
+      "angry",
+      "neutral",
+      "angry",
+      "fearful",
+      "angry",
+      "neutral",
+      "surprised"
+    ],
+    "network": {
+      "jitter_ms": 12,
+      "loss_pct": 0.5,
+      "rtt_ms": 45
+    },
+    "full_transcript": "Thank you for calling, how may I assist you? I've been waiting for my refund for THREE WEEKS! This is unacceptable! I'm sorry to hear that. Let me check your account right away. Every time I call I get the same excuse. I want to speak to a manager NOW! I understand your frustration. Let me escalate this immediately. You better fix this or I'm switching providers! I've processed an expedited refund. You should see it within 24 hours. Oh, okay. That's actually great, thank you."
+  },
+  "noisy_environment": {
+    "title": "Noisy Background Environment",
+    "description": "Technical support call with background noise — tests VAD filtering",
+    "total_duration_ms": 29500,
+    "segments": [
+      {
+        "speaker": "agent",
+        "text": "Hello, this is technical support. How can I help?",
+        "emotion": "neutral",
+        "start_ms": 0,
+        "end_ms": 3000
+      },
+      {
+        "speaker": "customer",
+        "text": "Hi, I'm having trouble with my internet connection.",
+        "emotion": "neutral",
+        "start_ms": 3000,
+        "end_ms": 6500
+      },
+      {
+        "speaker": "agent",
+        "text": "I can hear some background noise. Could you tell me more about the issue?",
+        "emotion": "neutral",
+        "start_ms": 6500,
+        "end_ms": 10500
+      },
+      {
+        "speaker": "customer",
+        "text": "It keeps dropping every few minutes. I work from home and it's really affecting my job.",
+        "emotion": "sad",
+        "start_ms": 10500,
+        "end_ms": 15500
+      },
+      {
+        "speaker": "agent",
+        "text": "I understand. Let me run a diagnostic on your line.",
+        "emotion": "neutral",
+        "start_ms": 15500,
+        "end_ms": 18500
+      },
+      {
+        "speaker": "agent",
+        "text": "I found the issue. There's a firmware update needed on your router. I can push it remotely.",
+        "emotion": "happy",
+        "start_ms": 21500,
+        "end_ms": 26500
+      },
+      {
+        "speaker": "customer",
+        "text": "Oh great, that would be really helpful!",
+        "emotion": "happy",
+        "start_ms": 26500,
+        "end_ms": 29500
+      }
+    ],
+    "expected_emotions": [
+      "neutral",
+      "neutral",
+      "neutral",
+      "sad",
+      "neutral",
+      "happy",
+      "happy"
+    ],
+    "network": {
+      "jitter_ms": 8,
+      "loss_pct": 0.3,
+      "rtt_ms": 35
+    },
+    "full_transcript": "Hello, this is technical support. How can I help? Hi, I'm having trouble with my internet connection. I can hear some background noise. Could you tell me more about the issue? It keeps dropping every few minutes. I work from home and it's really affecting my job. I understand. Let me run a diagnostic on your line. I found the issue. There's a firmware update needed on your router. I can push it remotely. Oh great, that would be really helpful!"
+  }
+}

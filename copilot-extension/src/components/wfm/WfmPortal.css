@@ -1,0 +1,123 @@
+.wfm-portal-container {
+    padding: 1rem;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    background-color: var(--bg-primary);
+}
+
+.wfm-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1rem;
+}
+
+.wfm-header h2 {
+    font-size: 1.125rem;
+    font-weight: 600;
+    margin: 0;
+    color: var(--text-primary);
+}
+
+.wfm-controls {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: var(--bg-secondary);
+    padding: 0.5rem;
+    border-radius: 0.5rem;
+    margin-bottom: 1rem;
+    border: 1px solid var(--border-color);
+}
+
+.wfm-current-week {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.875rem;
+    font-weight: 500;
+    color: var(--text-secondary);
+}
+
+.wfm-content {
+    flex: 1;
+    overflow-y: auto;
+}
+
+.wfm-shift-list {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.wfm-shift-card {
+    background-color: var(--bg-secondary);
+    border: 1px solid var(--border-color);
+    border-radius: 0.5rem;
+    padding: 1rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    transition: all 0.2s ease;
+}
+
+.wfm-shift-card:hover {
+    border-color: var(--brand-cyan, #00f0ff);
+    transform: translateY(-1px);
+}
+
+.shift-date {
+    font-weight: 500;
+    color: var(--text-primary);
+    font-size: 0.875rem;
+}
+
+.shift-time {
+    font-size: 0.75rem;
+    color: var(--text-secondary);
+}
+
+.shift-status {
+    font-size: 0.7rem;
+    text-transform: uppercase;
+    padding: 0.125rem 0.375rem;
+    border-radius: 1rem;
+    font-weight: 600;
+    background-color: var(--bg-tertiary);
+    color: var(--text-secondary);
+}
+
+.status-published .shift-status {
+    background-color: rgba(0, 240, 255, 0.1);
+    color: var(--brand-cyan, #00f0ff);
+}
+
+.status-leave .shift-status {
+    background-color: rgba(245, 158, 11, 0.1);
+    color: #f59e0b;
+}
+
+.wfm-empty-state {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    color: var(--text-secondary);
+    opacity: 0.7;
+    gap: 1rem;
+}
+
+.wfm-empty-state p {
+    font-size: 0.875rem;
+    margin: 0;
+}
+
+.wfm-loading {
+    display: flex;
+    justify-content: center;
+    padding: 2rem;
+    color: var(--text-secondary);
+    font-size: 0.875rem;
+}

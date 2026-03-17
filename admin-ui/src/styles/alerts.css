@@ -1,0 +1,373 @@
+.al-page {
+    padding: 2rem;
+    max-width: 1200px;
+    margin: 0 auto;
+    color: var(--text-primary);
+}
+
+.al-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 2rem;
+}
+
+.al-header h1 {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    font-size: 1.75rem;
+    font-weight: 600;
+    margin: 0;
+}
+
+.al-tabs {
+    display: flex;
+    gap: 1rem;
+    margin-bottom: 2rem;
+    border-bottom: 1px solid hsla(var(--primary-hue), 20%, 50%, 0.2);
+    padding-bottom: 1rem;
+}
+
+.al-tab {
+    background: transparent;
+    border: none;
+    color: var(--text-muted);
+    font-size: 1rem;
+    font-weight: 500;
+    cursor: pointer;
+    padding: 0.5rem 1rem;
+    border-radius: var(--radius-sm);
+    transition: all 0.2s;
+}
+
+.al-tab:hover {
+    background: hsla(var(--primary-hue), 20%, 50%, 0.1);
+    color: var(--text-primary);
+}
+
+.al-tab.active {
+    background: hsla(var(--primary-hue), 60%, 50%, 0.15);
+    color: var(--primary);
+}
+
+.al-form {
+    padding: 1.5rem;
+    margin-bottom: 2rem;
+    animation: slideDown 0.3s ease-out;
+    display: flex;
+    gap: 2rem;
+}
+
+.al-form-fields {
+    flex: 1;
+}
+
+.al-form-preview {
+    flex: 1;
+    background: hsla(0, 0%, 10%, 0.3);
+    border: 1px solid hsla(0, 0%, 50%, 0.2);
+    border-radius: var(--radius-md);
+    padding: 1.5rem;
+    display: flex;
+    flex-direction: column;
+}
+
+.al-field {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    margin-bottom: 1rem;
+}
+
+.al-field label {
+    font-size: 0.85rem;
+    font-weight: 500;
+    color: var(--text-secondary);
+}
+
+.al-field input {
+    background: hsla(0, 0%, 0%, 0.2);
+    border: 1px solid hsla(var(--primary-hue), 20%, 50%, 0.2);
+    padding: 0.6rem 0.8rem;
+    border-radius: var(--radius-sm);
+    color: var(--text-primary);
+    font-size: 0.95rem;
+    outline: none;
+    transition: border-color 0.2s;
+}
+
+.al-field input:focus,
+.al-field select:focus {
+    border-color: var(--primary);
+}
+
+.al-field select {
+    background: hsla(0, 0%, 0%, 0.2);
+    border: 1px solid hsla(var(--primary-hue), 20%, 50%, 0.2);
+    padding: 0.6rem 0.8rem;
+    border-radius: var(--radius-sm);
+    color: var(--text-primary);
+    font-size: 0.95rem;
+    outline: none;
+    transition: border-color 0.2s;
+    appearance: none;
+    background-image: url("data:image/svg+xml;charset=US-ASCII,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22292.4%22%20height%3D%22292.4%22%3E%3Cpath%20fill%3D%22%23ffffff%22%20d%3D%22M287%2069.4a17.6%2017.6%200%200%200-13-5.4H18.4c-5%200-9.3%201.8-12.9%205.4A17.6%2017.6%200%200%200%200%2082.2c0%205%201.8%209.3%205.4%2012.9l128%20127.9c3.6%203.6%207.8%205.4%2012.8%205.4s9.2-1.8%2012.8-5.4L287%2095c3.5-3.5%205.4-7.8%205.4-12.8%200-5-1.9-9.2-5.5-12.8z%22%2F%3E%3C%2Fsvg%3E");
+    background-repeat: no-repeat;
+    background-position: right 0.7rem top 50%;
+    background-size: 0.65rem auto;
+}
+
+.al-field select option {
+    background-color: #1e1e2d;
+    color: #ffffff;
+}
+
+/* al-btn/al-icon-btn removed: 统一使用 Button 组件 variant 体系 (btn/btn-primary/btn-ghost/btn-icon) */
+
+.al-form-actions {
+    display: flex;
+    gap: 1rem;
+    margin-top: 1.5rem;
+}
+
+/* List */
+.al-list {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.al-card {
+    padding: 1.5rem;
+    border-radius: var(--radius-md);
+    transition: all 0.2s;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+}
+
+.al-card.disabled {
+    opacity: 0.6;
+}
+
+.al-card:hover {
+    border-color: hsla(var(--primary-hue), 60%, 50%, 0.4);
+}
+
+.al-card-info {
+    flex: 1;
+}
+
+.al-card-name {
+    font-size: 1.1rem;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin-bottom: 0.5rem;
+}
+
+.al-card-url {
+    color: var(--text-secondary);
+    font-size: 0.9rem;
+    font-family: monospace;
+    word-break: break-all;
+    margin-bottom: 0.5rem;
+}
+
+.al-card-type {
+    display: inline-block;
+    padding: 0.2rem 0.5rem;
+    border-radius: 4px;
+    font-size: 0.75rem;
+    background: hsla(var(--primary-hue), 60%, 50%, 0.2);
+    color: var(--primary-light);
+    font-weight: 600;
+}
+
+.al-card-actions {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+
+
+
+/* Live Preview Cards */
+.lp-container {
+    margin-top: 1rem;
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.lp-dingtalk {
+    background: white;
+    border-radius: 8px;
+    padding: 16px;
+    width: 100%;
+    max-width: 320px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    color: #333;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+}
+
+.lp-dingtalk h4 {
+    color: #172b4d;
+    margin: 0 0 12px 0;
+    font-size: 16px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.lp-dingtalk p {
+    color: #5e6c84;
+    font-size: 13px;
+    margin: 4px 0;
+    line-height: 1.5;
+}
+
+.lp-dingtalk strong {
+    color: #172b4d;
+}
+
+.lp-feishu {
+    background: white;
+    border-radius: 8px;
+    width: 100%;
+    max-width: 350px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    font-family: "Helvetica Neue", Helvetica, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", Arial, sans-serif;
+}
+
+.lp-feishu-header {
+    background: #f54a45;
+    /* Red for alert */
+    padding: 12px 16px;
+    color: white;
+    font-weight: 500;
+    font-size: 16px;
+}
+
+.lp-feishu-body {
+    padding: 16px;
+    color: #1f2329;
+    font-size: 14px;
+}
+
+.lp-feishu-body p {
+    margin: 0 0 8px 0;
+}
+
+.lp-feishu-action {
+    display: inline-block;
+    padding: 6px 12px;
+    background: #e8eaf9;
+    color: #3370ff;
+    border-radius: 4px;
+    font-size: 14px;
+    margin-top: 12px;
+    text-align: center;
+    cursor: default;
+}
+
+/* --- Routing UI Custom Classes --- */
+.al-routing-card {
+    padding: 1.5rem;
+    border-radius: var(--radius-lg);
+    background: var(--glass-bg);
+    border: 1px solid var(--glass-border);
+    box-shadow: 0 8px 32px hsla(0, 0%, 0%, 0.05);
+}
+
+.al-pill-group {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    background: hsla(var(--surface-hue, 220), var(--surface-sat, 20%), 50%, 0.05);
+    padding: 0.4rem;
+    border-radius: var(--radius-md);
+    border: 1px solid var(--glass-border);
+}
+
+.al-pill {
+    padding: 0.5rem 0.8rem;
+    border-radius: 6px;
+    font-size: 0.8rem;
+    font-weight: 500;
+    cursor: pointer;
+    background: transparent;
+    border: none;
+    color: var(--text-secondary);
+    transition: all 0.2s;
+    flex: 1;
+    /* For severity filters */
+    min-width: max-content;
+}
+
+.al-pill:hover {
+    color: var(--text-primary);
+    background: hsla(var(--surface-hue, 220), var(--surface-sat, 20%), 50%, 0.1);
+}
+
+.al-pill.active {
+    background: var(--primary);
+    color: #ffffff;
+    font-weight: 600;
+    box-shadow: 0 4px 12px var(--primary-glow);
+}
+
+.al-channel-select-card {
+    padding: 0.8rem 1.2rem;
+    border-radius: var(--radius-md);
+    border: 2px solid var(--glass-border);
+    background: var(--glass-bg);
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    transition: all 0.2s;
+}
+
+.al-channel-select-card:hover {
+    border-color: hsla(var(--primary-hue), var(--primary-sat), 50%, 0.5);
+    background: hsla(var(--primary-hue), var(--primary-sat), 50%, 0.02);
+}
+
+.al-channel-select-card.selected {
+    border-color: var(--primary);
+    background: hsla(var(--primary-hue), var(--primary-sat), 50%, 0.08);
+    box-shadow: 0 4px 12px hsla(var(--primary-hue), var(--primary-sat), 50%, 0.15);
+}
+
+.al-channel-select-card-icon {
+    width: 18px;
+    height: 18px;
+    border-radius: 50%;
+    border: 2px solid hsla(var(--primary-hue), 20%, 50%, 0.5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s;
+}
+
+.al-channel-select-card.selected .al-channel-select-card-icon {
+    background: var(--primary);
+    border-color: var(--primary);
+}
+
+.al-setting-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 1.5rem;
+    background: hsla(var(--surface-hue, 220), var(--surface-sat, 20%), 50%, 0.05);
+    border-radius: var(--radius-md);
+    border: 1px solid var(--glass-border);
+    margin-top: 2rem;
+}

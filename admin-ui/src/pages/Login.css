@@ -1,0 +1,189 @@
+/* Login Page Specific Styles */
+
+.login-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    overflow: hidden;
+    background-color: var(--bg-light);
+    min-height: 100vh;
+    width: 100%;
+}
+
+.login-logo-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 2rem;
+}
+
+.login-form {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-lg);
+}
+
+.login-input-group {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-sm);
+}
+
+.login-label {
+    font-size: 0.875rem;
+    font-weight: 600;
+    color: var(--text-secondary);
+}
+
+.login-input-wrapper {
+    position: relative;
+    width: 100%;
+}
+
+.login-input {
+    width: 100%;
+    padding-left: 2.5rem;
+    /* Space for icon */
+    padding-right: 1rem;
+    padding-top: 0.5rem;
+    padding-bottom: 0.5rem;
+    border-radius: var(--radius-sm);
+    border: 1px solid var(--glass-border);
+    background-color: rgba(255, 255, 255, 0.5);
+    font-size: 1rem;
+    color: var(--text-primary);
+    transition: all var(--transition-fast);
+    outline: none;
+}
+
+.login-input:focus {
+    outline: none;
+    box-shadow: 0 0 0 2px hsla(var(--primary-hue), var(--primary-sat), var(--primary-light), 0.5);
+    background-color: rgba(255, 255, 255, 0.8);
+}
+
+.login-icon {
+    position: absolute;
+    left: 0.75rem;
+    top: 50%;
+    transform: translateY(-50%);
+    color: var(--text-muted);
+    pointer-events: none;
+}
+
+/* Checkbox Styles */
+.login-checkbox-wrapper {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.login-checkbox-container {
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+.login-checkbox {
+    /* Hide default checkbox but keep it accessible/functional */
+    appearance: none;
+    -webkit-appearance: none;
+    height: 1rem;
+    width: 1rem;
+    border: 1px solid #d1d5db;
+    /* slate-300 */
+    border-radius: 0.25rem;
+    background-color: white;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.login-checkbox:checked {
+    background-color: var(--primary);
+    border-color: var(--primary);
+}
+
+.login-checkbox-icon {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    pointer-events: none;
+    opacity: 0;
+    color: white;
+    transition: opacity 0.2s;
+}
+
+.login-checkbox:checked+.login-checkbox-icon {
+    opacity: 1;
+}
+
+.login-checkbox-label {
+    font-size: 0.875rem;
+    color: var(--text-secondary);
+    cursor: pointer;
+    user-select: none;
+}
+
+/* .text-gradient and .text-3xl are defined in index.css */
+
+/* ═══ Organic Blob Enhancement ═══ */
+.login-container .blob-bg {
+    filter: blur(80px) url(#organic-blob-filter);
+}
+
+/* Organic blob distortion keyframes (applied via SVG filter in HTML) */
+@keyframes blob-morph {
+
+    0%,
+    100% {
+        border-radius: 60% 40% 30% 70% / 60% 30% 70% 40%;
+    }
+
+    50% {
+        border-radius: 30% 60% 70% 40% / 50% 60% 30% 60%;
+    }
+}
+
+.login-container .blob-bg {
+    animation: float 20s infinite, blob-morph 12s ease-in-out infinite;
+}
+
+/* ── Language Selector Row (bottom of card) ── */
+.login-lang-row {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 0.25rem;
+    margin-top: 1.5rem;
+    padding-top: 1rem;
+    border-top: 1px solid var(--glass-border);
+}
+
+.login-lang-btn {
+    padding: 0.2rem 0.65rem;
+    font-size: 0.75rem;
+    font-weight: 500;
+    border-radius: 99px;
+    border: 1px solid transparent;
+    background: transparent;
+    color: var(--text-muted);
+    cursor: pointer;
+    transition: all 0.15s ease;
+    white-space: nowrap;
+}
+
+.login-lang-btn:hover {
+    color: var(--text-primary);
+    border-color: var(--glass-border);
+    background: rgba(255, 255, 255, 0.4);
+}
+
+.login-lang-btn.active {
+    color: var(--primary);
+    border-color: hsla(var(--primary-hue), var(--primary-sat), var(--primary-light), 0.4);
+    background: hsla(var(--primary-hue), var(--primary-sat), var(--primary-light), 0.08);
+    font-weight: 600;
+}

@@ -1,0 +1,200 @@
+/* AuditReports Page Styles */
+
+.audit-reports-page {
+    min-height: 100vh;
+    padding: 1.5rem;
+    color: var(--text-primary);
+}
+
+.audit-reports-header {
+    margin-bottom: 2rem;
+}
+
+.audit-reports-title-group {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+}
+
+.audit-reports-title-group h1 {
+    font-size: 1.875rem;
+    font-weight: 700;
+    margin: 0;
+}
+
+.audit-reports-title-group p {
+    color: var(--text-muted);
+    margin-top: 0.25rem;
+}
+
+/* Controls Card */
+.audit-reports-controls {
+    background: var(--bg-card);
+    border-radius: var(--radius-sm);
+    border: 1px solid var(--glass-border);
+    padding: 1.5rem;
+    margin-bottom: 2rem;
+}
+
+.audit-reports-controls-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1.5rem;
+    align-items: end;
+}
+
+.audit-reports-input-group {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.audit-reports-input-group label {
+    font-size: 0.875rem;
+    font-weight: 500;
+    color: var(--text-secondary);
+}
+
+.audit-reports-input-wrapper {
+    position: relative;
+}
+
+.audit-reports-input-wrapper .input-icon {
+    position: absolute;
+    left: 0.75rem;
+    top: 50%;
+    transform: translateY(-50%);
+    color: var(--text-muted);
+    pointer-events: none;
+}
+
+.audit-reports-input {
+    width: 100%;
+    background: var(--bg-card);
+    border: 1px solid var(--glass-border);
+    border-radius: var(--radius-sm);
+    padding: 0.5rem 1rem 0.5rem 2.5rem;
+    color: var(--text-primary);
+    font-size: 0.875rem;
+    outline: none;
+    height: 2.5rem;
+    transition: border-color var(--transition-fast);
+}
+
+.audit-reports-input:focus {
+    border-color: var(--primary);
+    box-shadow: 0 0 0 2px var(--primary-glow);
+}
+
+.audit-reports-generate-btn {
+    height: 2.5rem;
+    background: var(--primary);
+    color: white;
+    border: none;
+    border-radius: var(--radius-sm);
+    padding: 0 1.5rem;
+    font-size: 0.875rem;
+    font-weight: 500;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    transition: background-color var(--transition-fast);
+}
+
+.audit-reports-generate-btn:hover:not(:disabled) {
+    background: var(--primary-hover);
+}
+
+.audit-reports-generate-btn:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+/* Report Container */
+.audit-report-container {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+.audit-report-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: var(--bg-card);
+    padding: 1.5rem;
+    border-radius: var(--radius-sm);
+    border: 1px solid var(--glass-border);
+}
+
+.audit-report-header h2 {
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: var(--text-primary);
+    margin-bottom: 0.25rem;
+    margin-top: 0;
+}
+
+.audit-report-meta {
+    color: var(--text-muted);
+    margin: 0;
+    font-size: 0.875rem;
+}
+
+.audit-report-meta-small {
+    color: var(--text-muted);
+    margin: 0;
+    font-size: 0.75rem;
+    margin-top: 0.25rem;
+}
+
+.audit-report-download-btn {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.5rem 1rem;
+    background: var(--bg-card);
+    color: var(--text-secondary);
+    border: 1px solid var(--glass-border);
+    border-radius: var(--radius-sm);
+    cursor: pointer;
+    font-size: 0.875rem;
+    transition: all var(--transition-fast);
+}
+
+.audit-report-download-btn:hover {
+    background: hsla(var(--surface-hue), var(--surface-sat), 50%, 0.05);
+}
+
+/* Stats Grid */
+.audit-report-stats-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1rem;
+}
+
+.audit-report-stat-card {
+    background: var(--bg-card);
+    padding: 1rem;
+    border-radius: var(--radius-sm);
+    border: 1px solid var(--glass-border);
+}
+
+.audit-report-stat-label {
+    color: var(--text-muted);
+    font-size: 0.875rem;
+    margin-bottom: 0.25rem;
+}
+
+.audit-report-stat-value {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--text-primary);
+    margin: 0;
+}
+
+.audit-report-stat-value--accent {
+    color: var(--primary);
+}

@@ -1,0 +1,183 @@
+/* ── Zone Quality Card (3D overlay) ── */
+
+.zone-quality-card {
+    width: 180px;
+    background: rgba(5, 7, 10, 0.85);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 8px;
+    padding: 8px 10px;
+    color: #e2e8f0;
+    font-family: 'Inter', 'Segoe UI', sans-serif;
+    pointer-events: none;
+    user-select: none;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+    transition: opacity 0.3s ease;
+}
+
+.zone-quality-card .zqc-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 6px;
+}
+
+.zone-quality-card .zqc-title {
+    font-size: 0.6rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    opacity: 0.7;
+}
+
+.zone-quality-card .zqc-inspections {
+    font-size: 0.55rem;
+    opacity: 0.5;
+}
+
+/* ── Score Ring ── */
+.zone-quality-card .zqc-score-row {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 6px;
+}
+
+.zone-quality-card .zqc-ring {
+    position: relative;
+    width: 44px;
+    height: 44px;
+    flex-shrink: 0;
+}
+
+.zone-quality-card .zqc-ring svg {
+    width: 44px;
+    height: 44px;
+    transform: rotate(-90deg);
+}
+
+.zone-quality-card .zqc-ring-bg {
+    fill: none;
+    stroke: rgba(255, 255, 255, 0.06);
+    stroke-width: 4;
+}
+
+.zone-quality-card .zqc-ring-progress {
+    fill: none;
+    stroke-width: 4;
+    stroke-linecap: round;
+    transition: stroke-dashoffset 0.8s ease, stroke 0.3s ease;
+}
+
+.zone-quality-card .zqc-ring-label {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.zone-quality-card .zqc-ring-score {
+    font-size: 0.9rem;
+    font-weight: 700;
+    line-height: 1;
+}
+
+.zone-quality-card .zqc-ring-unit {
+    font-size: 0.4rem;
+    opacity: 0.5;
+    margin-top: 1px;
+}
+
+/* ── Score Info ── */
+.zone-quality-card .zqc-score-info {
+    flex: 1;
+    min-width: 0;
+}
+
+.zone-quality-card .zqc-trend {
+    display: flex;
+    align-items: center;
+    gap: 3px;
+    font-size: 0.6rem;
+    font-weight: 600;
+    margin-bottom: 3px;
+}
+
+.zone-quality-card .zqc-trend.up {
+    color: #22c55e;
+}
+
+.zone-quality-card .zqc-trend.down {
+    color: #ef4444;
+}
+
+.zone-quality-card .zqc-trend.stable {
+    color: #94a3b8;
+}
+
+.zone-quality-card .zqc-trend-arrow {
+    font-size: 0.7rem;
+    line-height: 1;
+}
+
+.zone-quality-card .zqc-top-agent {
+    font-size: 0.55rem;
+    color: #94a3b8;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.zone-quality-card .zqc-top-agent span {
+    font-weight: 600;
+    color: #cbd5e1;
+}
+
+/* ── Distribution Bar ── */
+.zone-quality-card .zqc-dist {
+    display: flex;
+    height: 4px;
+    border-radius: 2px;
+    overflow: hidden;
+    background: rgba(255, 255, 255, 0.04);
+}
+
+.zone-quality-card .zqc-dist-excellent {
+    background: #22c55e;
+    transition: width 0.5s ease;
+}
+
+.zone-quality-card .zqc-dist-good {
+    background: #eab308;
+    transition: width 0.5s ease;
+}
+
+.zone-quality-card .zqc-dist-poor {
+    background: #ef4444;
+    transition: width 0.5s ease;
+}
+
+/* ── Distribution Legend ── */
+.zone-quality-card .zqc-legend {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 3px;
+    font-size: 0.5rem;
+    color: #64748b;
+}
+
+.zone-quality-card .zqc-legend-item {
+    display: flex;
+    align-items: center;
+    gap: 2px;
+}
+
+.zone-quality-card .zqc-legend-dot {
+    width: 5px;
+    height: 5px;
+    border-radius: 50%;
+    flex-shrink: 0;
+}

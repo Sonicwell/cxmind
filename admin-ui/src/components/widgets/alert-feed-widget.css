@@ -1,0 +1,118 @@
+/* ============================================================
+   Dashboard – Platform Alerts Widget
+   Prefix: .dw-alerts-*  (dashboard-widget-alerts)
+   ============================================================ */
+
+.dw-alerts .widget-title {
+    display: flex;
+    align-items: center;
+}
+
+.dw-alerts-badge {
+    margin-left: auto;
+    background: var(--danger);
+    color: #fff;
+    font-size: 0.65rem;
+    font-weight: 700;
+    padding: 1px 7px;
+    border-radius: 10px;
+    line-height: 1.4;
+    animation: dw-alerts-pulse 1.5s ease-in-out infinite;
+}
+
+@keyframes dw-alerts-pulse {
+
+    0%,
+    100% {
+        opacity: 1;
+    }
+
+    50% {
+        opacity: 0.6;
+    }
+}
+
+/* ── Alert List ── */
+
+.dw-alerts-list {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    flex: 1;
+    min-height: 0;
+    overflow-y: auto;
+}
+
+.dw-alerts-empty {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    height: 100%;
+    color: var(--text-muted);
+    font-size: 0.82rem;
+    font-weight: 500;
+}
+
+/* ── Alert Row ── */
+
+.dw-alerts-row {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 8px 10px;
+    border-radius: 6px;
+    border-left: 3px solid transparent;
+    transition: background 0.15s;
+}
+
+.dw-alerts-row:hover {
+    background: rgba(0, 0, 0, 0.02);
+}
+
+.dw-alerts-warning {
+    border-left-color: var(--warning);
+    background: hsla(35, 90%, 60%, 0.04);
+}
+
+.dw-alerts-critical {
+    border-left-color: var(--danger);
+    background: hsla(0, 75%, 55%, 0.04);
+}
+
+.dw-alerts-icon {
+    width: 24px;
+    height: 24px;
+    border-radius: 6px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+}
+
+.dw-alerts-warning .dw-alerts-icon {
+    background: hsla(35, 90%, 60%, 0.12);
+    color: var(--warning);
+}
+
+.dw-alerts-critical .dw-alerts-icon {
+    background: hsla(0, 75%, 55%, 0.12);
+    color: var(--danger);
+}
+
+.dw-alerts-msg {
+    flex: 1;
+    font-size: 0.78rem;
+    font-weight: 500;
+    color: var(--text-primary);
+    line-height: 1.3;
+}
+
+.dw-alerts-time {
+    font-size: 0.7rem;
+    color: var(--text-muted);
+    font-weight: 500;
+    font-variant-numeric: tabular-nums;
+    flex-shrink: 0;
+}
