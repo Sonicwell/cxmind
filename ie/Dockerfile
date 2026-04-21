@@ -1,17 +1,19 @@
 # Multi-stage build for Go service
-# Use Debian-based Go image to match the Debian runtime stage (both use glibc)
+# Build context: PROJECT ROOT
+#   docker build -f services/ingestion-go/Dockerfile -t cxmind/ie:test .
 FROM golang:1.24-bookworm AS builder
 
 WORKDIR /app
 
-# Copy only go.mod initially
-COPY go.mod ./
-
-# Force regenerate go.sum and download
-RUN go mod tidy && go mod download
+# Copy go.mod/go.sum for dependency caching
+COPY services/ingestion-go/go.mod services/ingestion-go/go.sum* ./services/ingestion-go/
+COPY tools/pcap-simulator/ ./tools/pcap-simulator/
+WORKDIR /app/services/ingestion-go
+RUN go mod download
 
 # Install CGO dependencies (libpcap + opus for full SILK+CELT Opus decoding)
-RUN apt-get update && apt-get install -y --no-install-recommends \
+RUN sed -i 's/deb.debian.org/mirrors.tuna.tsinghua.edu.cn/g' /etc/apt/sources.list.d/debian.sources || sed -i 's/deb.debian.org/mirrors.tuna.tsinghua.edu.cn/g' /etc/apt/sources.list && \
+    apt-get update && apt-get install -y --no-install-recommends \
     build-essential libpcap-dev libopus-dev libopusfile-dev pkg-config cmake git && \
     rm -rf /var/lib/apt/lists/*
 
@@ -23,20 +25,19 @@ RUN git clone --depth 1 https://github.com/BelledonneCommunications/bcg729.git /
     cmake --install build && \
     rm -rf /tmp/bcg729
 
-# Copy source code
-COPY . .
+# Copy full source
+WORKDIR /app
+COPY services/ingestion-go/ ./services/ingestion-go/
+COPY tools/pcap-simulator/ ./tools/pcap-simulator/
 
-# Run tidy again to ensure consistent state
-RUN go mod tidy
-# Build binary
-# Note: CGO_LDFLAGS includes -lbcg729 because pidato/audio/g729 only has
-# #cgo directives for linux/amd64, not linux/arm64.
-RUN CGO_ENABLED=1 CGO_LDFLAGS="-lbcg729" go build -ldflags="-X github.com/cxmind/ingestion-go/internal/config.BuildMode=production" -o main .
+WORKDIR /app/services/ingestion-go
+RUN CGO_ENABLED=1 CGO_LDFLAGS="-lbcg729" go build -ldflags="-s -w -X github.com/cxmind/ingestion-go/internal/config.BuildMode=production" -o main .
 
 # Final stage - Debian slim for native glibc (required by ONNX Runtime)
 FROM debian:bookworm-slim
 
-RUN apt-get update && apt-get install -y --no-install-recommends \
+RUN sed -i 's/deb.debian.org/mirrors.tuna.tsinghua.edu.cn/g' /etc/apt/sources.list.d/debian.sources || sed -i 's/deb.debian.org/mirrors.tuna.tsinghua.edu.cn/g' /etc/apt/sources.list && \
+    apt-get update && apt-get install -y --no-install-recommends \
     ca-certificates libpcap0.8 libopus0 libopusfile0 curl && \
     rm -rf /var/lib/apt/lists/*
 
@@ -57,12 +58,12 @@ RUN ARCH=$(dpkg --print-architecture) && \
     rm -rf /tmp/ort.tgz /tmp/onnxruntime-*
 
 # Copy binary from builder
-COPY --from=builder /app/main .
+COPY --from=builder /app/services/ingestion-go/main .
 # Copy bcg729 shared library from builder
 COPY --from=builder /usr/lib/libbcg729.so* /usr/lib/
 
 # Copy config template
-COPY config.yaml.example config.yaml
+COPY services/ingestion-go/config.yaml.example config.yaml
 
 ENV SER_MODELS_DIR=/root/models
 

@@ -22,8 +22,8 @@ redis:
 
 # --- ClickHouse ---
 clickhouse:
-  host: "127.0.0.1:9000"
-  database: "cxmi"
+  host: "localhost:9000"
+  database: "cxmind"
   username: "default"
   password: ""
   max_open_conns: 10           # Max open connections
@@ -140,4 +140,4 @@ recording:
 
 # --- Storage ---
 storage:
-  pcap_path: "./recordings"    # Path to store generated PCAP files
+  pcap_path: "/data/cxmind/recordings"    # 统一路径, AIO/Docker 通过挂载映射到宿主机同路径

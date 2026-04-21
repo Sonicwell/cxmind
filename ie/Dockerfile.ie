@@ -3,28 +3,36 @@ FROM golang:1.24 AS builder
 
 WORKDIR /app
 
+# CN mirror for Go modules (CI server in China cannot reach proxy.golang.org)
+ENV GOPROXY=https://goproxy.cn,direct
+
 # Install pcaps dev headers needed for CGO compilation
-RUN apt-get update && apt-get install -y libpcap-dev
+RUN apt-get update && apt-get install -y libpcap-dev libopus-dev libopusfile-dev pkg-config
 
-# Install garble
-RUN go install mvdan.cc/garble@latest
+# Copy go.mod/go.sum + local replace dependencies first (for layer caching)
+COPY services/ingestion-go/go.mod services/ingestion-go/go.sum ./services/ingestion-go/
+COPY tools/pcap-simulator/go.mod tools/pcap-simulator/go.sum ./tools/pcap-simulator/
 
-COPY go.mod go.sum ./
+WORKDIR /app/services/ingestion-go
 RUN go mod download
 
-COPY . .
+# Copy full source
+WORKDIR /app
+COPY services/ingestion-go/ ./services/ingestion-go/
+COPY tools/pcap-simulator/ ./tools/pcap-simulator/
 
-# Build with garble and pro tags as indicated in release specs
-RUN CGO_ENABLED=1 /go/bin/garble build -tags pro -ldflags="-s -w -X github.com/cxmind/ingestion-go/internal/config.BuildMode=production" -o cxmind-ie ./...
+# Build IE binary (open source, no obfuscation needed)
+WORKDIR /app/services/ingestion-go
+RUN CGO_ENABLED=1 go build -ldflags="-s -w -X github.com/cxmind/ingestion-go/internal/config.BuildMode=production" -o cxmind-ie .
 
 # Production stage
 FROM debian:bookworm-slim
 
 # Install runtime networking library
-RUN apt-get update && apt-get install -y libpcap0.8 && rm -rf /var/lib/apt/lists/*
+RUN apt-get update && apt-get install -y libpcap0.8 libopus0 libopusfile0 && rm -rf /var/lib/apt/lists/*
 
 WORKDIR /app
-COPY --from=builder /app/cxmind-ie .
+COPY --from=builder /app/services/ingestion-go/cxmind-ie .
 
 EXPOSE 8080
 CMD ["./cxmind-ie"]
