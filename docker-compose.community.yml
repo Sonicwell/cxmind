@@ -101,9 +101,7 @@ services:
     restart: unless-stopped
 
   cxai:
-    build:
-      context: ./services/cxai
-      dockerfile: Dockerfile.cxai
+    image: cxmind/cxai:latest
     container_name: cxmind-community-cxai
     ports:
       - "8000:8000"
