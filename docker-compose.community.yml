@@ -1,50 +1,5 @@
-version: '3.8'
-
 services:
-  ie:
-    build: ./ie
-    container_name: cxmind-community-ie
-    ports:
-      - "8080:8080"
-      - "5060:5060/udp"
-    environment:
-      - CLICKHOUSE_DSN=clickhouse://default:@clickhouse:9000/cxmi
-      - REDIS_ADDR=redis:6379
-      - API_URL=http://app-server:3000
-    depends_on:
-      - clickhouse
-      - redis
-      - app-server
-
-  admin-ui:
-    build: ./admin-ui
-    container_name: cxmind-community-admin-ui
-    ports:
-      - "5173:80"
-    depends_on:
-      - app-server
-
-  app-server:
-    image: cxmind/app-server:community
-    container_name: cxmind-community-app-server
-    ports:
-      - "3000:3000"
-    environment:
-      - MONGODB_URI=mongodb://mongo:27017/cxmi
-      - REDIS_HOST=redis
-      - REDIS_PORT=6379
-      - CLICKHOUSE_HOST=http://clickhouse:8123
-      - CLICKHOUSE_DB=cxmi
-      - CLICKHOUSE_USER=default
-      - CLICKHOUSE_PASSWORD=
-      - FRONTEND_URL=http://localhost:5173
-      - JWT_SECRET=community-secret-change-me
-      - NODE_ENV=production
-    depends_on:
-      - mongo
-      - redis
-      - clickhouse
-
+  # Infrastructure
   mongo:
     image: mongo:7
     container_name: cxmind-community-mongo
@@ -52,26 +7,122 @@ services:
       - "27017:27017"
     volumes:
       - cxmind-mongo-data:/data/db
-      - ./mongo-init.js:/docker-entrypoint-initdb.d/mongo-init.js:ro
+    restart: unless-stopped
 
   redis:
     image: redis:7-alpine
     container_name: cxmind-community-redis
     ports:
       - "6379:6379"
+    command: redis-server --appendonly yes
+    volumes:
+      - cxmind-redis-data:/data
+    restart: unless-stopped
 
   clickhouse:
-    image: clickhouse/clickhouse-server:24.12.6.70
+    image: clickhouse/clickhouse-server:24.12.6.70-alpine
     container_name: cxmind-community-clickhouse
     environment:
-      - CLICKHOUSE_DEFAULT_ACCESS_MANAGEMENT=1
+      CLICKHOUSE_DB: cxmind
+      CLICKHOUSE_USER: default
+      CLICKHOUSE_PASSWORD: password123
     ports:
       - "8123:8123"
       - "9000:9000"
     volumes:
       - cxmind-clickhouse-data:/var/lib/clickhouse
-      - ./clickhouse-init.sql:/docker-entrypoint-initdb.d/clickhouse-init.sql:ro
+      - ./deploy/clickhouse/init.sql:/docker-entrypoint-initdb.d/init.sql
+    restart: unless-stopped
+
+  qdrant:
+    image: qdrant/qdrant:v1.16.1
+    container_name: cxmind-community-qdrant
+    ports:
+      - "6333:6333"
+      - "6334:6334"
+    volumes:
+      - cxmind-qdrant-data:/qdrant/storage
+    restart: unless-stopped
+
+  # Application Services
+  ie:
+    build:
+      context: .
+      dockerfile: ie/Dockerfile.ie
+    container_name: cxmind-community-ie
+    ports:
+      - "9060:9060/udp"
+      - "9060:9060/tcp"
+      - "8081:8081"
+    environment:
+      - REDIS_ADDR=redis:6379
+      - CLICKHOUSE_HOST=clickhouse:9000
+    depends_on:
+      - clickhouse
+      - redis
+    restart: unless-stopped
+
+  app-server:
+    image: cxmind/app-server:latest
+    container_name: cxmind-community-app-server
+    ports:
+      - "3000:3000"
+    environment:
+      - NODE_ENV=production
+      - PORT=3000
+      - CORS_ORIGIN=*
+      - QDRANT_URL=http://qdrant:6333
+      - GO_SERVICE_URL=http://ie:8081
+      - SER_ENDPOINT=http://cxai:8000/api/v1/analyze/emotion/offline
+      # --- First-Run Bootstrap (仅首次启动, 自动创建管理员) ---
+      # 交互式部署无需设置 (浏览器首访时通过 Setup Wizard 创建)
+      # - CXMIND_ADMIN_EMAIL=admin@yourcompany.com
+      # - CXMIND_ADMIN_PASSWORD=YourSecurePassword123
+    volumes:
+      - /etc/cxmind:/etc/cxmind:ro
+    depends_on:
+      - mongo
+      - redis
+      - clickhouse
+      - qdrant
+    restart: unless-stopped
+
+  admin-ui:
+    build:
+      context: ./admin-ui
+      dockerfile: Dockerfile.au
+    container_name: cxmind-community-admin-ui
+    ports:
+      - "5173:80"
+    environment:
+      - API_BACKEND=http://app-server:3000
+    depends_on:
+      - app-server
+    restart: unless-stopped
+
+  cxai:
+    build:
+      context: ./services/cxai
+      dockerfile: Dockerfile.cxai
+    container_name: cxmind-community-cxai
+    ports:
+      - "8000:8000"
+    environment:
+      - REDIS_HOST=redis
+      - REDIS_PORT=6379
+      - SER_LOG_LEVEL=INFO
+      - QDRANT_URL=http://qdrant:6333
+    volumes:
+      - /etc/cxmind:/etc/cxmind:ro
+      - cxmind-hf-cache:/root/.cache/huggingface
+    depends_on:
+      - redis
+      - qdrant
+    restart: unless-stopped
 
 volumes:
   cxmind-mongo-data:
+  cxmind-redis-data:
   cxmind-clickhouse-data:
+  cxmind-qdrant-data:
+  cxmind-hf-cache:

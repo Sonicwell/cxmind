@@ -1,0 +1,29 @@
+# /etc/cxmind/common.yaml — 共享数据库凭据
+# 所有 CXMind 服务（IE, AS, SER）从此文件读取数据库连接信息
+# 复制到 config/common.yaml (本地开发) 或 /etc/cxmind/common.yaml (生产) 后修改密码
+
+# --- Redis ---
+redis:
+  host: "127.0.0.1"
+  port: 6379
+  password: "<your-redis-password>"
+  db: 0
+
+# --- ClickHouse ---
+clickhouse:
+  host: "127.0.0.1"
+  native_port: 9000     # IE 使用 (Go native protocol)
+  http_port: 8123       # AS 使用 (HTTP protocol)
+  database: "cxmind"
+  username: "default"
+  password: "<your-clickhouse-password>"
+
+# --- MongoDB (AS 使用) ---
+mongodb:
+  uri: "mongodb://admin:<your-mongo-password>@127.0.0.1:27017/cxmind?authSource=admin"
+
+# --- Qdrant (AS 使用) ---
+qdrant:
+  url: "http://127.0.0.1:6333"
+  collection: "cxmind_knowledge"
+
