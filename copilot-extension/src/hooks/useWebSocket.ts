@@ -276,9 +276,22 @@ export function useWebSocket() {
                     // 内部 P2P/Group 聊天消息
                     const msg = message.data;
                     const msgKey = msg._id || `${msg.createdAt}-${msg.sender?.id}-${msg.content?.text}`;
-                    if (seenMsgIdsRef.current.has(msgKey)) break;
-                    seenMsgIdsRef.current.add(msgKey);
+                    
                     setState((s) => {
+                        // 替换逻辑: 若该消息是刚才乐观出去弹回来的 Echo，在原位做等价替换
+                        if (msg.tempId) {
+                            const idx = s.chatMessages.findIndex(m => m.tempId === msg.tempId)
+                            if (idx !== -1) {
+                                seenMsgIdsRef.current.add(msgKey);
+                                const updated = [...s.chatMessages]
+                                updated[idx] = msg; // 挂载真实的 Mongo ID
+                                return { ...s, chatMessages: updated }
+                            }
+                        }
+                        
+                        if (seenMsgIdsRef.current.has(msgKey)) return s;
+                        seenMsgIdsRef.current.add(msgKey);
+
                         const updated = [...s.chatMessages, msg];
                         return { ...s, chatMessages: updated.length > 200 ? updated.slice(-200) : updated };
                     });
@@ -541,10 +554,18 @@ export function useWebSocket() {
         }, 3000)
     }, [])
 
+    const addOptimisticChatMessage = useCallback((msg: any) => {
+        setState((s) => ({
+            ...s,
+            chatMessages: [...s.chatMessages, msg]
+        }))
+    }, [])
+
     return {
         ...state,
         clearCall,
         dismissSummary,
-        triggerMockSummary
+        triggerMockSummary,
+        addOptimisticChatMessage
     }
 }

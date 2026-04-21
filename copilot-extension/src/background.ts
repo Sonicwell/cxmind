@@ -222,8 +222,10 @@ function connectWebSocket() {
     // =============================
 
     // SEC-CP-V6-1: 使用 URL 对象安全替换协议 (避免简单字符串替换误匹配)
+    // AIO 部署: Nginx location /ws 代理到 AS, 根路径会被 try_files 拦截返回 index.html
     const u = new URL(apiConfig.apiUrl)
     u.protocol = u.protocol === 'https:' ? 'wss:' : 'ws:'
+    u.pathname = '/ws'
     const wsUrl = u.toString()
 
     try {

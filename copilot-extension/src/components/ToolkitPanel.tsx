@@ -29,6 +29,9 @@ export interface WrapupItem {
     summary?: string
     summaryData?: import('~/hooks/useWebSocket').CallSummary | null
     summaryLoading?: boolean
+    summarySkipped?: boolean
+    summaryTimedOut?: boolean
+    summaryNotEnabled?: boolean
     aiOutcome?: string       // AI 预测 outcome (omni:outcome)
     agentOutcome?: string    // 坐席手动选的 outcome
     status: 'pending' | 'completed'
@@ -328,6 +331,9 @@ function WrapupTab({ queue, onComplete, postCallData }: { queue: WrapupItem[]; o
                             callInfo={null}
                             summary={item.summaryData || null}
                             loading={item.summaryLoading ?? !item.summaryData}
+                            summarySkipped={item.summarySkipped}
+                            timedOut={item.summaryTimedOut}
+                            summaryNotEnabled={item.summaryNotEnabled}
                             onDismiss={() => onComplete(item.id)}
                             onWrapupComplete={() => onComplete(item.id)}
                         />
@@ -751,6 +757,7 @@ function MessagesTab({ groupMessages, groupIds, groupNames, groupUnreadMap, onGr
                                             onKeyDown={e => { if (e.key === 'Enter') handleEdit(msg._id); if (e.key === 'Escape') setEditingMsgId(null) }}
                                             className="toolkit-search-input"
                                             style={{ fontSize: '0.68rem', padding: '3px 6px' }}
+                                            maxLength={5000}
                                             autoFocus
                                         />
                                         <button onClick={() => handleEdit(msg._id)} className="toolkit-search-btn" style={{ fontSize: '0.6rem', padding: '3px 8px' }}>✓</button>
@@ -763,6 +770,7 @@ function MessagesTab({ groupMessages, groupIds, groupNames, groupUnreadMap, onGr
                                         padding: '4px 8px',
                                         maxWidth: '85%',
                                         position: 'relative',
+                                        wordBreak: 'break-word',
                                     }}>
                                         {!isMine && (
                                             <span style={{ fontWeight: 600, marginRight: 4, fontSize: '0.65rem', color: 'var(--text-muted)' }}>
@@ -826,6 +834,7 @@ function MessagesTab({ groupMessages, groupIds, groupNames, groupUnreadMap, onGr
                         onKeyDown={e => { if (e.key === 'Enter') handleSend() }}
                         placeholder={t('toolkit.messageTeam', 'Message team...')}
                         className="toolkit-search-input"
+                        maxLength={5000}
                     />
                     <button
                         onClick={handleSend}

@@ -22,7 +22,7 @@ interface ChatPanelProps {
 }
 
 export function ChatPanel({ groupChatUnread = 0, onGroupChatSeen, chatBadge = 'none', queueCount = 0, initialView, onInitialViewConsumed, omniComplianceItems = [], omniCompletedComplianceItems = [], omniComplianceConvId = null }: ChatPanelProps) {
-    const { chatMessages } = useWebSocket();
+    const { chatMessages, addOptimisticChatMessage } = useWebSocket();
     const { agentInfo } = useAuth();
     const { isModuleEnabled } = useModules();
     const [activeChannelId, setActiveChannelId] = useState<string | null>(null);
@@ -111,9 +111,25 @@ export function ChatPanel({ groupChatUnread = 0, onGroupChatSeen, chatBadge = 'n
         if (!activeChannelId) return;
         const recipientType = activeChannelId.startsWith('p2p') ? 'user' : 'group';
         const recipientId = activeChannelId.split(':')[1];
+        
+        const tempId = `opt-${Date.now()}-${Math.random().toString(36).substring(2, 6)}`;
+        addOptimisticChatMessage({
+            _id: tempId,
+            tempId: tempId,
+            channelId: activeChannelId,
+            sender: { 
+                id: agentInfo?.agentId || agentInfo?.userId || 'me', 
+                name: agentInfo?.displayName || agentInfo?.name || 'Me', 
+                role: agentInfo?.role || 'agent'
+            },
+            content: { text },
+            createdAt: new Date().toISOString(),
+            type: 'internal'
+        });
+
         chrome.runtime.sendMessage({
             type: 'chat:send',
-            data: { recipientType, recipientId, content: { text }, messageType: 'internal' }
+            data: { tempId, recipientType, recipientId, content: { text }, messageType: 'internal' }
         });
     };
 

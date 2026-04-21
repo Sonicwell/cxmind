@@ -81,6 +81,7 @@ export interface AISuggestion {
 
 export interface ChatMessage {
     _id: string;
+    tempId?: string;
     type: 'internal' | 'system' | 'omni';
     channelId: string;
     sender: {

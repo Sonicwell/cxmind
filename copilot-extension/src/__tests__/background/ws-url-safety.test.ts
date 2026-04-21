@@ -25,4 +25,8 @@ describe('SEC-CP-V6-1: WS URL 安全构造', () => {
         // 应出现 new URL 或 .protocol 赋值
         expect(fnBlock).toMatch(/new URL|\.protocol\s*=/);
     });
+
+    it('设置 pathname 为 /ws (AIO Nginx 兼容)', () => {
+        expect(fnBlock).toMatch(/\.pathname\s*=\s*['"]\/ws['"]/);
+    });
 });

@@ -44,7 +44,9 @@ export function LoginView() {
   return (
     <div className="login-view">
       <div className="login-brand">
-        <div className="login-logo">🧠</div>
+        <div className="login-logo-glow">
+          <img className="login-logo" src={require("url:~/assets/copilot-logo.svg")} alt="CXMind Copilot" />
+        </div>
         <h1 className="login-title">{t('login.title')}</h1>
         <p className="login-subtitle">{t('login.subtitle')}</p>
       </div>
@@ -180,9 +182,31 @@ export function LoginView() {
         .login-brand {
           text-align: center;
         }
+        .login-logo-glow {
+          position: relative;
+          display: inline-block;
+          margin-bottom: var(--spacing-md);
+        }
+        .login-logo-glow::before {
+          content: '';
+          position: absolute;
+          top: 50%;
+          left: 50%;
+          transform: translate(-50%, -50%);
+          width: 120px;
+          height: 120px;
+          background: radial-gradient(circle, rgba(124, 58, 237, 0.3) 0%, rgba(99, 102, 241, 0.15) 40%, transparent 70%);
+          border-radius: 50%;
+          filter: blur(8px);
+          z-index: 0;
+        }
         .login-logo {
-          font-size: 3rem;
-          margin-bottom: var(--spacing-sm);
+          position: relative;
+          z-index: 1;
+          width: 72px;
+          height: 72px;
+          border-radius: var(--radius-md);
+          filter: drop-shadow(0 0 12px rgba(124, 58, 237, 0.4));
         }
         .login-title {
           font-size: 1.5rem;

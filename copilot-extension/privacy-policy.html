@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CXMind Copilot - Privacy Policy</title>
+    <style>
+        :root {
+            --primary: #7c3aed;
+            --primary-light: #a78bfa;
+            --bg: #fafafa;
+            --card-bg: #ffffff;
+            --text: #1a1a2e;
+            --text-muted: #64748b;
+            --border: #e2e8f0;
+            --accent: #10b981;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Inter, Roboto, sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            line-height: 1.7;
+            font-size: 16px;
+        }
+
+        .header {
+            background: linear-gradient(135deg, var(--primary), #4338ca);
+            color: white;
+            padding: 48px 24px;
+            text-align: center;
+        }
+
+        .header h1 {
+            font-size: 2rem;
+            font-weight: 700;
+            margin-bottom: 8px;
+        }
+
+        .header p {
+            opacity: 0.85;
+            font-size: 0.95rem;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 40px 24px 80px;
+        }
+
+        h2 {
+            font-size: 1.35rem;
+            color: var(--primary);
+            margin-top: 40px;
+            margin-bottom: 16px;
+            padding-bottom: 8px;
+            border-bottom: 2px solid var(--border);
+        }
+
+        h3 {
+            font-size: 1.1rem;
+            margin-top: 24px;
+            margin-bottom: 8px;
+        }
+
+        p, li {
+            color: var(--text);
+            margin-bottom: 12px;
+        }
+
+        ul {
+            padding-left: 24px;
+            margin-bottom: 16px;
+        }
+
+        li { margin-bottom: 6px; }
+
+        .card {
+            background: var(--card-bg);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 24px;
+            margin: 16px 0;
+        }
+
+        .badge {
+            display: inline-block;
+            background: #ecfdf5;
+            color: var(--accent);
+            font-size: 0.8rem;
+            font-weight: 600;
+            padding: 4px 10px;
+            border-radius: 20px;
+            margin-bottom: 8px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 16px 0;
+            font-size: 0.95rem;
+        }
+
+        th, td {
+            text-align: left;
+            padding: 10px 14px;
+            border-bottom: 1px solid var(--border);
+        }
+
+        th {
+            background: #f8fafc;
+            font-weight: 600;
+            color: var(--text);
+        }
+
+        .footer {
+            text-align: center;
+            padding: 32px 24px;
+            color: var(--text-muted);
+            font-size: 0.85rem;
+            border-top: 1px solid var(--border);
+        }
+
+        a { color: var(--primary); text-decoration: none; }
+        a:hover { text-decoration: underline; }
+
+        @media (max-width: 600px) {
+            .header h1 { font-size: 1.5rem; }
+            .container { padding: 24px 16px 60px; }
+            table { font-size: 0.85rem; }
+            th, td { padding: 8px 10px; }
+        }
+    </style>
+</head>
+<body>
+
+<div class="header">
+    <h1>CXMind Copilot — Privacy Policy</h1>
+    <p>Last updated: April 13, 2026</p>
+</div>
+
+<div class="container">
+
+    <h2>1. Introduction</h2>
+    <p>
+        CXMind Copilot ("the Extension") is a Chrome browser extension developed by
+        <strong>SonicWell Technology</strong> that provides real-time AI-powered assistance
+        for SIP/VoIP call center agents. This privacy policy explains what data the Extension
+        collects, how it is used, and how it is protected.
+    </p>
+
+    <h2>2. Data We Collect</h2>
+
+    <div class="card">
+        <span class="badge">Authentication Data</span>
+        <h3>2.1 Account Information</h3>
+        <p>When you sign in to the Extension, we collect:</p>
+        <ul>
+            <li><strong>Email address</strong> — used as your login identifier</li>
+            <li><strong>Password</strong> — transmitted securely to your self-hosted CXMind server for authentication; never stored in plaintext</li>
+            <li><strong>Authentication tokens</strong> — stored locally in Chrome's <code>chrome.storage</code> to maintain your session</li>
+            <li><strong>Google OAuth credentials</strong> — if you choose to sign in with Google, we receive your name and email from Google's OAuth API</li>
+        </ul>
+    </div>
+
+    <div class="card">
+        <span class="badge">Personal Information</span>
+        <h3>2.2 Agent Profile Data</h3>
+        <ul>
+            <li><strong>Agent name and extension number</strong> — retrieved from your CXMind server to display your identity in the side panel</li>
+            <li><strong>Server URL</strong> — the address of your self-hosted CXMind instance, stored locally</li>
+        </ul>
+    </div>
+
+    <div class="card">
+        <span class="badge">Communication Data</span>
+        <h3>2.3 Call Audio &amp; Transcription</h3>
+        <ul>
+            <li><strong>Call audio streams</strong> — captured from your microphone and/or browser tab audio during active calls for real-time speech recognition (ASR)</li>
+            <li><strong>Transcription text</strong> — generated from the audio stream and displayed in real-time in the side panel</li>
+        </ul>
+        <p>
+            <strong>Important:</strong> Audio data is streamed directly to your organization's
+            self-hosted CXMind server or processed on-device using WebLLM. Audio is
+            <em>never</em> sent to SonicWell's servers or any third-party service.
+        </p>
+    </div>
+
+    <h2>3. Data We Do NOT Collect</h2>
+    <ul>
+        <li>❌ We do <strong>not</strong> collect browsing history or web activity</li>
+        <li>❌ We do <strong>not</strong> collect location data</li>
+        <li>❌ We do <strong>not</strong> collect financial or payment information</li>
+        <li>❌ We do <strong>not</strong> collect health information</li>
+        <li>❌ We do <strong>not</strong> track mouse clicks, scrolls, or keystrokes</li>
+        <li>❌ We do <strong>not</strong> read or modify website content outside of the Extension's side panel</li>
+    </ul>
+
+    <h2>4. How We Use Your Data</h2>
+    <table>
+        <thead>
+            <tr>
+                <th>Data</th>
+                <th>Purpose</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>Email &amp; password</td>
+                <td>Authenticate you with your CXMind server</td>
+            </tr>
+            <tr>
+                <td>Auth tokens</td>
+                <td>Keep you signed in across browser sessions</td>
+            </tr>
+            <tr>
+                <td>Agent profile</td>
+                <td>Display your identity and call status in the UI</td>
+            </tr>
+            <tr>
+                <td>Call audio</td>
+                <td>Real-time speech-to-text transcription</td>
+            </tr>
+            <tr>
+                <td>Transcription</td>
+                <td>AI suggestions, note generation, and CRM integration</td>
+            </tr>
+            <tr>
+                <td>User preferences</td>
+                <td>Remember language, theme, and display settings</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <h2>5. Data Storage &amp; Security</h2>
+    <h3>5.1 Local Storage</h3>
+    <p>
+        All user preferences, auth tokens, and session data are stored locally in the browser
+        using Chrome's <code>chrome.storage</code> API. This data remains on your device and
+        is not synced to any external server by the Extension.
+    </p>
+
+    <h3>5.2 Server Communication</h3>
+    <p>
+        The Extension communicates exclusively with <strong>your organization's self-hosted
+        CXMind server</strong> (the Server URL you configure during setup). All communication
+        uses HTTPS/WSS encrypted connections. SonicWell does not operate any centralized
+        data collection servers.
+    </p>
+
+    <h3>5.3 On-Device AI Processing</h3>
+    <p>
+        When using the local AI feature (WebLLM), language model weights are downloaded from
+        HuggingFace CDN and cached in the browser's Cache Storage. All AI inference runs
+        entirely on your device — no conversation data is sent externally.
+    </p>
+
+    <h2>6. Data Sharing</h2>
+    <p>
+        We do <strong>not</strong> sell, rent, or share your personal data with any third parties.
+        Your data flows only between the Extension and your self-hosted CXMind server, which is
+        managed by your organization.
+    </p>
+
+    <h2>7. Data Retention</h2>
+    <ul>
+        <li><strong>Local data</strong> — Persists until you sign out, uninstall the Extension, or clear browser data</li>
+        <li><strong>Server-side data</strong> — Governed by your organization's CXMind server data retention policies</li>
+        <li><strong>AI model cache</strong> — Can be cleared manually from the Extension's settings panel</li>
+    </ul>
+
+    <h2>8. Your Rights</h2>
+    <p>You have the right to:</p>
+    <ul>
+        <li><strong>Access</strong> — View all data stored by the Extension in Chrome's developer tools</li>
+        <li><strong>Delete</strong> — Clear all local data by signing out or uninstalling the Extension</li>
+        <li><strong>Revoke</strong> — Disconnect Google OAuth access from your Google Account settings at any time</li>
+        <li><strong>Opt-out</strong> — Disable audio capture or AI features independently from the Extension settings</li>
+    </ul>
+
+    <h2>9. Children's Privacy</h2>
+    <p>
+        The Extension is designed for professional use in call center environments.
+        It is not intended for use by individuals under the age of 16. We do not knowingly
+        collect data from children.
+    </p>
+
+    <h2>10. Changes to This Policy</h2>
+    <p>
+        We may update this privacy policy from time to time. Changes will be posted on this
+        page with an updated revision date. Continued use of the Extension after changes
+        constitutes acceptance of the updated policy.
+    </p>
+
+    <h2>11. Contact Us</h2>
+    <p>
+        If you have questions or concerns about this privacy policy, please contact us:
+    </p>
+    <ul>
+        <li><strong>Company:</strong> SonicWell Technology</li>
+        <li><strong>Email:</strong> <a href="mailto:support@cxmi.ai">support@cxmi.ai</a></li>
+        <li><strong>Website:</strong> <a href="https://cxmi.ai" target="_blank">https://cxmi.ai</a></li>
+    </ul>
+
+</div>
+
+<div class="footer">
+    <p>&copy; 2026 SonicWell Technology. All rights reserved.</p>
+</div>
+
+</body>
+</html>

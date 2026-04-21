@@ -2617,4 +2617,6 @@ body {
     background: rgba(245, 158, 11, 0.06);
     border: 1px solid rgba(245, 158, 11, 0.15);
     color: var(--text-primary);
+    overflow-wrap: break-word;
+    word-break: break-word;
 }

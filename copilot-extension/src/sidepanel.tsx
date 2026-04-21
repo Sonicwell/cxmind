@@ -81,7 +81,7 @@ function SidePanel() {
         omniComplianceItems, omniCompletedComplianceItems, omniComplianceConvId,
         callSummary, callOutcome, lastEndedCallId, lastEndedCallInfo, summaryLoading, summaryTimedOut, summaryNotEnabled, summarySkipped, dismissSummary,
         triggerMockSummary, connected, connecting,
-        chatMessages, callQuality, contextBrief, crmData, asrInfo
+        chatMessages, addOptimisticChatMessage, callQuality, contextBrief, crmData, asrInfo
     } = useWebSocket()
     const { openPiP } = usePiP()
     const { settings } = useSettings() // Added settings
@@ -316,6 +316,32 @@ function SidePanel() {
                 setWrapupQueue(q => q.map(w =>
                     w.id === convId
                         ? { ...w, summaryData, summaryLoading: false, summary: summaryData.rawSummary || `${summaryData.intent} — ${summaryData.outcome}` }
+                        : w
+                ))
+            }
+        }
+        chrome.runtime.onMessage.addListener(handler)
+        return () => chrome.runtime.onMessage.removeListener(handler)
+    }, [])
+
+    // summary 异常状态到达 → 精准停止对应 chat/voice wrapup item 的 loading 动画
+    useEffect(() => {
+        const handler = (msg: any) => {
+            if (msg.type === 'call:summary_skipped' || msg.type === 'call:summary_not_enabled' || msg.type === 'omni:summary_timeout') {
+                const callId = msg.data?.call_id || msg.data?.sessionId
+                if (!callId) return
+                setWrapupQueue(q => q.map(w =>
+                    w.id === callId
+                        ? {
+                            ...w,
+                            summaryLoading: false,
+                            // @ts-ignore - added to ToolkitPanel.tsx WrapupItem next
+                            summarySkipped: msg.type === 'call:summary_skipped',
+                            // @ts-ignore
+                            summaryTimedOut: msg.type === 'omni:summary_timeout',
+                            // @ts-ignore
+                            summaryNotEnabled: msg.type === 'call:summary_not_enabled'
+                        }
                         : w
                 ))
             }
@@ -578,9 +604,25 @@ function SidePanel() {
                     groupUnreadMap={groupChatUnread}
                     onGroupChatSend={(text, groupId) => {
                         if (!groupId) return
+
+                        const tempId = `opt-${Date.now()}-${Math.random().toString(36).substring(2, 6)}`;
+                        addOptimisticChatMessage({
+                            _id: tempId,
+                            tempId: tempId,
+                            channelId: `group:${groupId}`,
+                            sender: { 
+                                id: agentInfo?.agentId || agentInfo?.userId || 'me', 
+                                name: agentInfo?.displayName || agentInfo?.name || 'Me', 
+                                role: agentInfo?.role || 'agent'
+                            },
+                            content: { text },
+                            createdAt: new Date().toISOString(),
+                            type: 'internal'
+                        });
+
                         chrome.runtime.sendMessage({
                             type: 'chat:send',
-                            data: { recipientType: 'group', recipientId: groupId, content: { text }, messageType: 'internal' }
+                            data: { tempId, recipientType: 'group', recipientId: groupId, content: { text }, messageType: 'internal' }
                         })
                     }}
                     onGroupChatSeen={handleChatTabGroupSeen}
