@@ -309,6 +309,7 @@ const SOPLibrary: React.FC = () => {
                                     <DropdownMenu
                                         trigger={
                                             <button
+                                                data-testid="sop-actions-trigger"
                                                 onClick={(e) => e.stopPropagation()}
                                                 style={{
                                                     display: 'flex', alignItems: 'center', justifyContent: 'center',

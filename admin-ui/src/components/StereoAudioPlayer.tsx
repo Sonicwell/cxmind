@@ -523,10 +523,9 @@ export const StereoAudioPlayer: React.FC<StereoAudioPlayerProps> = ({ callId, on
                 const serverStatus = response.data.status || 'idle';
 
                 setStatus(prev => {
-                    // Prevent overwriting 'processing' with 'idle' due to race condition
-                    // where checkInitialStatus resolves after handleGenerateAudio has started
-                    if (prev === 'processing' && serverStatus === 'idle') {
-                        console.log('[StereoAudioPlayer] Ignoring idle status from server (race condition fix)');
+                    // 前端已进入 processing, 不被初始查询降级回 idle/not_started
+                    if (prev === 'processing' && (serverStatus === 'idle' || serverStatus === 'not_started')) {
+                        console.log(`[StereoAudioPlayer] Ignoring ${serverStatus} from server (race: already processing)`);
                         return prev;
                     }
                     return serverStatus;

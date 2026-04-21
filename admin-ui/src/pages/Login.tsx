@@ -43,6 +43,17 @@ const Login: React.FC = () => {
     const { login } = useAuth();
     const navigate = useNavigate();
 
+    // 首次运行检测: 系统无用户时直接跳转 Setup Wizard
+    React.useEffect(() => {
+        api.get('/setup/status')
+            .then(res => {
+                if (res.data.needsBootstrap) {
+                    navigate('/setup', { replace: true });
+                }
+            })
+            .catch(() => {});
+    }, [navigate]);
+
     const handleSendOtp = async () => {
         if (!email) {
             setError(t('login.emailRequired', 'Email is required'));
@@ -130,17 +141,7 @@ const Login: React.FC = () => {
 
     return (
         <div className="login-container">
-            {/* SVG filter for organic blob distortion */}
-            <svg width="0" height="0" style={{ position: 'absolute' }}>
-                <defs>
-                    <filter id="organic-blob-filter">
-                        <feTurbulence type="fractalNoise" baseFrequency="0.015" numOctaves="3" result="noise" />
-                        <feDisplacementMap in="SourceGraphic" in2="noise" scale="30" />
-                    </filter>
-                </defs>
-            </svg>
-
-            {/* Animated Background Blobs */}
+            {/* Animated Background Blobs (pure CSS, no SVG filter) */}
             <div className="blob-bg blob-1"></div>
             <div className="blob-bg blob-2"></div>
             <div className="blob-bg blob-3"></div>

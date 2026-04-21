@@ -145,11 +145,7 @@ function App() {
             <Suspense fallback={<TopProgress />}>
               <Routes>
                 <Route path="/login" element={<Login />} />
-                <Route path="/setup" element={
-                  <ProtectedRoute>
-                    <SetupWizard />
-                  </ProtectedRoute>
-                } />
+                <Route path="/setup" element={<SetupWizard />} />
                 <Route path="/command" element={
                   <ProtectedRoute>
                     <WebSocketProvider>

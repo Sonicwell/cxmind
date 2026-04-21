@@ -28,6 +28,25 @@ vi.mock('react-i18next', () => ({
     }),
 }));
 
+vi.mock('../../components/ui/DropdownMenu', () => {
+    return {
+        DropdownMenu: ({ trigger, items }: any) => {
+            return (
+                <div>
+                    <div data-testid="mock-dropdown-trigger">{trigger}</div>
+                    <div data-testid="mock-dropdown-content">
+                        {items.map((item: any, i: number) => (
+                            <button key={i} onClick={item.onClick}>
+                                {item.label}
+                            </button>
+                        ))}
+                    </div>
+                </div>
+            );
+        }
+    };
+});
+
 const mockSOPs = [
     {
         _id: 'sop1', name: 'Flight Delay Handling', description: 'Handle flight delay scenarios',
@@ -153,17 +172,13 @@ describe('SOPLibrary', () => {
         expect(screen.getByText('sopLibrary.noResults')).toBeTruthy();
     });
 
-    it('renders Clone buttons for each SOP', async () => {
+    it('renders action menus with Clone and Edit for each SOP', async () => {
         render(<SOPLibrary />, { wrapper: Wrapper });
         await waitFor(() => {
-            expect(screen.getAllByText('sopLibrary.clone').length).toBe(3);
-        });
-    });
-
-    it('renders Edit buttons for each SOP', async () => {
-        render(<SOPLibrary />, { wrapper: Wrapper });
-        await waitFor(() => {
+            const triggers = screen.getAllByTestId('sop-actions-trigger');
+            expect(triggers.length).toBe(3);
             expect(screen.getAllByText('sopLibrary.edit').length).toBe(3);
+            expect(screen.getAllByText('sopLibrary.clone').length).toBe(3);
         });
     });
 

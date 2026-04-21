@@ -4,6 +4,7 @@ import { PhoneIncoming, PhoneOutgoing } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
 import api from '../../services/api';
 import ChartContainer from './ChartContainer';
+import { useDemoMode } from '../../hooks/useDemoMode';
 
 // 蓝色系 DID / 橙色系 CID
 const DID_COLORS = ['#3b82f6', '#6366f1', '#8b5cf6', '#a855f7', '#2563eb', '#1d4ed8', '#4f46e5', '#7c3aed', '#60a5fa', '#93c5fd'];
@@ -13,19 +14,20 @@ interface NumberEntry { number: string; cnt: string }
 
 const DidCidWidget: React.FC = () => {
     const { t } = useTranslation();
+    const { demoMode } = useDemoMode();
     const [did, setDid] = useState<NumberEntry[]>([]);
     const [cid, setCid] = useState<NumberEntry[]>([]);
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {
-        api.get('/platform/did-cid-stats')
+        api.get(`/platform/did-cid-stats${demoMode ? '?demo=true' : ''}`)
             .then(res => {
                 setDid(res.data.did || []);
                 setCid(res.data.cid || []);
             })
             .catch(() => { })
             .finally(() => setLoading(false));
-    }, []);
+    }, [demoMode]);
 
     if (loading) return <div className="cq-loading">{t('common.loading', 'Loading...')}</div>;
 

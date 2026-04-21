@@ -143,6 +143,13 @@ const SipCalls: React.FC = () => {
     const [copiedId, setCopiedId] = useState<string | null>(null);
 
     const [selectedAnalysisCallId, setSelectedAnalysisCallId] = useState<string | null>(searchParams.get('analysisCallId') || null);
+    // toast 导航时同步 URL param → state (组件已 mount 时 useState 初始值不再执行)
+    useEffect(() => {
+        const fromUrl = searchParams.get('analysisCallId');
+        if (fromUrl && fromUrl !== selectedAnalysisCallId) {
+            setSelectedAnalysisCallId(fromUrl);
+        }
+    }, [searchParams]);
     const [loading, setLoading] = useState(true);
     const [searchTerm, setSearchTerm] = useState(searchParams.get('q') || '');
     const [debouncedSearch, setDebouncedSearch] = useState(searchParams.get('q') || '');

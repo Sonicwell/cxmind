@@ -4,17 +4,19 @@ import { Timer } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
 import api from '../../services/api';
 import ChartContainer from './ChartContainer';
+import { useDemoMode } from '../../hooks/useDemoMode';
 
 const COLORS = ['#10b981', '#3b82f6', '#f59e0b', '#ef4444'];
 const LABELS = ['< 30s', '30s–2m', '2–5m', '5m+'];
 
 const DurationDistWidget: React.FC = () => {
     const { t } = useTranslation();
+    const { demoMode } = useDemoMode();
     const [data, setData] = useState<{ label: string; count: number; color: string }[]>([]);
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {
-        api.get('/platform/duration-distribution')
+        api.get(`/platform/duration-distribution${demoMode ? '?demo=true' : ''}`)
             .then(res => {
                 const d = res.data;
                 setData([
@@ -26,7 +28,7 @@ const DurationDistWidget: React.FC = () => {
             })
             .catch(() => { })
             .finally(() => setLoading(false));
-    }, []);
+    }, [demoMode]);
 
     if (loading) return <div className="cq-loading">{t('common.loading', 'Loading...')}</div>;
 

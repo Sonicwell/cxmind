@@ -4,16 +4,18 @@ import { Clock } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
 import api from '../../services/api';
 import ChartContainer from './ChartContainer';
+import { useDemoMode } from '../../hooks/useDemoMode';
 
 interface HourData { hour: number; cnt: string }
 
 const HourlyVolumeWidget: React.FC = () => {
     const { t } = useTranslation();
+    const { demoMode } = useDemoMode();
     const [data, setData] = useState<{ hour: number; calls: number }[]>([]);
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {
-        api.get('/platform/hourly-volume')
+        api.get(`/platform/hourly-volume${demoMode ? '?demo=true' : ''}`)
             .then(res => {
                 const raw: HourData[] = res.data.data || [];
                 const hourMap = new Map(raw.map(d => [Number(d.hour), Number(d.cnt)]));
@@ -26,7 +28,7 @@ const HourlyVolumeWidget: React.FC = () => {
             })
             .catch(() => { })
             .finally(() => setLoading(false));
-    }, []);
+    }, [demoMode]);
 
     if (loading) return <div className="cq-loading">{t('common.loading', 'Loading...')}</div>;
 

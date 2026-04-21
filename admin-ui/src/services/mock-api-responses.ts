@@ -462,6 +462,50 @@ const MOCK_ROUTES: MockRoute[] = [
     { match: (u) => u.includes('/platform/dashboard-stats'), response: () => buildDashboardStats() },
     { match: (u) => u.includes('/analytics/sla/directional'), response: () => MOCK_DIRECTIONAL },
 
+    // Dashboard Widgets (DID/CID, Hourly Volume, Duration Distribution)
+    {
+        match: (u) => u.includes('/platform/did-cid-stats'),
+        response: () => ({
+            did: [
+                { number: '+18005551001', cnt: String(rnd(25, 120)) },
+                { number: '+18005551002', cnt: String(rnd(18, 85)) },
+                { number: '+18005551003', cnt: String(rnd(12, 65)) },
+                { number: '+18005551004', cnt: String(rnd(8, 45)) },
+                { number: '+18005551005', cnt: String(rnd(5, 30)) },
+            ],
+            cid: [
+                { number: '+14155559001', cnt: String(rnd(20, 80)) },
+                { number: '+14155559002', cnt: String(rnd(15, 60)) },
+                { number: '+14155559003', cnt: String(rnd(10, 50)) },
+                { number: '+14155559004', cnt: String(rnd(5, 35)) },
+            ],
+            period: 'today',
+        }),
+    },
+    {
+        match: (u) => u.includes('/platform/hourly-volume'),
+        response: () => {
+            // 模拟呼叫中心流量: 夜间低, 10-12 & 14-16 高峰
+            const w = [2, 1, 1, 1, 1, 3, 8, 15, 25, 35, 42, 40, 30, 35, 40, 38, 28, 18, 10, 6, 4, 3, 3, 2];
+            const h = new Date().getHours();
+            return {
+                data: Array.from({ length: 24 }, (_, i) => ({
+                    hour: i,
+                    cnt: String(i <= h ? Math.round(w[i] * (0.8 + Math.random() * 0.5)) : 0),
+                })).filter(d => Number(d.cnt) > 0),
+            };
+        },
+    },
+    {
+        match: (u) => u.includes('/platform/duration-distribution'),
+        response: () => ({
+            under_30s: rnd(80, 200),
+            s30_to_2m: rnd(150, 350),
+            m2_to_5m: rnd(200, 500),
+            over_5m: rnd(50, 150),
+        }),
+    },
+
     // Quality
     { match: (u) => u.includes('/platform/quality/live-calls'), response: () => MOCK_LIVE_CALLS },
     { match: (u) => u.includes('/platform/quality/worst-calls'), response: () => MOCK_WORST_CALLS },

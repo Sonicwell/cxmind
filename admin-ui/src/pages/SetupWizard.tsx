@@ -10,9 +10,11 @@ import {
     Users, Settings as SettingsIcon, BookUser, Bell,
     TrendingUp, Coins, CalendarClock, Map as MapIcon,
     MessageSquare, Webhook, ClipboardCheck, Zap,
-    Shield, Sparkles, AlertTriangle, Mail
+    Shield, Sparkles, AlertTriangle, Mail,
+    UserPlus, Eye, EyeOff
 } from 'lucide-react';
 import api from '../services/api';
+import { useAuth } from '../context/AuthContext';
 import { Badge } from '../components/ui/badge';
 import { Input } from '../components/ui/input';
 import './SetupWizard.css';
@@ -73,17 +75,35 @@ const MODULE_GROUPS = [
     { key: 'compliance', label: 'Compliance', icon: '🛡️' },
 ];
 
-const STEPS = ['language', 'company', 'system_email', 'modules', 'confirm'] as const;
-type Step = typeof STEPS[number];
+// 动态步骤: 未认证首访时包含 create_admin, 已认证(re-run)时跳过
+const ALL_STEPS = ['create_admin', 'language', 'company', 'system_email', 'modules', 'confirm'] as const;
+const AUTH_STEPS = ['language', 'company', 'system_email', 'modules', 'confirm'] as const;
+type Step = typeof ALL_STEPS[number];
 
 const SetupWizard: React.FC = () => {
     const { t, i18n } = useTranslation();
     const navigate = useNavigate();
+    const { isAuthenticated, login } = useAuth();
+
+    // Bootstrap 状态
+    const [needsBootstrap, setNeedsBootstrap] = useState(false);
+    const [bootstrapChecked, setBootstrapChecked] = useState(false);
+
+    // 动态步骤列表
+    const STEPS = (!isAuthenticated && needsBootstrap) ? ALL_STEPS : AUTH_STEPS;
 
     // Step state
     const [step, setStep] = useState<Step>('language');
     const [testedSystemEmail, setTestedSystemEmail] = useState<boolean>(false);
-    const stepIndex = STEPS.indexOf(step);
+    const stepIndex = (STEPS as readonly Step[]).indexOf(step);
+
+    // Admin creation form (Step 0)
+    const [adminEmail, setAdminEmail] = useState('');
+    const [adminPassword, setAdminPassword] = useState('');
+    const [adminConfirmPassword, setAdminConfirmPassword] = useState('');
+    const [adminDisplayName, setAdminDisplayName] = useState('');
+    const [showPassword, setShowPassword] = useState(false);
+    const [bootstrapping, setBootstrapping] = useState(false);
 
     // Form state
     const [locale, setLocale] = useState(i18n.language?.split('-')[0] || 'en');
@@ -113,6 +133,26 @@ const SetupWizard: React.FC = () => {
     const [testingEmail, setTestingEmail] = useState(false);
     const [emailTestSuccess, setEmailTestSuccess] = useState(false);
     const [error, setError] = useState('');
+
+    // 启动时检测是否需要 bootstrap
+    useEffect(() => {
+        if (isAuthenticated) {
+            setBootstrapChecked(true);
+            return;
+        }
+        api.get('/setup/status')
+            .then(res => {
+                if (res.data.needsBootstrap) {
+                    setNeedsBootstrap(true);
+                    setStep('create_admin');
+                } else {
+                    // 非 bootstrap 且未登录 → 回登录页
+                    navigate('/login', { replace: true });
+                }
+            })
+            .catch(() => navigate('/login', { replace: true }))
+            .finally(() => setBootstrapChecked(true));
+    }, [isAuthenticated, navigate]);
 
     // When locale changes, switch i18n language
     useEffect(() => {
@@ -152,6 +192,13 @@ const SetupWizard: React.FC = () => {
     };
 
     const canProceed = () => {
+        if (step === 'create_admin') {
+            if (!adminEmail || !adminPassword || adminPassword.length < 8) return false;
+            if (adminPassword !== adminConfirmPassword) return false;
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            if (!emailRegex.test(adminEmail)) return false;
+            return true;
+        }
         if (step === 'company') {
             if (newPassword && newPassword.length < 6) return false;
             if (newPassword && newPassword !== confirmPassword) return false;
@@ -163,6 +210,28 @@ const SetupWizard: React.FC = () => {
             }
         }
         return true;
+    };
+
+    // Step 0: Bootstrap — 创建首个管理员并自动登录
+    const handleBootstrap = async () => {
+        setBootstrapping(true);
+        setError('');
+        try {
+            const res = await api.post('/setup/bootstrap', {
+                email: adminEmail,
+                password: adminPassword,
+                displayName: adminDisplayName || adminEmail.split('@')[0],
+            });
+            const { token, refreshToken, permissions, user } = res.data;
+            login(token, refreshToken, permissions || [], user, true);
+            // 自动进入下一步
+            setNeedsBootstrap(false);
+            setStep('language');
+        } catch (err: any) {
+            setError(err.response?.data?.error || 'Failed to create admin account');
+        } finally {
+            setBootstrapping(false);
+        }
     };
 
     const handleSubmit = async () => {
@@ -565,13 +634,97 @@ const SetupWizard: React.FC = () => {
         );
     };
 
+    const renderCreateAdminStep = () => (
+        <div className="wizard-step">
+            <div className="wizard-step-header">
+                <UserPlus size={32} className="wizard-step-icon" />
+                <h2>{t('setup.createAdminTitle', 'Create Admin Account')}</h2>
+                <p className="wizard-step-desc">{t('setup.createAdminDesc', 'Create your administrator account to get started with CXMind')}</p>
+            </div>
+            <div className="wizard-form">
+                <div className="wizard-field">
+                    <label>{t('setup.adminEmail', 'Admin Email')}</label>
+                    <Input
+                        type="email"
+                        value={adminEmail}
+                        onChange={(e: any) => setAdminEmail(e.target.value)}
+                        placeholder="admin@yourcompany.com"
+                        autoComplete="email"
+                    />
+                </div>
+                <div className="wizard-field">
+                    <label>{t('setup.adminDisplayName', 'Display Name')} <span className="wizard-optional">({t('setup.optional', 'optional')})</span></label>
+                    <Input
+                        type="text"
+                        value={adminDisplayName}
+                        onChange={(e: any) => setAdminDisplayName(e.target.value)}
+                        placeholder={t('setup.displayNamePlaceholder', 'e.g. Admin')}
+                        autoComplete="name"
+                    />
+                </div>
+                <div className="wizard-divider" />
+                <div className="wizard-field">
+                    <label><Lock size={14} style={{ marginRight: 6 }} />{t('setup.adminPassword', 'Password')}</label>
+                    <div style={{ position: 'relative' }}>
+                        <Input
+                            type={showPassword ? 'text' : 'password'}
+                            value={adminPassword}
+                            onChange={(e: any) => setAdminPassword(e.target.value)}
+                            placeholder={t('setup.passwordPlaceholder', 'Minimum 8 characters')}
+                            autoComplete="new-password"
+                        />
+                        <button
+                            type="button"
+                            onClick={() => setShowPassword(!showPassword)}
+                            style={{ position: 'absolute', right: 12, top: '50%', transform: 'translateY(-50%)', background: 'none', border: 'none', cursor: 'pointer', color: 'var(--text-muted)', padding: 4 }}
+                        >
+                            {showPassword ? <EyeOff size={16} /> : <Eye size={16} />}
+                        </button>
+                    </div>
+                    {adminPassword && adminPassword.length < 8 && (
+                        <span className="wizard-field-error">{t('setup.passwordMin8', 'Minimum 8 characters')}</span>
+                    )}
+                </div>
+                <div className="wizard-field">
+                    <label>{t('setup.confirmPassword', 'Confirm Password')}</label>
+                    <Input
+                        type="password"
+                        value={adminConfirmPassword}
+                        onChange={(e: any) => setAdminConfirmPassword(e.target.value)}
+                        placeholder="••••••••"
+                        autoComplete="new-password"
+                    />
+                    {adminConfirmPassword && adminPassword !== adminConfirmPassword && (
+                        <span className="wizard-field-error">{t('setup.passwordMismatch', 'Passwords do not match')}</span>
+                    )}
+                </div>
+            </div>
+            {error && (
+                <div className="wizard-error" style={{ marginTop: 16 }}>
+                    <AlertTriangle size={16} />
+                    <span>{error}</span>
+                </div>
+            )}
+        </div>
+    );
+
     const STEP_RENDERERS: Record<Step, () => React.ReactNode> = {
+        create_admin: renderCreateAdminStep,
         language: renderLanguageStep,
         company: renderCompanyStep,
         system_email: renderSystemEmailStep,
         modules: renderModulesStep,
         confirm: renderConfirmStep,
     };
+
+    if (!bootstrapChecked) {
+        return (
+            <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100vh', background: 'var(--bg-base, #0f172a)' }}>
+                <div style={{ width: 40, height: 40, border: '3px solid rgba(255,255,255,0.1)', borderTop: '3px solid var(--primary, #6366f1)', borderRadius: '50%', animation: 'spin 0.8s linear infinite' }} />
+                <style>{`@keyframes spin { to { transform: rotate(360deg); } }`}</style>
+            </div>
+        );
+    }
 
     return (
         <div className="wizard-container">
@@ -598,14 +751,25 @@ const SetupWizard: React.FC = () => {
 
                     {/* Navigation */}
                     <div className="wizard-nav">
-                        {stepIndex > 0 && (
+                        {stepIndex > 0 && step !== 'create_admin' && (
                             <Button onClick={goPrev} variant="secondary">
                                 <ChevronLeft size={16} />
                                 {t('setup.back', 'Back')}
                             </Button>
                         )}
                         <div style={{ flex: 1 }} />
-                        {step !== 'confirm' ? (
+                        {step === 'create_admin' ? (
+                            <Button
+                                onClick={handleBootstrap}
+                                disabled={!canProceed() || bootstrapping}
+                                className="launch"
+                            >
+                                {bootstrapping
+                                    ? <>{t('setup.creatingAdmin', 'Creating...')}</>
+                                    : <><UserPlus size={16} /> {t('setup.createAndContinue', 'Create & Continue')}</>
+                                }
+                            </Button>
+                        ) : step !== 'confirm' ? (
                             <Button
                                 onClick={goNext}
                                 disabled={!canProceed()}
@@ -618,11 +782,10 @@ const SetupWizard: React.FC = () => {
                                 onClick={handleSubmit}
                                 disabled={submitting}
                             >
-                                {submitting ? (
-                                    <>{t('setup.launching', 'Launching...')}</>
-                                ) : (
-                                    <><Rocket size={16} /> {t('setup.launch', 'Launch CXMind')}</>
-                                )}
+                                {submitting
+                                    ? <>{t('setup.launching', 'Launching...')}</>
+                                    : <><Rocket size={16} /> {t('setup.launch', 'Launch CXMind')}</>
+                                }
                             </Button>
                         )}
                     </div>
@@ -633,3 +796,4 @@ const SetupWizard: React.FC = () => {
 };
 
 export default SetupWizard;
+
